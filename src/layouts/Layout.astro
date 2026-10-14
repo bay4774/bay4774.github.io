@@ -6,6 +6,9 @@ import '../styles/global.css';
 import 'katex/dist/katex.min.css';
 interface Props { title?: string; description?: string; }
 const { title, description = site.description } = Astro.props;
+const brandMonogram = site.initials.length > 4
+  ? site.initials.split(/[,\s]+/).filter(Boolean).map(word => word[0]).join('').slice(0, 3).toUpperCase()
+  : site.initials;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · Research & Field Notes`;
 const currentPath = Astro.url.pathname.slice(import.meta.env.BASE_URL.replace(/\/$/, '').length) || '/';
 const canonical = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
@@ -30,7 +33,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
     <a class="skip-link" href="#main-content">跳至正文</a>
     <header class="site-header">
       <div class="container header-inner">
-        <a href={withBase('/')} class="brand" aria-label={`${site.name} 主页`}><span class="brand-mark">{site.initials}<span></span></span><span class="brand-name">{site.name}<small>RESEARCH & FIELD NOTES</small></span></a>
+        <a href={withBase('/')} class="brand" aria-label={`${site.name} 主页`}><span class="brand-mark" title={site.initials}>{brandMonogram}<span></span></span><span class="brand-name">{site.name}<small>RESEARCH & FIELD NOTES</small></span></a>
         <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="打开导航"><Icon name="menu" size={23} /></button>
         <nav id="primary-nav" class="primary-nav" aria-label="主导航">
           {navigation.map((item) => <a href={withBase(item.href)} class:list={{ active: item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href) }} aria-current={(item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href)) ? 'page' : undefined}>{item.label}</a>)}
