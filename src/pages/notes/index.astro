@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { withBase } from '../../lib/paths';
+const entries = (await getCollection('notes',({data}) => !data.draft)).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
+const categories = { theory: '理论推导', tutorial: '技术教程', lecture: '课程讲义' };
+---
+<Layout title="Lectures & Notes" description="课程讲义、理论推导与可复现的技术教程。">
+  <div class="container" data-notes-browser><header class="page-intro"><span class="eyebrow">03 / COURSEWARE & THEORETICAL FOUNDATIONS</span><h1 class="page-heading">The knowledge shelf<span style="color:var(--green)">.</span></h1><p>把零散知识整理成可回访的体系。从底层动力学到模型原理，保留推导过程，也记录实践细节。</p>{entries.some(e=>e.data.demo) && <div class="demo-notice"><span class="demo-badge">演示内容</span><span>当前讲义用于展示公式、代码和交互组件，后续可替换为你的课程资料与真实推导。</span></div>}</header>
+  <div class="notes-categories" role="group" aria-label="按讲义类型筛选"><button class="filter-button" data-note-category="" aria-pressed="true">All notes · 全部</button>{Object.entries(categories).map(([key,label])=><button class="filter-button" data-note-category={key} aria-pressed="false">{label}</button>)}<span data-note-count role="status" style="margin-left:auto;align-self:center;font-size:11px;color:var(--muted)">{entries.length} 篇笔记</span></div>
+  <section class="notes-grid" aria-label="讲义与笔记列表">{entries.map(entry=><a class="note-card" href={withBase(`/notes/${entry.id}/`)} data-note-card data-category={entry.data.category}><div class="note-card-top"><span class="note-card-icon"><Icon name={entry.data.category==='theory' ? 'layers' : entry.data.category==='tutorial' ? 'code' : 'book'} size={22} /></span>{entry.data.demo && <span class="demo-badge">示例</span>}</div><span class="eyebrow">{categories[entry.data.category]} / {entry.data.chapters} CHAPTERS</span><h2>{entry.data.title}</h2><p>{entry.data.description}</p><div class="tag-row">{entry.data.tags.slice(0,3).map(t=><span class="pill">{t}</span>)}</div><div class="note-card-bottom"><span>{entry.data.readTime} MIN READ · {entry.data.date.toISOString().slice(0,10)}</span><Icon name="arrow-up-right" size={14} /></div></a>)}</section>
+  <div class="reading-guide"><Icon name="book" size={30} /><div><h2>从原理，到实践，再回到问题。</h2><p>公式支持 KaTeX 编号与横向滚动；代码可一键复制。讲义可关联 PDF 与 Slides，形成完整的学习路径。</p></div></div>
+  </div>
+</Layout>
+<script>
+  const notesBrowser=document.querySelector('[data-notes-browser]');
+  const buttons=notesBrowser?.querySelectorAll<HTMLButtonElement>('[data-note-category]');
+  buttons?.forEach(button=>button.addEventListener('click',()=>{
+    const category=button.dataset.noteCategory||'';let count=0;
+    notesBrowser?.querySelectorAll<HTMLElement>('[data-note-card]').forEach(card=>{card.hidden=!!category&&card.dataset.category!==category;if(!card.hidden)count++;});
+    buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+    const status=notesBrowser?.querySelector('[data-note-count]');if(status)status.textContent=`${count} 篇笔记`;
+  }));
+</script>

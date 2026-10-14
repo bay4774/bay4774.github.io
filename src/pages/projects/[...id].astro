@@ -1,0 +1,14 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { withBase } from '../../lib/paths';
+export async function getStaticPaths(){return (await getCollection('projects',({data})=>!data.draft)).map(entry=>({params:{id:entry.id},props:{entry}}));}
+interface Props{entry:CollectionEntry<'projects'>;}
+const {entry}=Astro.props;const {Content,headings}=await render(entry);const p=entry.data;
+---
+<Layout title={p.title} description={p.description}>
+  <header class="article-header"><div class="container"><nav class="breadcrumb" aria-label="面包屑"><a href={withBase('/')}>Home</a><span>/</span><a href={withBase('/projects/')}>Projects</a><span>/</span><span>{p.title}</span></nav><span class="eyebrow">{p.category} / ENGINEERING JOURNAL</span><h1>{p.title}</h1><p>{p.description}</p><div class="article-meta"><span>{p.status}</span><span>{p.date.toISOString().slice(0,10)}</span>{p.demo&&<span class="demo-badge">示例工程项目</span>}</div><div class="tag-row">{p.stack.map(s=><span class="pill">{s}</span>)}</div>{p.code&&<a class="button button-primary" href={p.code} target="_blank" rel="noopener noreferrer" style="margin-top:22px"><Icon name="code" size={16} />View source code</a>}<div class="article-hero"><img src={withBase(p.image)} alt={p.title} width="960" height="540" /></div></div></header>
+  <div class="container article-body"><article class="prose"><Content /><div class="article-end"><a class="text-link" href={withBase('/projects/')}><Icon name="arrow-left" size={15} />All projects</a><span class="muted">Build · Test · Iterate</span></div></article><aside class="article-sidebar"><div class="sidebar-sticky"><h2>INSIDE THE BUILD</h2>{headings.filter(h=>h.depth===2).map(h=><a href={`#${h.slug}`}>{h.text}</a>)}<div class="sidebar-box"><h2>RESEARCH CONNECTIONS</h2><a href={withBase('/publications/')}>原创研究与项目页 ↗</a><a href={withBase('/notes/')}>方法原理与技术笔记 ↗</a></div></div></aside></div>
+</Layout>

@@ -1,0 +1,90 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/paths';
+interface Props { digests: CollectionEntry<'digest'>[]; publications: CollectionEntry<'publications'>[]; }
+const { digests, publications } = Astro.props;
+const nodes = [
+  ...digests.map(entry => ({ id: `d:${entry.id}`, entryId: entry.id, title: entry.data.title, type: 'digest', tags: entry.data.tags, description: entry.data.verdict, href: withBase(`/digest/${entry.id}/`), demo: entry.data.demo })),
+  ...publications.map(entry => ({ id: `p:${entry.id}`, entryId: entry.id, title: entry.data.title, type: 'publication', tags: entry.data.tags, description: entry.data.description, href: withBase(`/publications/${entry.id}/`), demo: entry.data.demo })),
+];
+const links: { source: string; target: string; reason: string; kind: 'related' | 'topic' }[] = [];
+for (let i = 0; i < nodes.length; i++) {
+  for (let j = i + 1; j < nodes.length; j++) {
+    const a = nodes[i], b = nodes[j];
+    const aEntry = digests.find(entry => entry.id === a.entryId);
+    const bEntry = digests.find(entry => entry.id === b.entryId);
+    const explicitlyRelated = aEntry?.data.related.includes(b.entryId) || bEntry?.data.related.includes(a.entryId);
+    const shared = a.tags.filter(tag => b.tags.includes(tag));
+    if (explicitlyRelated || shared.length) links.push({ source: a.id, target: b.id, kind: explicitlyRelated ? 'related' : 'topic', reason: explicitlyRelated ? '内容中标记的关联' : `共同专题：${shared.join('、')}` });
+  }
+}
+---
+<div class="knowledge-graph" data-knowledge-graph data-graph={JSON.stringify({ nodes, links })}>
+  <div class="graph-topline"><div class="graph-legend"><span><i class="graph-digest-key"></i>Reading notes</span><span><i class="graph-publication-key"></i>My publications</span></div><div class="graph-controls" role="group" aria-label="调整关系图谱"><button type="button" data-graph-zoom="in" aria-label="放大图谱">+</button><button type="button" data-graph-zoom="out" aria-label="缩小图谱">−</button><button type="button" data-graph-reset aria-label="重置图谱视图">重置</button></div></div>
+  <div class="graph-content"><div class="graph-canvas"><svg viewBox="0 0 1000 520" role="group" aria-label="文献与研究关系图，可选择节点查看详情" data-graph-svg><title>文献与研究关系图</title><desc>圆点代表阅读手记，方块代表自己的论文。连接表示共同专题或内容中手动标记的关联。图谱的完整文字内容在下方列表中。</desc></svg><p class="graph-canvas-caption">点击节点探索关联 · 拖动整理布局 · 支持键盘 Tab 与 Enter</p><noscript><p>交互图谱需要 JavaScript；可使用下方的完整文字列表。</p></noscript></div><aside class="graph-detail" aria-live="polite" aria-atomic="true"><span class="eyebrow" data-graph-detail-type>RESEARCH CONNECTIONS</span><h3 data-graph-detail-title>从线索到自己的问题</h3><p data-graph-detail-description>选择一篇阅读手记或研究成果，查看它的核心观点与专题关联。</p><div class="graph-detail-tags" data-graph-detail-tags></div><p class="graph-detail-count" data-graph-detail-count>{nodes.length} 个节点 · {links.length} 条联系</p><a class="button button-secondary" data-graph-detail-link hidden href={withBase('/digest/')}>阅读这篇手记 <span aria-hidden="true">↗</span></a><p class="graph-caveat">连线表示主题或人工关联，不等同于正式引文关系。{nodes.some(node => node.demo) && '当前含演示节点。'}</p></aside></div>
+  <details class="graph-text-alternative"><summary>查看完整文字列表与关联说明 <span>{nodes.length} 个节点</span></summary><ul>{nodes.map(node => <li><a href={node.href}>{node.type === 'publication' ? '研究成果' : '阅读手记'} · {node.title}{node.demo && '（示例）'}</a><p>{node.tags.map(tag => `#${tag}`).join(' · ')}</p>{links.filter(link => link.source === node.id || link.target === node.id).length > 0 && <div class="graph-text-connections">关联：{links.filter(link => link.source === node.id || link.target === node.id).map((link, index) => { const other = nodes.find(candidate => candidate.id === (link.source === node.id ? link.target : link.source))!; return <span>{index > 0 && '；'}<a href={other.href}>{other.title}</a>（{link.reason}）</span>; })}</div>}</li>)}</ul></details>
+</div>
+<script>
+  import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide } from 'd3-force';
+  import type { SimulationNodeDatum, SimulationLinkDatum } from 'd3-force';
+  interface GraphNode extends SimulationNodeDatum { id: string; entryId: string; title: string; type: string; tags: string[]; description: string; href: string; demo: boolean; }
+  interface GraphLink extends SimulationLinkDatum<GraphNode> { source: string | GraphNode; target: string | GraphNode; reason: string; kind: string; }
+  const svgNS = 'http://www.w3.org/2000/svg';
+  document.querySelectorAll<HTMLElement>('[data-knowledge-graph]').forEach(root => {
+    const { nodes, links } = JSON.parse(root.dataset.graph || '{"nodes":[],"links":[]}') as { nodes: GraphNode[]; links: GraphLink[] };
+    const svg = root.querySelector<SVGSVGElement>('[data-graph-svg]')!;
+    if (!nodes.length) return;
+    nodes.forEach((node, index) => { const angle = 2 * Math.PI * index / nodes.length; node.x = 500 + Math.cos(angle) * 250; node.y = 250 + Math.sin(angle) * 155; });
+    const simulation = forceSimulation(nodes).force('link', forceLink<GraphNode, GraphLink>(links).id(node => node.id).distance(205).strength(.13)).force('charge', forceManyBody().strength(-1700)).force('center', forceCenter(500, 245)).force('collide', forceCollide(85)).stop();
+    for (let i = 0; i < 160; i++) simulation.tick();
+    nodes.forEach(node => { node.x = Math.max(100, Math.min(900, node.x || 500)); node.y = Math.max(70, Math.min(430, node.y || 250)); });
+    const initial = nodes.map(node => ({ id: node.id, x: node.x, y: node.y }));
+    const lineGroup = document.createElementNS(svgNS, 'g');
+    lineGroup.classList.add('graph-lines');
+    const nodeGroup = document.createElementNS(svgNS, 'g');
+    nodeGroup.classList.add('graph-nodes');
+    svg.append(lineGroup, nodeGroup);
+    const lines = links.map(link => { const line = document.createElementNS(svgNS, 'line'); line.classList.add('graph-line', `graph-line-${link.kind}`); const title = document.createElementNS(svgNS, 'title'); title.textContent = link.reason; line.append(title); lineGroup.append(line); return { link, line }; });
+    const groups = nodes.map(node => {
+      const group = document.createElementNS(svgNS, 'g');
+      group.classList.add('graph-node', `graph-node-${node.type}`);
+      group.setAttribute('tabindex', '0'); group.setAttribute('role', 'button'); group.setAttribute('aria-label', `${node.type === 'digest' ? '阅读手记' : '研究成果'}：${node.title}${node.demo ? '，演示内容' : ''}`); group.setAttribute('aria-pressed', 'false');
+      const halo = document.createElementNS(svgNS, 'circle'); halo.setAttribute('r', '30'); halo.classList.add('graph-node-halo');
+      const shape = document.createElementNS(svgNS, node.type === 'publication' ? 'rect' : 'circle');
+      if (node.type === 'publication') { shape.setAttribute('x', '-17'); shape.setAttribute('y', '-17'); shape.setAttribute('width', '34'); shape.setAttribute('height', '34'); shape.setAttribute('rx', '9'); }
+      else shape.setAttribute('r', '14');
+      shape.classList.add('graph-node-shape');
+      const label = document.createElementNS(svgNS, 'text'); label.setAttribute('y', '43'); label.setAttribute('text-anchor', 'middle'); label.textContent = node.title.length > 16 ? `${node.title.slice(0, 15)}…` : node.title;
+      const sub = document.createElementNS(svgNS, 'text'); sub.classList.add('graph-node-sub'); sub.setAttribute('y', '62'); sub.setAttribute('text-anchor', 'middle'); sub.textContent = node.type === 'publication' ? 'PUBLICATION' : (node.tags[0] || 'DIGEST');
+      group.append(halo, shape, label, sub); nodeGroup.append(group);
+      group.addEventListener('click', () => { if (!wasDragged) select(node); });
+      group.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(node); } });
+      group.addEventListener('pointerdown', event => { if (event.button !== 0) return; drag = { node, group, startX: event.clientX, startY: event.clientY }; wasDragged = false; group.setPointerCapture(event.pointerId); });
+      group.addEventListener('pointermove', event => { if (!drag || drag.group !== group) return; if (Math.abs(event.clientX - drag.startX) + Math.abs(event.clientY - drag.startY) > 5) wasDragged = true; if (!wasDragged) return; const matrix = svg.getScreenCTM(); if (!matrix) return; const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse()); node.x = Math.max(65, Math.min(935, point.x)); node.y = Math.max(50, Math.min(435, point.y)); draw(); });
+      group.addEventListener('pointerup', () => { drag = null; }); group.addEventListener('pointercancel', () => { drag = null; });
+      return { node, group };
+    });
+    let drag: { node: GraphNode; group: SVGGElement; startX: number; startY: number } | null = null;
+    let wasDragged = false;
+    let zoom = 1;
+    let selected: string | null = null;
+    function draw() { lines.forEach(({ link, line }) => { const a = link.source as GraphNode, b = link.target as GraphNode; line.setAttribute('x1', String(a.x)); line.setAttribute('y1', String(a.y)); line.setAttribute('x2', String(b.x)); line.setAttribute('y2', String(b.y)); }); groups.forEach(({ node, group }) => group.setAttribute('transform', `translate(${node.x},${node.y})`)); }
+    function select(node: GraphNode) {
+      selected = node.id;
+      const neighbors = new Set<string>();
+      links.forEach(link => { const a = link.source as GraphNode, b = link.target as GraphNode; if (a.id === node.id) neighbors.add(b.id); if (b.id === node.id) neighbors.add(a.id); });
+      groups.forEach(({ node: current, group }) => { const active = current.id === node.id; group.classList.toggle('is-selected', active); group.classList.toggle('is-muted', !active && !neighbors.has(current.id)); group.setAttribute('aria-pressed', String(active)); });
+      lines.forEach(({ link, line }) => { const a = link.source as GraphNode, b = link.target as GraphNode; line.classList.toggle('is-active', a.id === node.id || b.id === node.id); line.classList.toggle('is-muted', a.id !== node.id && b.id !== node.id); });
+      root.querySelector<HTMLElement>('[data-graph-detail-type]')!.textContent = node.type === 'publication' ? 'MY PUBLICATION / 研究成果' : 'READING NOTE / 阅读手记';
+      root.querySelector<HTMLElement>('[data-graph-detail-title]')!.textContent = node.title;
+      root.querySelector<HTMLElement>('[data-graph-detail-description]')!.textContent = node.description;
+      const tags = root.querySelector<HTMLElement>('[data-graph-detail-tags]')!; tags.replaceChildren(); node.tags.forEach(tag => { const chip = document.createElement('span'); chip.textContent = `#${tag}`; tags.append(chip); });
+      root.querySelector<HTMLElement>('[data-graph-detail-count]')!.textContent = `${neighbors.size} 个关联节点${node.demo ? ' · 演示内容' : ''}`;
+      const link = root.querySelector<HTMLAnchorElement>('[data-graph-detail-link]')!; link.href = node.href; link.hidden = false; link.textContent = `${node.type === 'publication' ? '查看研究成果' : '阅读这篇手记'} ↗`;
+    }
+    function updateZoom() { const width = 1000 / zoom, height = 520 / zoom; svg.setAttribute('viewBox', `${(1000 - width) / 2} ${(520 - height) / 2} ${width} ${height}`); root.querySelector<HTMLButtonElement>('[data-graph-zoom="in"]')!.disabled = zoom >= 1.6; root.querySelector<HTMLButtonElement>('[data-graph-zoom="out"]')!.disabled = zoom <= .75; }
+    root.querySelectorAll<HTMLButtonElement>('[data-graph-zoom]').forEach(button => button.addEventListener('click', () => { zoom = Math.max(.75, Math.min(1.6, zoom + (button.dataset.graphZoom === 'in' ? .15 : -.15))); updateZoom(); }));
+    root.querySelector<HTMLButtonElement>('[data-graph-reset]')!.addEventListener('click', () => { zoom = 1; initial.forEach(position => { const node = nodes.find(candidate => candidate.id === position.id)!; node.x = position.x; node.y = position.y; }); updateZoom(); draw(); if (selected) select(nodes.find(node => node.id === selected)!); });
+    draw(); updateZoom();
+  });
+</script>

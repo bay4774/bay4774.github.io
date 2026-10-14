@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { withBase } from '../../lib/paths';
+const entries=(await getCollection('projects',({data})=>!data.draft)).sort((a,b)=>Number(b.data.featured)-Number(a.data.featured)||b.data.date.getTime()-a.data.date.getTime());
+---
+<Layout title="Projects" description="软硬件系统、研究原型、仿真环境与开放工具链。">
+  <div class="container"><header class="page-intro"><span class="eyebrow">04 / EMBODIED SYSTEMS & PROTOTYPES</span><h1 class="page-heading">Ideas, built<span style="color:var(--green)">.</span></h1><p>让概念经受物理世界的检验。记录软硬件系统、仿真环境与研究工具，以及实现过程中真正值得分享的细节。</p>{entries.some(e=>e.data.demo)&&<div class="demo-notice"><span class="demo-badge">演示内容</span><span>当前为工程作品集模板。图示是原创概念插图，待替换为你的 CAD、实物照片、测试视频与代码仓库。</span></div>}</header>
+  <section class="projects-grid" aria-label="工程项目列表">{entries.map(entry=><a class="project-card" href={withBase(`/projects/${entry.id}/`)}><img src={withBase(entry.data.image)} alt={`${entry.data.title} 概念示意图`} width="960" height="540" loading="lazy" /><div class="project-card-info"><div class="project-card-meta"><span class="eyebrow">{entry.data.category}</span><span class="demo-badge">{entry.data.status}</span></div><h2>{entry.data.title}</h2><p>{entry.data.description}</p><div class="project-card-footer"><div class="tag-row">{entry.data.stack.slice(0,3).map(s=><span class="pill">{s}</span>)}</div><span class="text-link">Explore <Icon name="arrow-up-right" size={15} /></span></div></div></a>)}</section>
+  </div>
+</Layout>

@@ -1,0 +1,82 @@
+name: Validate and deploy academic site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6.1.0
+        with:
+          version: 11.25.0
+          run_install: false
+          cache: true
+
+      # Enable GitHub Pages > Source: GitHub Actions in repository settings first.
+      # This metadata also reflects an already configured custom domain.
+      - name: Read Pages origin and path
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check Astro and TypeScript
+        run: pnpm check
+
+      - name: Build static site
+        run: pnpm build
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path || '/' }}
+
+      - name: Test callouts, content tooling, links and media
+        run: pnpm test
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path || '/' }}
+
+      - name: Upload static Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

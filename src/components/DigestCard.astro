@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+interface Props { entry: CollectionEntry<'digest'>; index?: number; }
+const { entry, index = 0 } = Astro.props;
+const { data } = entry;
+const ratings = { 'must-read': 'Must-read · 必读基线', inspiring: 'Inspiring · 思路启发', engineering: 'Engineering · 工程典范' };
+const date = data.date.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' });
+---
+<article class="digest-card" data-digest-card data-id={entry.id} data-topic={JSON.stringify(data.tags)} data-venue={data.venue} data-rating={data.rating} data-search={`${data.title} ${data.originalTitle} ${data.method} ${data.verdict} ${data.tags.join(' ')} ${data.lab}`.toLowerCase()} style={`--card-index: ${index}`}>
+  <div class="digest-card-top"><span class="digest-source">{data.venue} <span>{data.year}</span></span><span class="digest-date">{date} 阅读</span></div>
+  <div class="digest-card-label"><span class={`digest-rating rating-${data.rating}`}>{ratings[data.rating]}</span>{data.demo && <span class="demo-badge">示例</span>}</div>
+  <h2><a href={withBase(`/digest/${entry.id}/`)}>{data.title}<span class="digest-title-arrow"><Icon name="arrow-up-right" size={18} /></span></a></h2>
+  <p class="digest-original-title" lang="en">{data.originalTitle}</p>
+  <div class="digest-core"><span>CORE METHOD</span><p>{data.method}</p></div>
+  <div class="digest-verdict"><span>MY VERDICT</span><p>{data.verdict}</p></div>
+  <footer class="digest-card-footer"><div class="digest-card-tags">{data.tags.slice(0, 2).map(tag => <span>#{tag}</span>)}{data.tags.length > 2 && <span class="digest-extra-tags" title={data.tags.slice(2).join(' · ')}>+{data.tags.length - 2}</span>}</div><span class="digest-readtime">{data.readTime} min read</span></footer>
+</article>

@@ -1,0 +1,15 @@
+---
+import { withBase } from '../lib/paths';
+interface Props { before: string; after: string; beforeLabel?: string; afterLabel?: string; caption?: string; }
+const { before, after, beforeLabel = 'Baseline', afterLabel = 'Ours', caption = '拖动滑块对比 · 可使用键盘方向键' } = Astro.props;
+---
+<figure class="comparison" data-comparison>
+  <div class="comparison-stage" style="--position:50%">
+    <img src={withBase(before)} alt={beforeLabel} loading="lazy" width="960" height="540" />
+    <div class="comparison-after"><img src={withBase(after)} alt={afterLabel} loading="lazy" width="960" height="540" /></div>
+    <span class="comparison-label before">{beforeLabel}</span><span class="comparison-label after">{afterLabel}</span>
+    <div class="comparison-handle" aria-hidden="true"><span>↔</span></div>
+    <input type="range" min="0" max="100" value="50" aria-label={`对比 ${beforeLabel} 与 ${afterLabel}`} aria-valuetext="显示一半改进效果" />
+  </div>
+  <figcaption>{caption}</figcaption>
+</figure>

@@ -1,0 +1,52 @@
+---
+title: 'A Reproducible Motion Pipeline'
+description: '示例教程：从动作数据、可视化到可追踪的实验配置，建立稳定的工程接口。'
+date: 2026-10-03
+tags: ['Motion-Tracking', 'Reproducibility', 'Tooling']
+demo: true
+category: 'tutorial'
+readTime: 8
+chapters: 3
+---
+
+import ComparisonSlider from '../../components/ComparisonSlider.astro';
+
+## 1. Begin with a data contract
+
+这篇示例教程用来演示技术内容如何与可交互的图像比较组件结合。当前图像为概念插图，不能作为运动质量改善的实验依据。
+
+处理动作数据时，先明确坐标系、旋转表示、帧率与关节顺序。将这些约定写入可验证的配置，能够减少不同工具之间的隐式转换。
+
+~~~python
+# 示例配置，按真实数据规范修改
+motion_schema = {
+    "units": "meters",
+    "up_axis": "z",
+    "rotation": "quaternion_xyzw",
+    "sample_rate": 60,
+}
+~~~
+
+## 2. Inspect before transforming
+
+先查看原始轨迹，再执行重采样、平滑或重定向。对每次转换保留输入路径与参数，并检查边界帧、接触段和快速运动段。
+
+<ComparisonSlider before="/images/motion-before.svg" after="/images/motion-after.svg" beforeLabel="原始信号示意" afterLabel="目标信号示意" caption="同一组件可在 MDX 讲义中复用。当前两图用于展示交互，不代表算法测量结果。" />
+
+## 3. Keep an experiment record
+
+~~~python
+# 示例元数据；正式实验还应加入代码版本与随机种子
+record = {
+    "input": "path/to/source_motion",
+    "transform": "your_transform_name",
+    "parameters": {"window": 5},
+    "output": "path/to/processed_motion",
+}
+~~~
+
+:::my-take
+
+可复现的动作管线应能回答“这一帧从哪里来”。让数据变换、实验配置与可视化共享同一个记录，比维护三套手工命名更可靠。
+
+:::

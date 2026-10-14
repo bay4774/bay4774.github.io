@@ -1,0 +1,49 @@
+---
+import { site, navigation } from '../config/site';
+import { withBase } from '../lib/paths';
+import Icon from '../components/Icon.astro';
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+interface Props { title?: string; description?: string; }
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · Research & Field Notes`;
+const currentPath = Astro.url.pathname.slice(import.meta.env.BASE_URL.replace(/\/$/, '').length) || '/';
+const canonical = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f7f8f5" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(withBase('/images/embodied-control.svg'), Astro.site || Astro.url.origin)} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳至正文</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href={withBase('/')} class="brand" aria-label={`${site.name} 主页`}><span class="brand-mark">{site.initials}<span></span></span><span class="brand-name">{site.name}<small>RESEARCH & FIELD NOTES</small></span></a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="打开导航"><Icon name="menu" size={23} /></button>
+        <nav id="primary-nav" class="primary-nav" aria-label="主导航">
+          {navigation.map((item) => <a href={withBase(item.href)} class:list={{ active: item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href) }} aria-current={(item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href)) ? 'page' : undefined}>{item.label}</a>)}
+        </nav>
+        {site.cv ? <a class="cv-link" href={withBase(site.cv)} target="_blank" rel="noopener noreferrer">CV <Icon name="arrow-up-right" size={14} /></a> : <span class="cv-link muted" title="在 site.ts 添加简历地址">CV 待添加</span>}
+      </div>
+    </header>
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-top"><div><a class="footer-wordmark" href={withBase('/')}>{site.name}<span> / Research & Field Notes</span></a><p>从阅读中发现问题，在实践中寻找答案。</p></div><a class="back-top" href="#main-content">Back to top ↑</a></div>
+      <div class="container footer-bottom"><span>© {new Date().getFullYear()} {site.name} · Built with Astro</span><span>{site.demoMode ? '预览模式 · 内容均为示例，待替换' : site.affiliation}</span><div>{site.github && <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}{site.email && <a href={`mailto:${site.email}`}>Email ↗</a>}</div></div>
+    </footer>
+    <dialog class="citation-dialog" id="citation-dialog" aria-labelledby="citation-title"><div class="dialog-head"><div><span class="eyebrow">REFERENCE</span><h2 id="citation-title">BibTeX citation</h2></div><button class="icon-button" data-close-dialog aria-label="关闭引用窗口"><Icon name="close" /></button></div><p class="muted" id="citation-warning"></p><pre><code id="citation-content"></code></pre><div class="dialog-actions"><button class="button button-primary" data-copy-citation>复制 BibTeX</button><button class="button button-secondary" data-close-dialog>关闭</button></div></dialog>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>

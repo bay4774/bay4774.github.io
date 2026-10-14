@@ -1,0 +1,59 @@
+---
+title: 'Embodied Motion Control'
+description: '示例内容：以接触约束与参考运动为线索，展示一个物理角色控制项目的研究叙事。'
+date: 2026-10-12
+tags: ['Motion-Tracking', 'Physics-based Animation', 'Reinforcement-Learning']
+demo: true
+venue: 'Research prototype'
+status: '示例项目'
+authors:
+  - name: 'YOUR NAME'
+    self: true
+  - name: 'Collaborator Name'
+featured: true
+image: '/images/embodied-control.svg'
+---
+
+import ComparisonSlider from '../../components/ComparisonSlider.astro';
+
+## Project overview
+
+这是一篇用于展示网站结构的示例项目页。研究主题、图示与叙述均为占位内容，并不代表已发表论文或已完成实验。更新时，请将这里替换为真实工作的贡献、证据与复现资源。
+
+**研究问题**：如何让物理角色在跟随参考动作时，仍然维持合理的接触关系与身体平衡？
+
+展示项目时，可以先用一句话定义任务，再给出三项可验证的贡献：控制目标如何表述、系统如何运行、实验支持什么结论。每个主张都应能链接到具体图表或实验设置。
+
+## A compact system view
+
+输入包含参考运动、当前物理状态与接触信息；策略产生控制目标，仿真器执行动力学推进；观测结果回流到下一时刻。分离这几个接口，有助于解释误差究竟来自参考动作、状态估计还是控制器。
+
+$$
+a_t = \pi_\theta(s_t, r_t, c_t)
+\tag{1}
+$$
+
+其中 $s_t$ 表示系统状态，$r_t$ 表示参考目标，$c_t$ 表示接触条件。这条公式仅用于演示公式排版，不是本项目已验证的算法。
+
+## Visual comparison
+
+<ComparisonSlider before="/images/motion-before.svg" after="/images/motion-after.svg" beforeLabel="示意：原始信号" afterLabel="示意：结构化目标" caption="拖动查看概念图差异。这是插图演示，不是定量实验或真实算法效果。" />
+
+## Evaluation checklist
+
+- 说明动作来源、训练与测试划分，以及仿真的接触参数。
+- 同时报告跟踪误差、失稳情况与运行成本，并定义统计口径。
+- 对接触约束、参考状态与损失项分别进行消融。
+- 给出失败案例，区分超出训练分布与系统实现限制。
+
+## Reproducibility
+
+~~~python
+# 示例接口：替换为项目的真实调用方式
+state = environment.observe()
+target = reference.at(environment.time)
+action = controller.predict(state, target)
+environment.step(action)
+~~~
+
+上传真实论文与代码后，在文件头部补充 paper、code、video 或 videoLink。图库卡片与详情页会自动显示相应入口。

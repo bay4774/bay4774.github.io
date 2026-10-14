@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { withBase } from '../../lib/paths';
+import { milestones } from '../../data/trajectory';
+import { site } from '../../config/site';
+const tracks=[{id:'academic',title:'Academic path',subtitle:'教育 · 研究 · 学术服务'},{id:'practice',title:'In practice',subtitle:'系统实践 · 行业合作 · 职业经历'}];
+---
+<Layout title="Trajectory" description="教育、研究、工程与职业发展的双轨时间轴。">
+  <div class="container"><header class="page-intro"><span class="eyebrow">05 / ACADEMIC & CAREER MILESTONES</span><h1 class="page-heading">An evolving trajectory<span style="color:var(--green)">.</span></h1><p>研究是一段持续演进的旅程。沿着教育与学术、工程与实践两条路径，记录问题如何改变，能力如何积累。</p>{milestones.some(m=>m.demo)&&<div class="demo-notice"><span class="demo-badge">占位时间轴</span><span>当前年份和经历仅用于展示双轨布局，并非你的真实履历。可按实际教育、学术服务与职业经历修改。</span></div>}</header>
+  <div class="timeline-legend"><span><i></i>Academic · 学术</span><span class="practice"><i></i>Practice · 实践</span></div>
+  <div class="trajectory-grid">{tracks.map(track=><section class:list={['timeline-track',{practice:track.id==='practice'}]}><h2>{track.title}<small>{track.subtitle}</small></h2>{milestones.filter(m=>m.track===track.id).sort((a,b)=>b.date.localeCompare(a.date)).map(m=><article class="timeline-event"><time datetime={m.date}>{m.date.replace('-',' / ')}</time>{m.demo&&<span class="demo-badge">示例 · 待替换</span>}<h3>{m.title}</h3><span class="organization">{m.organization}</span><p>{m.description}</p><div class="tag-row">{m.tags.map(t=><span class="pill">{t}</span>)}</div></article>)}</section>)}</div>
+  <div class="trajectory-next"><div><span class="eyebrow" style="margin-bottom:10px">THE NEXT CHAPTER</span><h2>Keep asking. Keep building.</h2><p>下一段研究，始于一个值得探索的问题。</p></div>{site.cv ? <a class="button button-primary" href={withBase(site.cv)} target="_blank" rel="noopener noreferrer">Download CV <Icon name="download" size={15} /></a> : <a class="button button-secondary" href={withBase('/projects/')}>探索我的实践 <Icon name="arrow-up-right" size={15} /></a>}</div>
+  </div>
+</Layout>

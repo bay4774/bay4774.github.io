@@ -1,0 +1,5 @@
+---
+interface Props { title?: string }
+const { title = 'RESEARCHER’S NOTE · 我的洞察' } = Astro.props;
+---
+<aside class="research-note" role="note"><p class="research-note-title">✦ {title}</p><slot /></aside>

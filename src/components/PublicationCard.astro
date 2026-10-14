@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+interface Props { entry: CollectionEntry<'publications'>; }
+const { entry } = Astro.props;
+const p = entry.data;
+const bibtex = p.bibtex || `@misc{${entry.id.replace(/[^a-zA-Z0-9]/g, '')}${p.date.getFullYear()},\n  title = {${p.title}},\n  author = {${p.authors.map(a => a.name).join(' and ')}},\n  year = {${p.date.getFullYear()}},\n  note = {${p.demo ? 'Demo entry. Replace with verified publication metadata.' : 'Generated from site metadata. Verify before citing.'}}\n}`;
+---
+<article class="publication-card">
+  <div class="publication-media" data-publication-media>
+    <img src={withBase(p.image)} alt={`${p.title} 的系统示意图`} loading="lazy" width="960" height="540" />
+    {p.video && <><video src={withBase(p.video)} poster={withBase(p.image)} muted loop playsinline preload="none" aria-label={`${p.title} 动态预览`}></video><button class="video-toggle" data-video-toggle aria-pressed="false">播放预览</button></>}
+    <span class="media-caption">{p.demo ? 'ILLUSTRATIVE RESEARCH PREVIEW' : 'RESEARCH PREVIEW'} ↗</span>
+  </div>
+  <div class="publication-info">
+    <div class="publication-badges"><span class="venue-badge">{p.venue} · {p.date.getFullYear()}</span><span class="pill">{p.status}</span>{p.demo && <span class="demo-badge">示例</span>}</div>
+    <h3><a href={withBase(`/publications/${entry.id}/`)}>{p.title}</a></h3>
+    <p class="authors">{p.authors.map((author, i) => <>{i > 0 && ', '}{author.self ? <strong>{author.name}</strong> : <span>{author.name}</span>}</>)}</p>
+    <p class="publication-tldr">{p.description}</p>
+    <div class="publication-links">
+      {p.paper ? <a href={withBase(p.paper)} target="_blank" rel="noopener noreferrer"><Icon name="file" size={12} /> Paper</a> : <span class="unavailable"><Icon name="file" size={12} /> Paper 待添加</span>}
+      <a href={withBase(`/publications/${entry.id}/`)}><Icon name="external" size={12} /> Project Page</a>
+      {p.code ? <a href={p.code} target="_blank" rel="noopener noreferrer"><Icon name="code" size={12} /> Code</a> : <span class="unavailable"><Icon name="code" size={12} /> Code 待添加</span>}
+      {p.videoLink && <a href={p.videoLink} target="_blank" rel="noopener noreferrer"><Icon name="play" size={12} /> Video</a>}
+      <button type="button" data-bibtex={bibtex} data-demo={String(p.demo)}><Icon name="quote" size={12} /> BibTeX</button>
+    </div>
+  </div>
+</article>

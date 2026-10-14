@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
+import { withBase } from '../../lib/paths';
+import Icon from '../../components/Icon.astro';
+const entries = (await getCollection('publications',({data}) => !data.draft)).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
+const years = [...new Set(entries.map(e=>e.data.date.getFullYear()))];
+---
+<Layout title="Publications" description="原创科研成果、预印本与研究项目。">
+  <div class="container"><header class="page-intro"><span class="eyebrow">01 / AUTHORED RESEARCH & PREPRINTS</span><h1 class="page-heading">Publications<span style="color:var(--green)">.</span></h1><p>从研究问题到可复现的成果。这里收录我的原创研究、预印本和相关开源资源。</p>{entries.some(e=>e.data.demo) && <div class="demo-notice"><span class="demo-badge">演示内容</span><span>以下为结构示例，并非真实发表记录。会议、作者、预览媒体与论文链接均可在内容文件中替换。</span></div>}</header>
+  <div class="publication-list">{years.map(year=><section aria-label={`${year} 年论文`}><h2 class="year-divider">{year}<span class="muted" style="font-size:9px">{entries.filter(e=>e.data.date.getFullYear()===year).length} WORKS</span></h2>{entries.filter(e=>e.data.date.getFullYear()===year).map(entry=><PublicationCard entry={entry} />)}</section>)}</div>
+  <p class="publication-context"><Icon name="book" size={18} /><span>想看我对他人研究的分析？前往 <a href={withBase('/digest/')}>Paper Digest · 论文精读 ↗</a></span></p></div>
+</Layout>
