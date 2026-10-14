@@ -1,4 +1,4 @@
-# 个人学术主页 · Researcher's Website
+# bay4774.github.io · 个人学术主页
 
 以 Astro 7 + TypeScript + Markdown/MDX 构建的六模块学术主页。内容在构建时生成静态 HTML；搜索、筛选、图谱、对比滑块和复制按钮在浏览器运行。可部署到 GitHub Pages，也可将同一份代码连接到 Cloudflare Pages 或 Vercel。
 
