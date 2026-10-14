@@ -4,6 +4,7 @@ description: '示例讲义：把前向加噪、条件去噪与动作序列接口
 date: 2026-10-07
 tags: ['Diffusion-Policy', 'Learning', 'Embodied AI']
 demo: true
+draft: true
 category: 'lecture'
 readTime: 10
 chapters: 3

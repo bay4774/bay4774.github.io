@@ -4,6 +4,7 @@ description: "示例精读：在连续动力学、接触模型与离散求解器
 date: "2026-10-08"
 tags: ["Physics-based Animation","Dynamics","Motion-Tracking"]
 demo: true
+draft: true
 originalTitle: "示例：Contact Modeling for Physical Systems（待替换）"
 authors: "Original authors · 示例（待替换）"
 lab: "Original laboratory · 示例（待替换）"

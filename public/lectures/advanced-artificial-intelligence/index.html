@@ -1,0 +1,3286 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>高级人工智能 · 全课程理解与备考讲义</title><style>
+:root{--bg:#f5f4ef;--paper:#fffefa;--text:#243b48;--muted:#64747a;--brand:#136b68;--line:#dbe4df;--tint:#edf5f0;--font:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:105px}body{margin:0;color:var(--text);background:var(--bg);font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:var(--font);line-height:1.95}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}a:focus-visible,button:focus-visible,input:focus-visible,.table-wrap:focus-visible{outline:3px solid #c79828;outline-offset:3px}
+header{height:74px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;padding:12px 24px;background:#183e45;color:#fff;box-shadow:0 2px 12px #183e4520}header .brand{font-weight:700;font-size:18px;white-space:nowrap}header small{font-size:12px;color:#d8e6e0}header a{color:#fff}header form{margin-left:auto;display:flex;gap:8px;align-items:center}
+input{font:inherit;font-size:14px;padding:7px 10px;border-radius:6px;border:1px solid #d7e1dc;width:190px;line-height:1.6}button{font:inherit;font-size:13px;border:1px solid #92aca9;color:#fff;background:transparent;border-radius:6px;padding:7px 10px;line-height:1.6;cursor:pointer;white-space:nowrap}button:hover{background:#ffffff1c}#match-count{font-size:12px;min-width:55px;white-space:nowrap}#progress{height:3px;background:#dbb968;width:0;position:absolute;left:0;bottom:0}
+.layout{display:grid;grid-template-columns:278px minmax(0,1000px);gap:30px;max-width:1360px;padding:28px 26px 60px;margin:auto}aside{position:sticky;top:95px;height:calc(100vh - 120px);overflow-y:auto;padding:0 10px 16px 0;font-size:13px;line-height:1.65;scrollbar-width:thin}aside h2{font-size:15px;margin:4px 0 12px;padding:0;border:0}aside a{display:block;padding:7px 9px;border-left:2px solid transparent;color:#40565b}aside a:hover{background:#e6efea;text-decoration:none}aside a.active{border-left-color:var(--brand);background:#e1eeE6;font-weight:700;color:var(--brand)}aside .hint{color:var(--muted);font-size:12px;margin:0 8px 13px}
+main{background:var(--paper);min-width:0;padding:40px 48px 60px;border:1px solid #e0e5de;border-radius:10px;box-shadow:0 5px 20px #243b4804}h1{font-size:34px;line-height:1.5;letter-spacing:.02em;margin:0 0 24px;color:#173c43}h2{font-size:25px;line-height:1.6;margin:60px 0 23px;padding-top:12px;border-top:3px solid var(--brand);color:#175c5b;break-after:avoid}h3{font-size:21px;line-height:1.65;margin:32px 0 16px;color:#264852;break-after:avoid}p{margin:16px 0}strong{color:#174d50}li{margin:8px 0}ul,ol{padding-left:1.65em}.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:7px;scrollbar-width:thin}table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.85}th{background:#e5efE8;font-weight:700;color:#214d4c;text-align:left}td,th{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top;min-width:115px}td:first-child{font-weight:500}tr:nth-child(even) td{background:#f6f8f3}tr:last-child td{border-bottom:0}
+code{font-family:"Cascadia Mono","Consolas","Microsoft YaHei",monospace;font-size:.91em;background:#edf2ec;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#edf3ed;border-left:4px solid #2c7870;padding:20px 23px;border-radius:4px;overflow-x:auto;line-height:1.95;font-size:15px;margin:24px 0}pre code{padding:0;background:none;white-space:pre;font-size:inherit;overflow-wrap:normal}blockquote{margin:24px 0;padding:8px 20px;border-left:4px solid #c7a249;background:#fcf6e7}.search-mark{background:#fff0a6;color:#263c43;border-radius:2px}.search-mark.current{background:#f6bb47;outline:2px solid #a67d0c}footer{color:var(--muted);font-size:13px;text-align:center;padding:30px}main a[id]{scroll-margin-top:0}.to-top{position:fixed;right:22px;bottom:22px;background:var(--brand);color:#fff;padding:8px 13px;border-radius:7px;font-size:13px}
+@media(max-width:1100px){.layout{grid-template-columns:230px minmax(0,1fr);gap:18px;padding:22px 18px}main{padding:30px}header small{display:none}header{gap:10px;padding:12px 16px}}
+@media(max-width:780px){:root{--font:17px}header{height:auto;min-height:106px;flex-wrap:wrap;gap:6px 10px;padding:10px 14px}header .brand{font-size:16px}header form{order:3;width:100%;margin-left:0;gap:6px}input{width:0;min-width:100px;flex:1}header button{font-size:12px;padding:5px 8px}.layout{display:block;padding:12px 10px}aside{position:static;height:230px;margin-bottom:15px;border:1px solid var(--line);padding:10px;background:#fffefa;border-radius:8px}main{padding:23px 18px}h1{font-size:27px}h2{font-size:23px}h3{font-size:20px}table{font-size:14px}td,th{min-width:130px;padding:9px}pre{font-size:13px;padding:15px}html{scroll-padding-top:122px}#print-btn{margin-left:auto}.to-top{right:10px;bottom:10px}}
+@media print{body{background:white;font-size:11pt;line-height:1.7}header,aside,.to-top,footer{display:none!important}.layout{display:block;max-width:none;margin:0;padding:0}main{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:22pt}h2{font-size:16pt;break-before:page;margin-top:0}h3{font-size:13pt}p,li{orphans:3;widows:3}pre{white-space:pre-wrap;overflow:visible;font-size:9pt}pre code{white-space:pre-wrap}.table-wrap{overflow:visible;border:0}table{font-size:9pt}td,th{min-width:0;padding:6px}tr{break-inside:avoid}thead{display:table-header-group}a{color:inherit}mark{background:transparent!important;outline:none!important}}
+</style><style>.source-reference{color:inherit;text-decoration:none;cursor:default}</style></head><body id="top">
+<header><div class="brand">高级人工智能 · 课程讲义<br><small>16 份课件 · 概念理解 · 算法联系 · 备考练习</small></div><form id="search-form" role="search"><input id="search" type="search" aria-label="搜索讲义关键词" placeholder="搜索：如 A*、条件独立"><button type="submit">查找</button><button type="button" id="prev" aria-label="上一个匹配">↑</button><button type="button" id="next" aria-label="下一个匹配">↓</button><span id="match-count" role="status" aria-live="polite"></span><button type="button" id="clear">清除</button></form><button id="font-btn" title="调整正文大小">字号</button><button id="print-btn">打印 / 保存 PDF</button><div id="progress"></div></header>
+<div class="layout"><aside aria-label="讲义目录"><h2>阅读目录</h2><p class="hint">先看全课，再分章。点击标题跳转。★ 表示建议学习深度。</p><nav><a href="#course-map">全课目录与三种读法</a>
+<a href="#overview">全课程分析：这门课的主线是什么</a>
+<a href="#basics">零基础准备：先读懂本课共同的语言</a>
+<a href="#section-4">逐份课件讲解</a>
+<a href="#ppt-01">课件 01｜人工智能是什么：先认识智能体</a>
+<a href="#ppt-02">课件 02｜函数、知识与复杂性：为什么必须寻找规律</a>
+<a href="#ppt-03">课件 03｜搜索问题建模：把任务变成可以计算的状态</a>
+<a href="#ppt-04">课件 04｜无信息搜索：BFS、DFS、IDS 与 UCS</a>
+<a href="#ppt-05">课件 05｜启发式搜索：A* 为什么能更有方向地尝试</a>
+<a href="#ppt-06">课件 06｜优化：怎样不断改进一个候选方案</a>
+<a href="#ppt-07">课件 07｜约束满足：用规则尽早排除不可能的答案</a>
+<a href="#ppt-08">课件 08｜机器学习核心概念：怎样学、为什么有效、怎样评估</a>
+<a href="#ppt-09">课件 09｜线性回归：第一次把学习写成可以手算的公式</a>
+<a href="#ppt-10">课件 10｜线性分类：从打分到 Logistic 和最大间隔 SVM</a>
+<a href="#ppt-11">课件 11｜非线性学习：软间隔、核、KNN 与决策树</a>
+<a href="#ppt-12">课件 12｜神经网络与表示学习：计算图、BP、稳定训练与 GPU</a>
+<a href="#ppt-13">课件 13｜贝叶斯网络：不确定知识怎样表示、学习和推理</a>
+<a href="#ppt-14">课件 14｜MDP：随机环境中的长期决策</a>
+<a href="#ppt-15">课件 15｜强化学习：把经历变成更好的行动判断</a>
+<a href="#ppt-16">课件 16｜博弈：把其他人的选择纳入推理</a>
+<a href="#connections">综合分析：把算法放在一起，才能看出它们的联系</a>
+<a href="#formulas">复习工具一：公式要能翻译成人话，算法要能走一步</a>
+<a href="#practice">复习工具二：综合练习与逐步答案</a>
+<a href="#revision">复习工具三：分轮学习与掌握清单</a>
+<a href="#corrections">阅读课件时需要补充条件或修正的地方</a>
+<a href="#legacy-nn">旧版补充：CNN、RNN 与 LSTM 的知识联系</a>
+<a href="#sources">16 份原课件页码索引</a></nav></aside><main id="content"><h1>高级人工智能：全课程理解与备考讲义</h1>
+<p>本讲义覆盖 <strong>16 个课程专题，当前选用的 16 份主版本 PDF 共 551 页</strong>。目录中保留的旧版 ml.pdf、nn.pdf 不重复计入这 551 页。本报告所说的“PPT”均指这些 PDF 课件。报告先讲课程整体，再逐份讲解，最后把算法放在一起比较，并提供手算练习和复习路线。解释按初学者需要展开；历史人物与简略提到的变体压缩介绍，建模、核心算法和容易混淆的概念详细讲。</p>
+<p><strong>阅读标记：★★★ 优先掌握，能解释并手算；★★ 理解机制，能比较；★ 知道用途即可。</strong> 这是依据知识依赖和课件展开程度给出的学习建议，不是教师公布的考试重点。文中“备考”指训练解题能力，不代表预测实际考题。页码指 PDF 页序，不是幻灯片中可能另有的编号。</p>
+<p>生活类比、额外数字和练习均为帮助理解而补充的教学例子；明确写“课件原例”的才是沿用原例。遇到课件中省略条件或表达不严谨的地方，正文给出准确说法，附录列出回看位置。</p>
+<p>所有关系图均改为<strong>普通文字树或表格</strong>，不需要 Mermaid / flowchart 插件。另有同内容的 HTML 阅读版，可在浏览器离线查看，带目录、关键词搜索和打印样式；公式也有不依赖公式插件的文字版本。</p>
+<p><strong>版本更新：2026-10-14。</strong> 第 08 章采用 53 页的 ml-v26.pdf，第 12 章采用 44 页的 nn-v26.pdf，两份课件均标注 2026-10-08。第 11 章仍对应 nl.pdf。新增理论、训练工程与评估内容已同步进入公式表、跨章联系、复习清单和练习 17—28；旧版网络架构保留为补充。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>本次重点变化</th>
+<th>新版学习主线</th>
+<th>如何回看</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>机器学习由导论扩展为核心理论</td>
+<td>优化 → 偏差/方差 → ERM/VC → MLE/MAP → 评估</td>
+<td>第 08 章；新版 3—50 页</td>
+</tr>
+<tr>
+<td>神经网络转向训练原理与执行代价</td>
+<td>表示 → 计算图/BP → 稳定训练 → 显存/访存/GPU</td>
+<td>第 12 章；新版 3—44 页</td>
+</tr>
+<tr>
+<td>原 CNN/LSTM 等保留为旧版补充</td>
+<td>保留空间/序列建模的概念联系</td>
+<td><a href="#legacy-nn">旧版架构补充</a></td>
+</tr>
+</tbody></table></div>
+<h2 id="course-map">全课目录与三种读法</h2>
+<p><strong>初学时：</strong> 先读“全课程分析”和“最低基础”，再按 01—16 顺序学习。每章第一次只需理解问题、例子和 ★★★ 内容，不必一次完成全部推导。</p>
+<p><strong>课后回顾时：</strong> 在下表找到课件，读本章解释，然后回看指定页码，最后合上材料完成自检。自检答案在正文中，不能只凭“看着懂了”判断掌握。</p>
+<p><strong>备考时：</strong> 先做后半部分综合练习，错在哪一类，再跳回相关课件。临近考试用“复习清单”检查遗漏；具体范围以教师说明为准。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>编号与入口</th>
+<th>原文件</th>
+<th>核心问题</th>
+<th>学习时主要练什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="#ppt-01">01 人工智能是什么</a></td>
+<td>whatwhyhist.pdf</td>
+<td>什么算智能？怎样描述智能体？</td>
+<td>概念解释</td>
+</tr>
+<tr>
+<td><a href="#ppt-02">02 函数、知识与复杂性</a></td>
+<td>fkc(1).pdf</td>
+<td>为什么不能把所有答案记成表？</td>
+<td>表示与代价分析</td>
+</tr>
+<tr>
+<td><a href="#ppt-03">03 搜索问题建模</a></td>
+<td>search.pdf</td>
+<td>怎样把问题变成状态与行动？</td>
+<td>建模、状态图与搜索树</td>
+</tr>
+<tr>
+<td><a href="#ppt-04">04 无信息搜索</a></td>
+<td>bsearch.pdf</td>
+<td>没有距离提示时先查哪里？</td>
+<td>BFS / DFS / UCS 比较</td>
+</tr>
+<tr>
+<td><a href="#ppt-05">05 启发式搜索</a></td>
+<td>heuristic.pdf</td>
+<td>怎样用估计减少搜索？</td>
+<td>A* 手算与成立条件</td>
+</tr>
+<tr>
+<td><a href="#ppt-06">06 优化</a></td>
+<td>optimization.pdf</td>
+<td>怎样找到更好的候选解？</td>
+<td>梯度更新与局部搜索</td>
+</tr>
+<tr>
+<td><a href="#ppt-07">07 约束满足</a></td>
+<td>csp.pdf</td>
+<td>怎样找到满足全部规则的赋值？</td>
+<td>回溯、排序、传播</td>
+</tr>
+<tr>
+<td><a href="#ppt-08">08 机器学习核心概念</a></td>
+<td>ml-v26.pdf</td>
+<td>怎样学、为什么能泛化、怎样评价？</td>
+<td>Adam、偏差/方差、VC、MLE/MAP、模型评估</td>
+</tr>
+<tr>
+<td><a href="#ppt-09">09 线性回归</a></td>
+<td>lr.pdf</td>
+<td>怎样预测一个数值？</td>
+<td>模型、损失与求导</td>
+</tr>
+<tr>
+<td><a href="#ppt-10">10 线性分类</a></td>
+<td>lc.pdf</td>
+<td>怎样画一个可靠的分类边界？</td>
+<td>间隔、SVM、损失</td>
+</tr>
+<tr>
+<td><a href="#ppt-11">11 非线性学习</a></td>
+<td>nl.pdf</td>
+<td>直线分不开时有哪些办法？</td>
+<td>核、KNN、决策树</td>
+</tr>
+<tr>
+<td><a href="#ppt-12">12 神经网络与表示学习</a></td>
+<td>nn-v26.pdf</td>
+<td>梯度怎样计算、训练怎样稳定且高效？</td>
+<td>计算图/BP、归一化、显存与 GPU</td>
+</tr>
+<tr>
+<td><a href="#ppt-13">13 贝叶斯网络</a></td>
+<td>bn.pdf</td>
+<td>怎样表达和推理不确定性？</td>
+<td>条件概率、分解、推理</td>
+</tr>
+<tr>
+<td><a href="#ppt-14">14 马尔可夫决策过程</a></td>
+<td>mdp.pdf</td>
+<td>已知随机环境时怎样规划？</td>
+<td>V / Q、Bellman、迭代</td>
+</tr>
+<tr>
+<td><a href="#ppt-15">15 强化学习</a></td>
+<td>rl.pdf</td>
+<td>环境未知时怎样从经历改进？</td>
+<td>MC / TD、SARSA / Q-learning</td>
+</tr>
+<tr>
+<td><a href="#ppt-16">16 博弈与对抗搜索</a></td>
+<td>prn-9-game.pdf</td>
+<td>对手也会思考时怎样决策？</td>
+<td>均衡、Minimax、MCTS</td>
+</tr>
+</tbody></table></div>
+<p>后续入口：<a href="#connections">跨章节联系</a> · <a href="#formulas">公式与算法骨架</a> · <a href="#practice">综合练习及答案</a> · <a href="#revision">复习清单</a> · <a href="#corrections">课件阅读提醒</a> · <a href="#sources">原课件页码索引</a> · <a href="#legacy-nn">旧版网络架构补充</a>。</p>
+<h2 id="overview">全课程分析：这门课的主线是什么</h2>
+<p>整门课围绕一个问题展开：<strong>怎样让一个系统根据已知信息，在大量可能性中做出有根据的选择？</strong> “有根据”可能意味着路线更短、约束都满足、预测更准、期望回报更高，或者对手再聪明也能保证一个较好结果。</p>
+<h3>先把知识放回一个完整任务</h3>
+<p>想象设计一个校园送货机器人：它先看见环境，再估计当前情况，再决定怎么走，最后从结果中调整。下面同一个任务会用到多种方法，说明这些章节可以组合工作。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>机器人遇到的问题</th>
+<th>本课对应知识</th>
+<th>这一部分输出什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>摄像头里是什么？</td>
+<td>分类、神经网络、CNN</td>
+<td>类别、特征或预测值</td>
+</tr>
+<tr>
+<td>警报意味着故障吗？</td>
+<td>贝叶斯网络</td>
+<td>在证据下的概率判断</td>
+</tr>
+<tr>
+<td>已知地图，怎样到达收货点？</td>
+<td>BFS、UCS、A*</td>
+<td>一条行动路径</td>
+</tr>
+<tr>
+<td>多个配送任务怎样避免时间冲突？</td>
+<td>CSP</td>
+<td>一组满足约束的安排</td>
+</tr>
+<tr>
+<td>怎样使总等待时间更短？</td>
+<td>优化</td>
+<td>目标函数更好的方案</td>
+</tr>
+<tr>
+<td>根据历史订单估计多久送达？</td>
+<td>机器学习、回归</td>
+<td>可用于新订单的预测模型</td>
+</tr>
+<tr>
+<td>同一动作可能打滑，接下来怎么应对？</td>
+<td>MDP</td>
+<td>各状态下的行动策略</td>
+</tr>
+<tr>
+<td>打滑概率未知，怎样边实践边改进？</td>
+<td>强化学习</td>
+<td>从经验学出的价值或策略</td>
+</tr>
+<tr>
+<td>另一个参与者会主动竞争资源？</td>
+<td>博弈与对抗搜索</td>
+<td>考虑其他人反应的决策</td>
+</tr>
+</tbody></table></div>
+<p><strong>四条主线可以这样记：</strong></p>
+<pre><code class="language-text">人工智能：表示问题，并作出决策
+│
+├─ 规则和目标已知：搜索 / 约束满足 / 优化
+│  ├─ 要一条路径：BFS、DFS、UCS、A*
+│  ├─ 要一组合法取值：CSP、回溯、约束传播
+│  └─ 要一个更好方案：梯度下降、局部搜索、群体方法
+│
+├─ 有数据，需要学规律：机器学习
+│  ├─ 预测数值：回归
+│  ├─ 预测类别：线性分类、SVM、KNN、决策树
+│  ├─ 训练与评价依据：ERM、偏差/方差、VC、MLE/MAP、评估指标
+│  └─ 学习多层表示：神经网络；CNN/RNN/LSTM 见旧版补充
+│
+├─ 有不确定性：概率推理与随机决策
+│  ├─ 先判断“可能是什么”：贝叶斯网络、HMM
+│  ├─ 再考虑“应该做什么”：MDP
+│  └─ 从实际经历改善决策：强化学习
+│
+└─ 其他参与者也会决策：博弈
+   ├─ 分析相互应对：最佳应对、纳什均衡
+   └─ 研究行动树：Minimax、α–β、MCTS
+</code></pre>
+<p>新版进一步强调：先定义损失，用 GD/Adam 寻找参数；再用泛化理论解释训练与测试差距；最后通过验证、指标和重复实验判断效果。神经网络还需把理论更新落实到计算图和 GPU 执行。</p>
+<p>这张文字树是<strong>学习路线</strong>，不是严格的互斥分类。例如神经网络可以帮助强化学习，MCTS 可以使用价值网络，CSP 也可以加上优化目标。</p>
+<h3>三个层次必须分开</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>层次</th>
+<th>关注的问题</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>问题或任务</td>
+<td>最终想得到什么？</td>
+<td>分类、路径规划、约束满足、序贯决策</td>
+</tr>
+<tr>
+<td>表示或模型</td>
+<td>用什么描述数据、环境或规律？</td>
+<td>状态图、线性模型、神经网络、贝叶斯网络、MDP</td>
+</tr>
+<tr>
+<td>求解或训练方法</td>
+<td>怎样算出答案、学出参数？</td>
+<td>A*、回溯、梯度下降、BP、EM、值迭代、Q-learning</td>
+</tr>
+</tbody></table></div>
+<p>例如“用神经网络预测配送时间，使用平方损失，用 BP 算梯度，用梯度下降更新参数”：<strong>回归是任务，网络是模型，平方损失是训练标准，BP 是梯度计算方法，梯度下降是优化方法。</strong> 学会拆开这句话，就不容易把所有名词都当成互相替代的算法。</p>
+<h3>全课反复出现的四个矛盾</h3>
+<ol>
+<li><strong>表示完整与计算可承受。</strong> 记录所有状态、所有输入输出最直接，却可能指数爆炸；特征、独立性假设和参数共享用于压缩表示。</li>
+<li><strong>眼前好与整体好。</strong> 贪婪最优不等于全局最优；局部搜索、决策树和序贯决策都会遇到这个问题。</li>
+<li><strong>记住已知与适应未知。</strong> 训练误差小不保证泛化好；搜索中估计准确也需要付出计算代价。</li>
+<li><strong>利用已有经验与探索新可能。</strong> 模拟退火、强化学习、MCTS 都要分配有限尝试机会，但具体目标不同。</li>
+</ol>
+<p>课程最重要的能力不是背算法名称，而是：看见一个新问题，能够说清<strong>输入和输出、表示方式、评价标准、适用假设、计算代价</strong>，再选择方法。</p>
+<h2 id="basics">零基础准备：先读懂本课共同的语言</h2>
+<h3>数、向量、函数、参数</h3>
+<p>函数是输入到输出的规则，例如“路程 → 送达时间”。向量是有固定顺序的一组数，例如 <code>x=[路程, 重量, 是否下雨]</code>。顺序不能随意交换，否则模型会把重量当路程。样本是一个具体例子；标签是希望模型给出的正确答案；特征是输入中用于判断的信息。</p>
+<p><code>ŷ=2x+3</code> 中，x 是变化的输入，2 和 3 是参数，ŷ 是预测。训练就是从样本中找适合的参数。学习率、网络层数、KNN 的 K 等是超参数，通常需要另外设置或选择。</p>
+<p>点积 <code>w·x</code> 就是对应元素相乘再相加：<code>[2,3]·[4,5]=2×4+3×5=23</code>。向量长度 <code>‖w‖</code> 为各元素平方和开根号，例如 <code>[3,4]</code> 的长度是 5。矩阵可以看成把多组加权求和排成一张表，一次得到多个输出。</p>
+<h3>读公式时最常遇到的符号</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>写法</th>
+<th>读法</th>
+<th>直观例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Σ</code></td>
+<td>对列出的项全部求和</td>
+<td><code>Σ_i x_i=x₁+x₂+…</code></td>
+</tr>
+<tr>
+<td><code>Π</code></td>
+<td>对列出的项全部相乘</td>
+<td>三个概率因子相乘</td>
+</tr>
+<tr>
+<td><code>min / max</code></td>
+<td>最小 / 最大的结果数值</td>
+<td>三个行动得分 2、8、5，max 是 8</td>
+</tr>
+<tr>
+<td><code>argmin / argmax</code></td>
+<td>得到最小 / 最大结果的选择</td>
+<td>上例 argmax 是第二个行动</td>
+</tr>
+<tr>
+<td><code>∈</code></td>
+<td>属于某个集合</td>
+<td><code>y∈{−1,+1}</code> 表示只有两种标签</td>
+</tr>
+<tr>
+<td><code>∝</code></td>
+<td>成比例，还差共同的归一化系数</td>
+<td>分类时先比未归一化得分</td>
+</tr>
+<tr>
+<td><code>←</code></td>
+<td>把左边更新为右边的结果</td>
+<td><code>w←w−0.1×梯度</code></td>
+</tr>
+<tr>
+<td><code>x_i</code></td>
+<td>第 i 个对象或分量，结合上下文判断</td>
+<td>第 i 个样本或第 i 个特征</td>
+</tr>
+<tr>
+<td><code>t / t+1</code></td>
+<td>当前时刻 / 下一时刻</td>
+<td>一次交互前后</td>
+</tr>
+<tr>
+<td><code>*</code> 上标</td>
+<td>通常表示最优</td>
+<td>V* 是最优价值</td>
+</tr>
+<tr>
+<td><code>π</code> 上标</td>
+<td>按指定策略行动</td>
+<td>V^π 是策略 π 的价值</td>
+</tr>
+</tbody></table></div>
+<h3>导数与梯度：怎样知道往哪里调</h3>
+<p>可以把损失看成高度、参数看成位置。导数回答“向右挪一点，高度是上升还是下降，上升得多快”。正导数说明增加参数会局部增大损失，负导数说明增加参数会局部减小损失。多个参数的各个偏导排成向量，就是梯度。</p>
+<p>例如 <code>L(w)=(w−3)²</code>，导数为 <code>2(w−3)</code>。在 w=0 时导数是 −6，向正方向走会降低损失。负梯度方向因此是下降方向。这里先接受平方函数的求导规则，再在回归和神经网络章节练习使用。</p>
+<p><strong>链式法则</strong>：如果 A 改变 B，B 再改变 C，那么 A 对 C 的局部影响等于两段影响相乘。若存在多条影响路径，还需要把各路径贡献相加。这是 BP 的数学基础。</p>
+<h3>概率与期望：把不确定性算进去</h3>
+<p>概率 0.8 表示模型认为某事件发生的可能性为 80%，不保证下次一定发生。互斥且覆盖全部情况的概率之和应为 1。期望是按概率加权的平均，例如 80% 得 10、20% 得 0，期望是 8；真实单次结果仍可能只有 10 或 0。</p>
+<p>条件概率 <code>P(A｜B)</code> 读作“已知 B 发生时，A 的概率”。乘法规则是 <code>P(A,B)=P(A｜B)P(B)</code>；一般不可以直接把 P(A) 和 P(B) 相乘，除非有独立性条件。贝叶斯公式用于把条件方向反过来。正文公式中的竖线 <code>|</code> 和这里的全角 <code>｜</code> 都表示“在……条件下”。</p>
+<p>边缘化就是忘掉不关心的变量，并把对应可能性加起来：<code>P(A)=Σ_b P(A,b)</code>。归一化就是把各个非负得分除以总和，例如得分 2、3 变成概率 0.4、0.6。</p>
+<p>对数 <code>log₂ p</code> 表示“2 的多少次方是 p”。<code>log₂(1/2)=−1</code>。信息量 <code>−log₂ p</code> 随事件越罕见而越大；熵把各种结果的信息量按概率平均，衡量还剩多少不确定性。先记住：两类各一半最难猜，全是同类最容易猜。</p>
+<h3>图、树、队列与计算量</h3>
+<p>图由节点和连接组成。路径是一串相连的节点。搜索树是算法展开尝试形成的树，同一个问题状态可能因为到达路径不同而重复出现在树里。队列先进先出；栈后进先出；优先队列按规定分数选择下一个候选。</p>
+<p>时间复杂度描述问题变大时工作量怎样增长；空间复杂度描述需要保留多少信息。<code>O(n)</code> 大致随 n 成比例；<code>O(n²)</code> 表示 n 翻倍时量级约四倍；<code>O(b^d)</code> 表示每步 b 种选择、看 d 步时会快速爆炸。大 O 比较的是增长趋势，不能直接当作实际运行秒数，也不说明所有同量级算法一样快。</p>
+<h3>同一个字母，换章就可能换意思</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>在哪里</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h</td>
+<td>启发式搜索</td>
+<td>剩余代价的估计</td>
+</tr>
+<tr>
+<td>h</td>
+<td>机器学习概论</td>
+<td>学出的预测函数</td>
+</tr>
+<tr>
+<td>h_t</td>
+<td>RNN</td>
+<td>当前隐藏状态</td>
+</tr>
+<tr>
+<td>α</td>
+<td>SVM</td>
+<td>对偶变量</td>
+</tr>
+<tr>
+<td>α</td>
+<td>强化学习</td>
+<td>更新步长</td>
+</tr>
+<tr>
+<td>α、β</td>
+<td>α–β 搜索</td>
+<td>当前搜索上下界</td>
+</tr>
+<tr>
+<td>γ</td>
+<td>MDP / RL</td>
+<td>折扣因子</td>
+</tr>
+<tr>
+<td>K</td>
+<td>KNN</td>
+<td>参考多少个邻居</td>
+</tr>
+<tr>
+<td>K(x,z)</td>
+<td>核方法</td>
+<td>两个输入在特征空间的内积</td>
+</tr>
+</tbody></table></div>
+<p>读题先根据定义确认符号，再代公式。不要凭字母形状猜含义。</p>
+<h2 id="section-4">逐份课件讲解</h2>
+<p>以下每章对应一份独立 PDF。“回看页码”覆盖该课件的主要内容段落；封面、目录和重复图解不逐页复述。正文重点讲概念如何成立、算法如何工作和怎样做题。</p>
+<h2 id="ppt-01">课件 01｜人工智能是什么：先认识智能体</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：whatwhyhist.pdf</span> · 23 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 确定全课讨论对象，解释为什么感知、学习、推理和行动都属于人工智能。</p>
+<p><strong>先会什么：</strong> 不需要数学，先想一个系统如何观察和行动。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—6</td>
+<td>应用动机与图灵测试</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>7—14</td>
+<td>思考/行动、人类/理性、智能体及相关领域</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>15—23</td>
+<td>代表人物与研究路线</td>
+<td>★ 背景；按教师要求加深</td>
+</tr>
+</tbody></table></div>
+<h3>人工智能有四种常见观察角度</h3>
+<p>课件把定义按两个维度区分：关注内部“怎样思考”，还是外部“怎样行动”；评价标准接近“人类表现”，还是接近“合理地达到目标”。因此出现像人一样思考、像人一样行动、合理思考、合理行动四个角度。它们是研究视角，不是四个互不相关的行业。</p>
+<p>图灵测试关注交互中表现得像不像人；认知建模关注是否模拟人的思维过程；逻辑路线研究能否按形式规则推理；智能体路线关心系统在环境中是否采取有利于目标的行动。会聊天只是智能的一种表现，规划路线、诊断故障和控制设备也属于这里讨论的任务。</p>
+<h3>智能体：把“智能”放到环境里看</h3>
+<p>智能体可以理解为“感知器、大脑、执行器”的组合。它接收观察、根据内部信息作决策，再用行动影响环境。软件也可以是智能体：下棋程序观察棋盘、选择落子，环境包括棋盘规则与对手。</p>
+<p><strong>教学例子：扫地机器人。</strong> 观察可能是障碍物传感器读数，状态可以包含位置、电量和已清扫区域，行动是移动或回充，目标包括覆盖率和安全。单纯不停移动不等于表现好，必须先说明评价标准。</p>
+<p>“理性”在这里主要是依据已有信息和目标合理选择，并不要求永远知道真实世界，也不等于拥有人的意识。信息不足时，一个合理动作仍可能产生坏结果；评价算法时要区分决策依据与偶然结果。</p>
+<h3>历史部分怎样读才有意义</h3>
+<p>第 15—23 页通过图灵、McCulloch/Pitts、Minsky、McCarthy、Simon、Karp、Feigenbaum、Reddy、Pearl 等人物展示多个研究方向。第一遍关注他们对应的问题线索：计算与智能的关系、神经计算、符号推理、计算复杂性、知识系统、语言感知和概率推理。这样会发现，后面的搜索、神经网络和贝叶斯网络并非突然出现。</p>
+<p>强人工智能、弱人工智能、感知与认知等词在不同文献中定义可能不同。复习时先记录本课采用的语境，不把“能做好一个任务”直接等同于“拥有通用理解或意识”。历史中的人物、时间和具体成就如果是教师指定考点，再按课件单独整理记忆。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 能举一个智能体并说清观察、行动、目标；能解释四种 AI 视角。</p>
+<p><strong>与其他课件的联系：</strong> 后续搜索与 MDP 研究怎样行动，机器学习研究怎样获得可用的规律，贝叶斯网络研究怎样处理不确定信息。</p>
+<p><strong>合上课件自检：</strong> 扫地机器人怎样才算“做得好”？答：先定义覆盖、碰撞、电量等评价，再评价行动，不能只看是否在运动。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-02">课件 02｜函数、知识与复杂性：为什么必须寻找规律</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：fkc(1).pdf</span> · 16 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 解释搜索为什么要减少枚举、学习为什么要用模型压缩规律。</p>
+<p><strong>先会什么：</strong> 函数、指数增长，以及“训练”和“使用”是两个阶段。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—7</td>
+<td>ODA 与函数表示</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>8—11</td>
+<td>完整/部分描述，表示与计算代价</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>12—16</td>
+<td>奥卡姆、MDL、复杂性与学习/应用的区别</td>
+<td>★★；柯尔莫哥洛夫复杂性 ★</td>
+</tr>
+</tbody></table></div>
+<h3>用函数把不同智能任务放到一起</h3>
+<p>课件的 ODA 是观察（Observation）、决策（Decision）、行动（Action）。决策过程常可抽象成函数：输入观察或状态，输出预测、判断或行动。例如 <code>f(棋局)=落子建议</code>，<code>f(订单特征)=送达时间</code>。</p>
+<p>函数可以用公式、表格、图结构或自然语言规则表示。表示方式改变了储存和使用知识的成本：查表可能很快，但表可能大到无法保存；简洁公式容易保存，却可能只近似描述实际情况。</p>
+<h3>为什么复杂性是全课程的共同起点</h3>
+<p>如果输入有 100 个二值因素，就有 <code>2^100</code> 种组合。即使每种组合只记一项答案，也难以逐个列完。教学上的小版本是 10 个二值因素有 1024 种，增加一个因素就翻倍，而不是只增加一种情况。</p>
+<p>应区分三种成本：<strong>描述知识占多少空间，获得知识花多少计算，应用知识回答一次问题花多少计算。</strong> 例如 KNN 训练时主要保存数据，预测时需找邻居；神经网络训练可能很贵，训练完后一次预测只做前向计算。两者把代价放在不同阶段。</p>
+<h3>简单模型为什么有用，又为什么不能过分简单</h3>
+<p>奥卡姆剃刀的直觉是在解释能力相当时倾向简单解释。最小描述长度（MDL）进一步考虑“描述模型”与“描述模型未解释的数据”所需长度之和。模型过复杂要花很长的模型描述，模型过简单则要用很多额外信息解释误差。</p>
+<p><strong>教学例子：</strong> 一组数据接近直线，记住斜率、截距和少量误差，可能比逐点存储更简洁；若数据实际有强烈曲线结构，硬套直线会留下大量误差，未必是好的压缩。</p>
+<p>柯尔莫哥洛夫复杂性讨论能生成某对象的最短程序长度，可作为“规律就是压缩”的思想背景；不需要在第一遍尝试计算任意复杂对象的这个量。</p>
+<p>本章的准确性、完整性与描述长度是一组权衡。一个模型可以对已观察数据很准确，却无法覆盖所有情况；用无限大的表完整描述，也可能根本不可行。<strong>有用的模型必须同时考虑表现与代价。</strong></p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 会分别讨论准确性、表示大小、学习代价、使用代价，避免只说“算法快不快”。</p>
+<p><strong>与其他课件的联系：</strong> 搜索中的状态爆炸、SVM 的间隔约束、决策树剪枝、神经网络参数共享和贝叶斯条件独立，都在以不同方式控制复杂性。</p>
+<p><strong>合上课件自检：</strong> 为什么更复杂的模型不总是更好？答：可能增加计算和存储，也可能记住噪声；需结合新数据表现评估。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-03">课件 03｜搜索问题建模：把任务变成可以计算的状态</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：search.pdf</span> · 50 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 建立所有搜索算法共用的语言；算法选择必须建立在正确建模上。</p>
+<p><strong>先会什么：</strong> 图、路径、队列和状态；数学只需加法与基本逻辑。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—15</td>
+<td>最短路、华容道、数码游戏、皇后和数独</td>
+<td>★★ 用例理解</td>
+</tr>
+<tr>
+<td>16—27</td>
+<td>状态、目标、代价与表示选择</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>28—37</td>
+<td>机器人导航的不同空间表示</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>38—50</td>
+<td>状态图、搜索树、扩展、OPEN 与评价标准</td>
+<td>★★★</td>
+</tr>
+</tbody></table></div>
+<p>用走迷宫举例，需要说清：状态是当前位置；初态是入口；行动是合法移动；后继状态是移动后的位置；目标测试判断是否到出口；代价可以是步数、距离或时间。</p>
+<p><strong>状态必须包含影响未来决策的信息。</strong> 如果开门需要钥匙，仅记当前位置不够，还要记是否拿到了钥匙。同一地点、不同钥匙状态，应视为两个不同状态。</p>
+<p>“状态图”描述问题中各状态的关系。“搜索树”描述算法沿不同路径尝试的过程。因此同一个地点可能在搜索树中出现多次。OPEN/FRINGE 是已经发现、尚待扩展的候选集合；CLOSED 通常记录已经扩展的状态。扩展一个节点，就是生成其合法后继。</p>
+<p>课件用八皇后展示建模的重要性：随意摆放再检查会产生大量无效状态；每列只放一个、始终保持已放皇后互不攻击，可以减少无效尝试。<strong>好的表示方式本身就能提升效率。</strong></p>
+<h3>用一个完整例子检查状态是否够用</h3>
+<p><strong>教学例子：带钥匙的迷宫。</strong> 起点 S、钥匙位置 K、门 D、出口 G。若只用“当前位置”作状态，从 S 到 D 但没钥匙，与取过钥匙后到 D，会被错误当成同一个状态。应改成 <code>(位置, 是否有钥匙)</code>；如果还限制体力，需要继续包含会影响后续行动的体力信息。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>建模要素</th>
+<th>这个例子中的定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>状态</td>
+<td>位置和钥匙持有情况</td>
+</tr>
+<tr>
+<td>初始状态</td>
+<td>起点 S，未持钥匙</td>
+</tr>
+<tr>
+<td>行动/后继</td>
+<td>合法相邻移动；拿钥匙；持钥匙时可通过门</td>
+</tr>
+<tr>
+<td>目标测试</td>
+<td>是否到达出口 G</td>
+</tr>
+<tr>
+<td>代价</td>
+<td>可先设每次移动为 1，也可以按地形计时</td>
+</tr>
+<tr>
+<td>解</td>
+<td>从初态到目标的一串合法行动</td>
+</tr>
+</tbody></table></div>
+<p>状态也不能无限堆信息。昨天穿什么颜色衣服如果不影响后续，就没有必要加入。<strong>好状态保留预测未来所需的信息，同时省略无关细节。</strong></p>
+<h3>课件中的不同例子要看出什么</h3>
+<p>数码游戏展示“合法移动并不保证任意局面可达”；课件用逆序数讨论可解性。第一次先理解某些目标可能根本无解，不必把特定棋盘的判据机械推广到所有尺寸。皇后问题展示“每列固定一个变量”如何减少无效排列。机器人导航中的网格、区域分解、可见性图展示不同空间表示会改变图的大小和路径细节。</p>
+<p>搜索节点通常除了状态，还保存父节点、到达动作、累计代价和深度。父节点信息用于找到目标后反向恢复行动路径；只保存目标位置不足以回答“怎么走过去”。</p>
+<h3>先会读通用搜索框架</h3>
+<pre><code class="language-text">把起点放入待处理集合 OPEN
+重复：
+    若 OPEN 为空，报告没有找到解
+    按算法规则取出一个候选节点
+    若满足对应的终止条件，恢复并返回路径
+    扩展后继，处理重复状态和更便宜路径，加入 OPEN
+</code></pre>
+<p>这个框架尚未指定“按什么规则取出”，因此还不是 BFS 或 A*。下一份课件先规定基础次序，再下一份利用启发信息。目标测试的位置和重复状态处理会影响最优性，不能只背一个框架套所有算法。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 能从新题中独立写出状态、初态、行动、目标和代价；能区分状态与搜索节点。</p>
+<p><strong>与其他课件的联系：</strong> bsearch 和 heuristic 选择扩展次序；CSP 在状态内部加入变量和约束；MDP 将确定后继推广为概率后继。</p>
+<p><strong>合上课件自检：</strong> 同一个地点为什么可能出现两次？答：可能到达路径不同，或者钥匙等状态分量不同；要先判断是不是同一状态。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-04">课件 04｜无信息搜索：BFS、DFS、IDS 与 UCS</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：bsearch.pdf</span> · 27 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 在没有剩余距离估计时，用明确的候选次序系统求解。</p>
+<p><strong>先会什么：</strong> 第 03 章建模、队列/栈/优先队列，以及步数与总代价的差别。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—10</td>
+<td>盲搜索、BFS 与指数增长</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>11—20</td>
+<td>双向、DFS、回溯、深度限制、IDS</td>
+<td>★★★；双向细节 ★★</td>
+</tr>
+<tr>
+<td>21—22</td>
+<td>UCS 与算法对比</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>23—27</td>
+<td>重复状态、图搜索、完备性</td>
+<td>★★★</td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>怎样选择下一个候选</th>
+<th>类比</th>
+<th>必须记住的条件或代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BFS，广度/宽度优先</td>
+<td>深度最浅的先处理，常用先进先出队列</td>
+<td>先找一圈，再找第二圈</td>
+<td>单步代价相同时保证最少总代价；保存候选多</td>
+</tr>
+<tr>
+<td>DFS，深度优先</td>
+<td>沿当前分支深入，常用栈或递归</td>
+<td>一条路走下去，走不通再回来</td>
+<td>内存通常较少；不保证最短，可能陷入无限分支</td>
+</tr>
+<tr>
+<td>回溯</td>
+<td>深入尝试一个选择，失败则撤销</td>
+<td>填错一格后退回改填</td>
+<td>CSP 的基本求解框架</td>
+</tr>
+<tr>
+<td>深度受限 DFS</td>
+<td>超过指定深度就停止深入</td>
+<td>只允许向前看 5 步</td>
+<td>限制太小会漏掉更深处的解</td>
+</tr>
+<tr>
+<td>迭代深入 IDS</td>
+<td>深度限制依次为 0、1、2……</td>
+<td>一次比一次看得远</td>
+<td>反复计算浅层，换取低内存和最浅解保证</td>
+</tr>
+<tr>
+<td>双向搜索</td>
+<td>起点、终点分别搜索并衔接</td>
+<td>两支队伍相向而行</td>
+<td>需要便于表示的目标与反向操作；不能随便拼接就声称最优</td>
+</tr>
+<tr>
+<td>UCS，代价一致搜索</td>
+<td>已走路径的累计代价 <code>g(n)</code> 最小者</td>
+<td>优先继续当前花钱最少的路线</td>
+<td>常规非负边权图上与 Dijkstra 思路相通</td>
+</tr>
+</tbody></table></div>
+<p>这里的“盲搜索”表示没有使用估计剩余距离的启发信息，<strong>并不表示乱选节点</strong>。BFS、DFS、UCS 都有明确次序。</p>
+<p>简化算例：路线甲需要 2 步，每步 100 元；路线乙需要 3 步，每步 1 元。BFS 关心步数，可能选甲；UCS 关心总花费，会选乙。</p>
+<p>评价搜索时要区分四件事：有解能否找到（完备性）；找到的解是否最好（最优性）；花多久；占多少内存。在有限分支、目标深度有限时，BFS 和 IDS 能找到解；这不等于无限状态空间中无解时也一定停止。UCS 的一般完备性结论常再要求每步代价至少为某个正数。</p>
+<p>复杂度先掌握量级：分支因子为 b、解深度为 d 时，BFS/IDS 的时间通常呈 <code>b^d</code> 量级，BFS 内存也可能指数增长；常见 DFS 实现内存为 <code>O(bm)</code>，逐个生成后继的回溯可降到 <code>O(m)</code>。m 是最大搜索深度。课件中 <code>O(b^d)</code> 与 <code>O(b^(d+1))</code> 的不同还涉及是否把最后一层生成的子节点计入，做题时应说明约定。</p>
+<h3>手动走一遍，才能理解数据结构</h3>
+<p><strong>教学树：</strong> S 的孩子从左到右为 A、B；A 的孩子为 C、D；B 的孩子为 E、F。没有重复节点，按从左到右生成。BFS 出队/扩展顺序是 <code>S,A,B,C,D,E,F</code>；DFS 左优先深入顺序是 <code>S,A,C,D,B,E,F</code>。若用栈实现左优先，通常要先压右孩子再压左孩子，因为栈后进先出。</p>
+<p>IDS 会先试深度 0，再试 1、2……，所以浅层节点反复访问。为什么仍值得？当 b&gt;1 时，最深层节点数往往占主要部分，重复浅层的代价换来了更少的内存。它通常保证最浅解；要把“最浅”进一步等同于“最便宜”，还需各步代价相同等条件。</p>
+<h3>重复状态处理比名字更重要</h3>
+<p>有环时，如果每次绕回原处都继续展开，搜索可能浪费大量工作。BFS 在等步长图搜索中，可以在入队时标记已发现状态，避免重复入队；UCS 遇到同一状态时必须比较到达代价，发现更便宜的路径要更新记录，不能第一次见到就永久认定已最优。</p>
+<p>UCS 按累计代价从小到大扩展。有限非负边权图上，取出当前最小代价状态时才适合确定其最短代价；存在负代价边时，常规 UCS/Dijkstra 的保证不再直接成立。</p>
+<p>双向搜索的 <code>b^(d/2)</code> 直觉是两边各走一半深度，但需要能够反向生成前驱并识别衔接；“看起来相遇了”不自动保证任意加权实现的最优性。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 能按给定生成顺序列 OPEN；比较完备性、最优性、时间、空间时写清条件。</p>
+<p><strong>与其他课件的联系：</strong> A* 在 UCS 的 g 上加剩余估计 h；DFS 回溯为 CSP 奠定框架；深度受限思想后来用于博弈搜索。</p>
+<p><strong>合上课件自检：</strong> 什么时候 BFS 最浅解就是最便宜解？答：每步相同非负成本等常见条件下；不同边权时应比较累计代价。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-05">课件 05｜启发式搜索：A* 为什么能更有方向地尝试</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：heuristic.pdf</span> · 46 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 用对未来代价的估计引导搜索，并讨论这种估计在什么条件下仍能保证最优。</p>
+<p><strong>先会什么：</strong> UCS、累计代价、优先队列，以及“不高估”的不等式含义。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—10</td>
+<td>最佳优先、g/h/f 与启发函数例子</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>11—20</td>
+<td>数码游戏与导航的搜索图解</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>21—30</td>
+<td>可采纳性、一致性与 A* 最优性</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>31—39</td>
+<td>重复状态、重开与一致性的作用</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>40—46</td>
+<td>启发函数比较、设计、IDA* 与 SMA*</td>
+<td>比较与设计 ★★★；变体 ★★</td>
+</tr>
+</tbody></table></div>
+<p>三个量一定分清：</p>
+<pre><code class="language-text">f(n) = g(n) + h(n)
+</code></pre>
+<ul>
+<li><code>g(n)</code>：已经从起点走到这里的实际累计代价。</li>
+<li><code>h(n)</code>：从这里到目标还要付出多少的估计。</li>
+<li><code>f(n)</code>：经过这里到达目标的预计总代价。</li>
+</ul>
+<p>UCS 按 g 排队；贪婪最佳优先搜索按 h 排队；A* 按 g+h 排队。</p>
+<p>简化算例：候选 A 的 <code>g=2,h=5</code>，候选 B 的 <code>g=6,h=2</code>。贪婪搜索优先 B，因为看起来剩得少；A* 优先 A，因为预计总花费 7 小于 8。这里比较的是“下一步扩展哪个候选”，不是已经证明哪条完整路线最好。</p>
+<p><strong>可采纳性：估计剩余代价不能高于真实最小剩余代价。</strong> 例如真实还需 10 元，可以估 7 元或 10 元，不能估 12 元。它允许算法保留真正便宜的路线。</p>
+<p><strong>一致性：相邻节点的估计不能产生过大的突降。</strong> 数学式为 <code>h(n)≤c(n,n&#39;)+h(n&#39;)</code>，意思是从这里到目标的估计，不应超过“先走到邻居的花费，再加邻居的估计”。在目标 h=0 等常规条件下，一致性比可采纳性更强。</p>
+<p>实现时最容易出错的地方：</p>
+<ol>
+<li>A* 树搜索在常规代价等条件下，可用可采纳 h 保证最优；图搜索若关闭后不重新打开状态，通常需要一致 h。仅可采纳但不一致时，要正确处理更便宜路径带来的重新扩展。</li>
+<li>UCS/A* 通常在目标从优先队列取出时判定结束，不能一生成目标就返回。反例：<code>S→G</code> 花 10，<code>S→A→G</code> 花 1+1，先看到 G 不代表它最便宜。</li>
+<li><code>h=0</code> 时 A* 变为 UCS；还需每步代价相同，才与 BFS 的按层扩展对应。</li>
+</ol>
+<p>课件的数码游戏给出两种重要 h：错位数字数、各数字的曼哈顿距离之和。通常不计算空格。曼哈顿距离就是横向差加纵向差；它对只允许上下左右单位代价移动的问题很自然，允许便宜的斜走时却可能高估。</p>
+<p><strong>松弛问题</strong>是设计 h 的常用方法：暂时忽略部分限制，先求一个更容易问题的最优代价。例如忽略其他数字的阻挡，计算各数字到正确位置的距离。放宽限制后的最优代价不会更高，因此可以提供下界。两个可采纳启发式取最大值仍可采纳，但直接相加可能重复计算代价，需要额外证明。</p>
+<p>IDA* 把 IDS 的“深度门槛”换成 <code>g+h</code> 门槛，用重复搜索换内存。SMA* 则属于利用有限内存保留和丢弃候选的信息管理方法。第一次学先掌握 A*，这些变体理解动机即可。</p>
+<h3>为什么“不要高估”有助于保证最优</h3>
+<p>设真正最优总代价为 C*。在通向最优解的尚待扩展节点上，如果 g 是该条路径的真实前段代价，h 不高估后段，那么 <code>g+h≤C*</code>。一个代价高于 C* 的目标不应先于这些候选被选中，因为目标 h=0，它的 f 就是自身总代价。这个直觉是理解证明的入口；图搜索还必须正确保留和更新路径代价。</p>
+<p>一致性让沿路径的 f 不下降：走到 n′ 时，g 增加一步代价 c；h 最多下降 c，所以总和不会突然变小。这解释了为什么一致启发式能支持常见“关闭后不重开”的实现。</p>
+<h3>一次小型 A* 演算</h3>
+<p><strong>教学图：</strong> <code>S→A(1)，S→B(4)，A→G(5)，B→G(1)</code>。括号为成本。设 <code>h(S)=4，h(A)=4，h(B)=1，h(G)=0</code>。它们均不高估且满足各边一致性。此例无其他边。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>OPEN 中的候选 <code>(g,h,f)</code></th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扩展 S</td>
+<td>A <code>(1,4,5)</code>；B <code>(4,1,5)</code></td>
+<td>f 相同，约定先选 A</td>
+</tr>
+<tr>
+<td>扩展 A</td>
+<td>B <code>(4,1,5)</code>；G <code>(6,0,6)</code></td>
+<td>找到目标 G，但暂不终止</td>
+</tr>
+<tr>
+<td>扩展 B</td>
+<td>G 更新为 <code>(5,0,5)</code></td>
+<td>经 B 的完整路径更便宜</td>
+</tr>
+<tr>
+<td>取出 G</td>
+<td>返回 S→B→G，成本 5</td>
+<td>目标作为最小 f 候选被取出</td>
+</tr>
+</tbody></table></div>
+<p>同一题若仅凭第一次生成 G 就返回，会错误得到成本 6。若采用允许重复入队的优先队列实现，旧的成本 6 条目以后弹出时还需识别为过时记录。</p>
+<h3>怎样比较两个启发式</h3>
+<p>如果对所有状态都有 <code>0≤h₁≤h₂≤h*</code>，h₂ 是更紧的下界，通常能减少需要扩展的候选；相同 f 的并列次序和计算 h 本身的成本会影响实际工作量。不要把“h 数值较大”独立于可采纳条件理解成好事，也不要把节点数较少直接等同于运行时间必然更短。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 必须会算 g/h/f、辨认两种性质、处理更便宜路径，并解释目标何时结束搜索。</p>
+<p><strong>与其他课件的联系：</strong> 松弛约束产生下界，与 CSP 的约束视角相通；启发函数可以人工设计，也可以用学习模型估计，但学习出的估计不自动满足可采纳性。</p>
+<p><strong>合上课件自检：</strong> h=0 会怎样？答：变成 UCS；再加等步长等条件才对应 BFS。可采纳就能随便丢掉重复状态吗？不能。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-06">课件 06｜优化：怎样不断改进一个候选方案</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：optimization.pdf</span> · 32 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 连接组合问题求解与机器学习训练，解释如何在庞大的候选空间寻找好方案。</p>
+<p><strong>先会什么：</strong> 目标函数、邻居、导数与梯度；实数参数和离散安排的区别。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—9</td>
+<td>目标、约束、邻域与局部/全局最优</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>10—16</td>
+<td>梯度、SGD、牛顿法</td>
+<td>梯度 ★★★；牛顿 ★★</td>
+</tr>
+<tr>
+<td>17—22</td>
+<td>爬山、束搜索、退火、禁忌</td>
+<td>★★★；束搜索/禁忌 ★★</td>
+</tr>
+<tr>
+<td>23—28</td>
+<td>进化、差分、粒子群、遗传与程序表示</td>
+<td>GA ★★；其余 ★</td>
+</tr>
+<tr>
+<td>29—32</td>
+<td>构造搜索与蚁群</td>
+<td>★★ 机制</td>
+</tr>
+</tbody></table></div>
+<p>路径搜索常需要返回一串行动；优化常只需要最终方案。例如求一组让预测误差最小的模型参数，只关心参数结果，不需要把每次调整当作实际行动路线交给用户。</p>
+<h3>梯度下降与随机梯度下降</h3>
+<p>把损失函数想成地形，高度代表错误大小。参数是你站的位置，训练的目标是找到更低的位置。</p>
+<pre><code class="language-text">w(t+1) = w(t) − η ∇L(w(t))
+</code></pre>
+<p><code>∇L</code> 指向局部上升最快的方向，所以减去它；学习率 η 决定迈多大步。</p>
+<p>简化算例：<code>L(w)=(w-3)^2</code>，导数为 <code>2(w-3)</code>。从 <code>w=0</code> 出发，学习率为 0.1：第一次到 0.6，第二次到 1.08，逐步接近 3。步子太小进展慢，太大可能振荡甚至发散。一般非凸问题不能保证找到全局最低点；线性回归的平方损失等凸问题具有更好的性质。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>一次更新使用的数据</th>
+<th>主要取舍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>批量梯度下降</td>
+<td>全部训练数据</td>
+<td>方向较稳定，每次计算可能贵</td>
+</tr>
+<tr>
+<td>SGD</td>
+<td>一个随机样本</td>
+<td>单次便宜，但方向有噪声</td>
+</tr>
+<tr>
+<td>小批量梯度下降</td>
+<td>一小批样本</td>
+<td>在计算效率和稳定性之间折中；新版 ml-v26 第 11 页进一步讲解</td>
+</tr>
+</tbody></table></div>
+<p>随机梯度下降中的“随机”主要指抽样，方向仍来自损失的梯度。新版第 08 章继续解释 Momentum 与 Adam：抽样决定“用哪些数据估梯度”，优化器决定“拿到梯度后怎样更新”，两者可以组合。</p>
+<p>牛顿法在课件先以求根形式出现：求 <code>g(x)=0</code>，迭代为 <code>x←x-g(x)/g&#39;(x)</code>。用于优化时通常把 g 取为目标函数的导数，即一维形式 <code>x←x-f&#39;(x)/f&#39;&#39;(x)</code>；它利用曲率，不能把求根公式直接当成所有优化问题的更新式。</p>
+<h3>离散问题不能方便地求导时怎么办</h3>
+<p>例如“把某个皇后移动到另一行”，可以直接比较若干邻居解。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>通俗机制</th>
+<th>重点与限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>爬山法</td>
+<td>每次找一个更好的邻居</td>
+<td>求最小值时实际像下山；容易停在局部最优或平台</td>
+</tr>
+<tr>
+<td>随机重启</td>
+<td>换多个起点分别尝试</td>
+<td>减少对初值的依赖</td>
+</tr>
+<tr>
+<td>局部束搜索 LBS</td>
+<td>保留 k 个候选，从全部后继中挑新的 k 个</td>
+<td>候选之间共享比较，区别于完全独立的 k 次重启</td>
+</tr>
+<tr>
+<td>模拟退火</td>
+<td>有时接受更差的移动</td>
+<td>先允许探索，随后逐渐收紧</td>
+</tr>
+<tr>
+<td>禁忌搜索 Tabu</td>
+<td>记住近期状态或操作，暂时禁止折返</td>
+<td>防止反复绕圈，记忆长度影响表现</td>
+</tr>
+<tr>
+<td>进化算法 EA</td>
+<td>产生新候选并选择较好的保留</td>
+<td>候选表示与后继生成方式非常重要</td>
+</tr>
+<tr>
+<td>遗传算法 GA</td>
+<td>选择、交叉、变异</td>
+<td>课件用二进制串讲解；实际编码不局限于二进制</td>
+</tr>
+<tr>
+<td>遗传规划 GP</td>
+<td>把候选表示为程序或表达式树</td>
+<td>寻找的是一个计算过程</td>
+</tr>
+<tr>
+<td>差分进化 DE</td>
+<td>利用其他候选之间的差来产生新候选</td>
+<td>课件示意 <code>a+ζ(b-c)</code>，属于差分生成思想</td>
+</tr>
+<tr>
+<td>粒子群 PSO</td>
+<td>参考个体历史最好和群体最好来移动</td>
+<td>利用群体经验，仍可能早熟收敛</td>
+</tr>
+<tr>
+<td>估计分布算法 EDA</td>
+<td>对优良候选建分布，再从中采样</td>
+<td>把搜索与统计建模连接起来</td>
+</tr>
+<tr>
+<td>Memetic 算法</td>
+<td>群体搜索结合局部改进</td>
+<td>既找区域，又在区域内精修</td>
+</tr>
+<tr>
+<td>蚁群 ACO</td>
+<td>多次构造方案，用信息素强化较好选择</td>
+<td>需要防止过早集中，信息素通常还会衰减</td>
+</tr>
+</tbody></table></div>
+<p>模拟退火求最小值时，更差移动的接受概率常为 <code>exp(-ΔL/T)</code>。假设损失增加 2，温度 T=10，接受概率约 0.82；T=1 时约 0.14。高温更敢尝试，低温更保守。理论上非常慢的降温可有渐近保证，有限计算时间下不能承诺找到全局最优。</p>
+<p><strong>这些方法的共同矛盾：集中改进眼前较好的解，还是花资源探索其他区域。</strong> 这个矛盾以后会在强化学习与 MCTS 中再次出现。</p>
+<h3>选择优化方法时先问什么</h3>
+<p>第一问是候选怎样表示：实数参数、排列、二进制串，还是程序？第二问是目标能否求导：可微的参数模型可以用梯度，排课安排通常更适合交换和移动等离散邻居。第三问是约束怎样处理：直接生成可行解、修复不可行解，或在目标中加入惩罚，各有代价。</p>
+<p><strong>局部最优不等于全局最优。</strong> 如果只看一步邻居，所有邻居都更差，算法可能停住；但越过一段较差区域以后可能有更好解。随机重启换起点，模拟退火允许短期变差，群体方法同时保留多种候选，都是对这个问题的不同应对。</p>
+<p>凸函数可以直观想成没有多个相互隔离低谷的碗形地形；在凸可行域上，局部最小也是全局最小。神经网络的训练目标通常非凸，所以不能把线性回归平方损失的良好性质照搬过去。</p>
+<p><strong>本章分配精力：</strong> 先把梯度下降、学习率、局部最优、爬山和模拟退火讲明白；再记 GA 的选择/交叉/变异；最后用“怎样生成候选、怎样保留候选”认识 PSO、DE、EDA、GP 和蚁群。课件对后面一些方法只作概览，不应只背一串缩写。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 能完成梯度更新；能指出为什么局部方法会卡住；能比较几种跳出局部区域的方法。</p>
+<p><strong>与其他课件的联系：</strong> 线性回归、SVM、神经网络都需要求解优化问题；探索与利用的矛盾也出现在 RL 和 MCTS。</p>
+<p><strong>合上课件自检：</strong> SGD 是否不看梯度而随机走？答：它随机抽样数据，再据此计算梯度；模拟退火才是按温度决定接受差解。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-07">课件 07｜约束满足：用规则尽早排除不可能的答案</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：csp.pdf</span> · 31 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 把一般搜索改造成有变量、值域和约束结构的搜索，显著减少无效尝试。</p>
+<p><strong>先会什么：</strong> 搜索、DFS/回溯、集合以及简单的“不相等”规则。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—9</td>
+<td>X/D/C 建模：地图、SAT、皇后等</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>10—17</td>
+<td>赋值搜索、交换性、回溯与顺序</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>18—22</td>
+<td>前向检验图解</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>23—28</td>
+<td>MRV、度启发式、LCV 与组合过程</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>29—31</td>
+<td>AC-3、约束图分解与应用</td>
+<td>★★</td>
+</tr>
+</tbody></table></div>
+<p>约束满足问题写成 <code>CSP=(X,D,C)</code>：X 是要填的变量；D 是每个变量允许的取值；C 是必须遵守的规则。数独中，变量是空格，值域是 1–9，约束是行、列和宫不能重复。地图着色中，变量是地区，值域是颜色，相邻地区颜色必须不同。</p>
+<p>八皇后可以令 <code>X_i</code> 表示第 i 列皇后所在行。不同列 i、j 要满足 <code>X_i≠X_j</code>，以及 <code>|X_i-X_j|≠|i-j|</code>。前者排除同行，后者排除同一对角线。</p>
+<p>基本回溯过程：选一个未赋值变量，试一个值，检查是否违反约束；能继续就递归，不能继续就撤销。最终返回所有变量的一组合法赋值。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>改进技术</th>
+<th>它解决哪个问题</th>
+<th>通俗记法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MRV，最少剩余值</td>
+<td>下一个先填谁？</td>
+<td>先填选择最少、最容易出问题的格子</td>
+</tr>
+<tr>
+<td>度启发式</td>
+<td>MRV 并列时先填谁？</td>
+<td>先处理与更多未赋值变量发生约束的变量</td>
+</tr>
+<tr>
+<td>LCV，最少约束值</td>
+<td>给这个变量先试哪个值？</td>
+<td>尽量给其他变量留余地</td>
+</tr>
+<tr>
+<td>前向检验</td>
+<td>赋值后能否提前发现失败？</td>
+<td>删除邻居中已不可能的取值，有空值域就回退</td>
+</tr>
+<tr>
+<td>约束传播、AC-3</td>
+<td>未赋值变量之间还存在隐含冲突吗？</td>
+<td>一个值失去相容搭档后，继续触发删除</td>
+</tr>
+</tbody></table></div>
+<p><strong>MRV 和 LCV 不矛盾：选变量时先处理最困难的；给它选值时尽量少影响别人。</strong> 例如三门考试排时间，先安排只能在周一考的课程，但在它可选的教室中，尽量不要抢走其他课程唯一能用的教室。</p>
+<p>前向检验只检查当前赋值直接带来的限制，约束传播可以把影响继续传递。即使所有弧都相容，也不意味着整个问题一定有解。回溯时还要恢复本分支删掉的取值，不能把失败分支的修改带到下一个分支。</p>
+<p>联系前面的搜索：CSP 仍在搜索，只是状态有“变量、值域、约束”的内部结构，可以据此剪枝。CSP 首先关心满足规则；增加软约束得分或目标函数后，可进一步变成约束优化。反过来，优化问题加一个质量门槛，也可转成“是否存在达标方案”的约束满足问题。</p>
+<h3>一个能亲手演算的约束例子</h3>
+<p><strong>教学例子：</strong> A、B、C 三个地区两两相邻，只能选红、蓝两色，相邻必须异色。初始每个值域都是 <code>{红,蓝}</code>。给 A=红后，前向检验删除 B、C 的红，二者都只剩蓝。再给 B=蓝，C 的蓝被删除，出现空值域，必须回溯。换 A=蓝也同样失败，故无解。</p>
+<p>这个例子也能区分前向检验与传播：给 A=红后，前向检验看到 B 和 C 都还非空，暂时不报错；进一步检查 B≠C 这条约束，就发现两边唯一的蓝都没有相容搭档，可以提前失败。</p>
+<p>弧相容的意思是：对某一方向 X→Y，X 值域中的每个值，都能在 Y 的值域中找到满足两者约束的值。反方向也需相应检查。上例在<strong>最初</strong>每人有两色时，任意一条边两端都能找到异色搭档，即两两弧相容，但整个三角形仍无解。局部相容不足以推出整体可解。</p>
+<h3>建模怎样直接减少重复尝试</h3>
+<p>依次给变量赋值时，先 A 后 B 与先 B 后 A 可能得到同一个部分赋值。利用赋值可交换的结构，可以规定每层只选择一个变量，避免同时枚举全部变量顺序。MRV 在这个基础上动态决定当前应选哪个变量。</p>
+<p>若约束图能分成互不相连的几部分，可以分别求解再合并，因为不同部分间没有互相限制。现实排课还可能包含“必须不冲突”和“尽量别排早八”两种要求；前者是硬约束，后者通常需要优化目标或软约束评分。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> MRV 选变量，LCV 选值，前向检验删值，回溯需恢复值域；四者的角色必须分清。</p>
+<p><strong>与其他课件的联系：</strong> CSP 是有结构的搜索；增加目标变约束优化；启发式在这里按“最容易暴露失败/最少限制别人”引导搜索。</p>
+<p><strong>合上课件自检：</strong> 三角形两色问题为什么弧相容也可能无解？答：每条边各自能满足，不代表所有边能同时满足。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-08">课件 08｜机器学习核心概念：怎样学、为什么有效、怎样评估</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：ml-v26.pdf</span> · 53 页，课件日期 2026-10-08。替代此前 17 页的 ml.pdf；以下按新版 PDF 页序定位。</p>
+<p><strong>这份课件在全课中的作用：</strong> 把学习定义、参数优化、泛化理论、概率估计和实验评估连起来。它现在是理解后续模型的核心章节，不能再只当作一份简短导论。</p>
+<p><strong>先会什么：</strong> 函数、样本/标签、损失、梯度、期望和条件概率。读到难公式时先看例子，再回头认符号。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—6</td>
+<td>学习、假设类、方程/约束与损失最小化</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>8—17</td>
+<td>梯度与下降方向、Momentum/Adam、凸性、Logistic 梯度</td>
+<td>★★★；收敛率证明第二轮</td>
+</tr>
+<tr>
+<td>19—22</td>
+<td>偏差—方差—噪声分解</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>24—32</td>
+<td>ERM、泛化差距、有限类/VC 界、样本复杂度</td>
+<td>★★★ 概念及量级；严格证明第二轮</td>
+</tr>
+<tr>
+<td>34—40</td>
+<td>MLE、MAP、L1/L2、Gaussian 均值与 KL</td>
+<td>★★★；渐近效率细节 ★★</td>
+</tr>
+<tr>
+<td>42—45</td>
+<td>PCA/SVD、决策树、随机森林、k-means</td>
+<td>PCA ★★；后三项为课件明确列出的自学内容</td>
+</tr>
+<tr>
+<td>46—50</td>
+<td>混淆矩阵、ROC/PR、交叉验证、配对 Bootstrap</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>51—53</td>
+<td>训练流程、随机种子、环境与实验记录</td>
+<td>★★；做实验时应落实</td>
+</tr>
+</tbody></table></div>
+<h3>1. 学习的对象，是一套能回答新问题的规则</h3>
+<p>样本 <code>(x,y)</code> 是输入和对应答案，例如订单的距离/天气与实际送达时间。模型 <code>h(x;θ)</code> 给出预测，θ 是待学习参数；假设类 H 是允许选择的模型集合。线性函数、树和神经网络的表示能力不同，因此先选模型家族，也是在限定可以学到怎样的规律。</p>
+<p>课件把学习比作补全一张未填满的输入输出表，并用简洁规律压缩它。这个比喻强调推广能力，并不保证有限数据能唯一确定所有未见输入的答案。还需要模型假设、数据覆盖和评价。</p>
+<p>课件第 5—6 页把训练样本写成 <code>h(x_i;θ)=y_i</code> 的方程或约束。<strong>现实数据可能带噪声，这些方程未必能同时精确满足。</strong> 于是更常用“让平均错误尽量小”的目标，必要时再惩罚过于复杂的参数。优化、CSP 与学习在这里建立联系，但训练并不总是精确求解等式约束。</p>
+<p>监督学习利用输入与标签；无监督学习从没有任务标签的数据中寻找结构；强化学习从行动、奖励与后续结果中改进策略。回归输出数值，分类输出类别；本章的原理会用于多种具体任务。</p>
+<h3>2. 梯度下降：一个局部方向，不是一张全局最优地图</h3>
+<p>梯度是各参数偏导组成的向量，表示损失对参数变化的局部敏感性。第 10—11 页用一阶近似解释：移动量 δ 很小时，损失变化约为 <code>∇L·δ</code>。在<strong>欧氏长度相同的微小移动</strong>中，负梯度方向使这个一阶变化最小。</p>
+<pre><code class="language-text">θ_new = θ_old − η g
+g = 当前参数处的损失梯度；η = 学习率
+</code></pre>
+<p>“足够小”很关键：步长过大会越过低谷；梯度为零也可能是极大值或鞍点。例如 <code>L(w)=w⁴−w²</code> 在 w=0 的导数为零，却不是最小点。对无约束、可微、凸的问题，零梯度才是全局最优的充分必要条件；带约束或不可微时要换相应条件。</p>
+<p>凸函数可以想成没有坏局部低谷的地形；严格凸在最小值存在时使最优点唯一。课件的光滑凸 GD 误差界是 <code>常数/T</code>：迭代次数 T 翻倍，理论上界约减半；它描述满足假设时的保证，不是对任意深度网络训练曲线的承诺。</p>
+<h3>3. SGD、Momentum 和 Adam 各改了哪一部分</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>主要变化</th>
+<th>通俗理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>批量 GD</td>
+<td>用全部训练数据算梯度</td>
+<td>看完全部练习再改一次</td>
+</tr>
+<tr>
+<td>SGD / 小批量 SGD</td>
+<td>用一个/一小批样本估计梯度</td>
+<td>更快开始调整，但方向有抽样波动</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>累积过去的梯度方向</td>
+<td>减少来回摇摆，保留前进惯性</td>
+</tr>
+<tr>
+<td>Adam</td>
+<td>同时跟踪梯度均值与平方均值，按参数调整步幅</td>
+<td>不同参数根据自己的梯度尺度调整</td>
+</tr>
+</tbody></table></div>
+<p>抽样方式与更新规则是两个维度：小批量训练也能使用 Momentum 或 Adam。Adam 并不免除学习率选择，也不保证任何非凸问题都找到全局最优。</p>
+<p>第 12—13 页 Adam 的关键式为：</p>
+<pre><code class="language-text">m_t = β₁m_(t−1) + (1−β₁)g_t
+v_t = β₂v_(t−1) + (1−β₂)g_t²
+m̂_t = m_t / (1−β₁^t)       v̂_t = v_t / (1−β₂^t)
+θ_t = θ_(t−1) − η m̂_t / (√v̂_t + ε)
+</code></pre>
+<p>各项按参数逐元素计算。m 记方向，v 记平方尺度；从零开始的滑动平均早期偏小，所以做偏差校正；ε 避免分母过小。这里 v 是<strong>二阶原点矩估计</strong>，没有减去均值平方，不能直接称为梯度方差。</p>
+<p><strong>教学例子：</strong> 第一次梯度 g=2，β₁=0.9，β₂=0.999，初始 m=v=0，则 m=0.2、v=0.004，校正后 m̂=2、v̂=4。忽略很小的 ε，η=0.1 时参数减少 0.1；普通 GD 在同样梯度与学习率下减少 0.2。</p>
+<h3>4. Logistic 的梯度为什么是“预测减答案”</h3>
+<p>新版第 16—17 页使用标签 <code>y∈{0,1}</code>。先算 <code>z=w·x+b</code>，再算概率 <code>p=1/(1+exp(−z))</code>，用单样本二元交叉熵：</p>
+<pre><code class="language-text">ℓ = −[y ln p + (1−y) ln(1−p)]
+∂ℓ/∂z = p−y
+∂ℓ/∂w = (p−y)x             ∂ℓ/∂b = p−y
+</code></pre>
+<p>如果答案是 1，模型只给 p=0.5，那么 p−y&lt;0，更新会倾向提高该样本的得分。教学例子取 x=2、w=b=0、η=0.1：梯度分别为 −1、−0.5，更新到 w=0.1、b=0.05，预测概率由 0.5 上升到约 0.562。</p>
+<p>这与旧 lc.pdf 的 <code>y∈{−1,+1}</code> 编码不同；先检查标签编码再套损失。无正则 Logistic 在可分数据上还可能没有有限的最优权重，不能只凭“凸”或“设计矩阵满秩”就断言一定存在有限唯一解。</p>
+<h3>5. 偏差、方差和噪声：预测为什么会错</h3>
+<p>假设在固定输入 x 下，真实观测为 <code>y=f(x)+ε</code>，测试噪声均值为零且与训练集抽样独立。换一批训练集 D，会训练出不同模型 h_D。对训练集和新观测噪声一起取期望，有：</p>
+<pre><code class="language-text">期望平方预测误差 = 偏差² + 方差 + 噪声方差
+偏差 = 多次训练的平均预测 − 真实均值 f(x)
+方差 = 多次训练的预测围绕其平均值的波动
+</code></pre>
+<p>像反复射箭：整组箭偏离靶心，是偏差；箭落得很散，是方差；测量本身的随机扰动对应噪声。模型太简单常见高偏差；对训练细节太敏感常见高方差。复杂度增加使偏差下降、方差上升是经典直觉，不是所有模型与训练方案都必须呈现的单调规律。</p>
+<p><strong>教学例子：</strong> 真正均值为 5，模型因训练集不同以相同概率预测 4 或 6。平均预测为 5，偏差²=0，方差=1。如果噪声方差为 0.25，总误差为 1.25。另一个模型无论怎样训练都预测 3，方差虽为 0，偏差²却是 4，总误差为 4.25。稳定并不等于准确。</p>
+<p>这里的噪声是在<strong>给定输入信息和建模设定</strong>下无法预测的部分；增加有效传感信息可能改变条件噪声。该平方误差分解也不能不加说明地套到 0–1 分类错误率上。</p>
+<h3>6. ERM 与泛化界：训练成绩能代表未来多少</h3>
+<p>经验风险是当前训练集上的平均损失；真实风险是在目标数据分布上的期望损失。ERM（经验风险最小化）选训练损失较小的模型，但我们真正关心的是后者。训练集和测试集应来自可比较的分布，且测试信息不能参与训练选择。</p>
+<p>在<strong>事先固定的有限假设类 H、独立同分布样本、损失在 [0,1] 内</strong>等条件下，第 26 页给出一侧一致界：</p>
+<pre><code class="language-text">对所有 h∈H 同时成立：
+真实风险 R(h) ≤ 训练风险 R̂(h) + √[(ln |H| + ln(1/δ)) / (2n)]
+这一共同事件对训练集随机抽样的概率至少为 1−δ，0&lt;δ&lt;1。
+</code></pre>
+<p>n 是训练样本数，|H| 是可选模型数量，δ 是允许上界失效的概率。模型选择范围越大，就越容易从有限样本中碰巧选出“训练成绩好看”的模型，因此容量项增加；数据越多，界通常收紧。</p>
+<p><strong>95% 说的是重新抽训练集时，这个风险上界成立的概率至少为 95%。</strong> 它既不是模型准确率 95%，也不是 95% 的测试样本一定预测对。δ 越小，要求越可靠，上界中的修正项反而越大。</p>
+<p>教学例子：|H|=100、n=1000、δ=0.05，修正项约 0.0616。训练错误率为 0.10，则此界给出真实错误率不高于约 0.1616；不等于真实错误率就恰好是这个数。连续实数参数通常使 H 无限，不能直接把参数个数代入 |H|。</p>
+<h3>7. VC 维：表达能力与数据量的关系</h3>
+<p>“打散”某组点，表示这组点的<strong>所有二分类标号</strong>都能在 H 中找到一个模型实现。VC 维是存在一组能被打散的点的最大数量，衡量模型家族的区分能力，不是训练样本数，也不总等于参数数。</p>
+<p>带截距的二维直线分类器 VC 维为 3：可找到三个不共线点，让全部 8 种标签安排都能分开；任意四点都不能被完全打散。课件的四点 XOR 图只是无法打散的一种示意，单举这个例子还不足以证明“所有四点都不行”。不带截距、边界必须过原点时，模型家族改变，维数结论也会改变。</p>
+<p>课件的 VC 界用 <code>√[(d_VC ln n + ln(1/δ))/n]</code> 这一量级描述容量与样本的关系。在相应有界损失的分类框架下，忽略对数因子，所需数据量约按 <code>d_VC/ε²</code> 增长：希望允许的泛化差距减半，数据量常需约四倍。它不是可以无条件套到任何无界回归损失上的精确公式。</p>
+<p><strong>偏差—方差分解解释平均预测误差来自哪里；VC 界控制经验风险和真实风险之间的差距。</strong> 二者互补，不是同一个公式的两种写法。第一轮能讲清概率、容量、样本量三者关系即可，第二轮再学习 Hoeffding 不等式、联合界和严格证明。</p>
+<h3>8. MLE、MAP 与正则化：从概率角度学习参数</h3>
+<p>似然把观测数据固定，问“哪些参数能使这些数据更容易出现”。MLE（最大似然）找使数据似然最大的参数；独立样本下，连乘取对数变成相加，最大化对数似然等价于最小化负对数似然。</p>
+<p>MAP（最大后验）还考虑参数的先验：</p>
+<pre><code class="language-text">MLE：最小化 −Σ ln p(数据_i｜θ)
+MAP：最小化 −Σ ln p(数据_i｜θ) − ln p(θ)
+后验 ∝ 似然 × 先验
+</code></pre>
+<p>先验可以表达“在没有充足证据时，倾向参数别太大”。零均值高斯先验对应 L2 平方惩罚；独立 Laplace 先验对应 L1 绝对值惩罚。若把总损失改为平均损失，正则化系数也需相应缩放，不能机械保留同一个数。</p>
+<p>L2 常连续压小权重；L1 更容易让部分权重恰好为零，形成稀疏模型。Elastic Net 把两种惩罚结合。它们有助于控制拟合复杂度，但过强可能造成欠拟合；L2 也不保证每个特征的系数永远非零。</p>
+<p><strong>课件第 39 页的模型，另设教学数字：</strong> 已知观测噪声方差 σ²=4，两个观测为 2、4，均值 x̄=3；对未知均值 μ 设先验 <code>N(0,τ²)</code> 且 τ²=1。MLE 为 3，MAP 为 <code>3/[1+4/(2×1)]=1</code>。数据较少时先验拉向 0；数据变多或先验变弱时，更接近样本均值。</p>
+<p>MAP 只输出一个最可能参数，不是完整后验。在共轭等简单模型中能精确得到后验；复杂模型才可能需要 MCMC、变分推断等近似办法。</p>
+<h3>9. KL、PCA、随机森林和 k-means 怎样接上主线</h3>
+<p>KL 散度衡量以分布 Q 近似 P 时的差异，非负、一般不对称，不是普通几何距离。在共同的离散支持等适用设定中，经验分布到模型的 KL 可写成“与参数无关的项+平均负对数似然”，因此与 MLE 联系起来。连续密度情形不能直接把离散经验点质量的 KL 当作有限值照搬，先掌握负对数似然对应交叉熵目标的思路。</p>
+<p><strong>PCA 是无监督的线性降维。</strong> 先按特征减均值，再选保留变化最多的方向。例如两个传感器读数基本同涨同落，用“沿共同变化方向的位置”可能比保留两列更省空间。它保留大方差方向，但不保证这些方向对分类最有用。</p>
+<p>SVD 把中心化矩阵分解成可按重要性排序的方向。只保留前 k 个，得到秩不超过 k 的最优平方重构近似；丢掉部分的平方误差为尾部奇异值平方和。教学例子：奇异值为 5、3、1，保留前两个，重构误差平方为 1，保留变化比例为 <code>(25+9)/(25+9+1)=34/35</code>。<strong>误差最小不等于无损压缩。</strong> 仅当被舍弃的奇异值全为零时才能无损重构。</p>
+<p>课件第 43—45 页明确列为自学：</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>最少应懂的机制</th>
+<th>与前文的联系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>决策树</td>
+<td>按信息增益/Gini 递归划分，控制树过深</td>
+<td>详细手算回看第 11 章</td>
+</tr>
+<tr>
+<td>随机森林</td>
+<td>自助抽样训练多棵树，分裂时再随机挑特征候选，最后聚合</td>
+<td>减少树之间的相关性，平均后常能降低方差</td>
+</tr>
+<tr>
+<td>k-means</td>
+<td>分配到最近中心，再用簇内均值更新中心</td>
+<td>最小化簇内平方和，局部最优与初值有关；与 EM 的交替结构相通</td>
+</tr>
+</tbody></table></div>
+<p>若 M 个预测误差的方差同为 v、两两相关系数同为 ρ，其平均的方差为 <code>v[ρ+(1−ρ)/M]</code>。这个简化式解释为什么“多训练几棵完全相同的树”不能有效减少方差。k-means 的 k 是簇数，KNN 的 K 是邻居数；前者聚类，后者依赖有标签样本预测。</p>
+<h3>10. 模型评估：不能只看一个准确率</h3>
+<p>以“识别迟到订单”为正类：TP 是真的迟到且被发现，FN 是迟到却漏报，FP 是没迟到却误报，TN 是没迟到且正确判负。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>公式</th>
+<th>它问什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accuracy</td>
+<td><code>(TP+TN)/总数</code></td>
+<td>总体判对多少？</td>
+</tr>
+<tr>
+<td>Precision</td>
+<td><code>TP/(TP+FP)</code></td>
+<td>发出的警报中有多少是真的？</td>
+</tr>
+<tr>
+<td>Recall / TPR</td>
+<td><code>TP/(TP+FN)</code></td>
+<td>真正的问题中找到了多少？</td>
+</tr>
+<tr>
+<td>F1</td>
+<td><code>2PR/(P+R)</code></td>
+<td>查准与查全的调和平均</td>
+</tr>
+<tr>
+<td>FPR</td>
+<td><code>FP/(FP+TN)</code></td>
+<td>正常样本里多少被误报？</td>
+</tr>
+</tbody></table></div>
+<p><strong>教学例子：</strong> 100 单中，TP=8、FN=2、FP=12、TN=78。准确率 86%，精确率 40%，召回率 80%，F1≈53.3%。多数样本正常时，高准确率可能掩盖大量无效警报；某个指标分母为零时应说明约定。</p>
+<p>模型得分要经阈值才变成标签。降低阈值一般会报出更多正例，召回通常升高，精确率不保证同步升高。ROC 横轴 FPR、纵轴 TPR；PR 横轴 Recall、纵轴 Precision。正类稀少、误报成本重要时，PR 往往更直观；最终仍需结合具体任务，而非只按类别是否均衡机械选择指标。</p>
+<p>ROC-AUC 可理解为随机正样本得分高于随机负样本的概率，加上同分时一半的概率。得分无需已经是校准良好的概率。AUC 描述跨阈值的排序能力，不能替代部署时阈值下的精确率/召回率。</p>
+<h3>11. 交叉验证与配对 Bootstrap：怎样可信地比较模型</h3>
+<p>训练集更新参数，验证集选择模型和超参数，测试集用于最终评价。K 折交叉验证轮流留一折验证；标准化、PCA 等有学习过程的预处理也应在各折训练部分拟合，避免把验证信息泄漏进去。若还用交叉验证挑超参数，再用同一最佳验证结果报告最终性能会乐观；可保留独立测试集，或采用嵌套交叉验证。时间序列、同一人的重复记录等数据需要按结构划分，不能一概随机打散。</p>
+<p>配对 Bootstrap 则问：<strong>已固定的两个模型，在同一测试集上的性能差异，对测试样本选择有多敏感？</strong> 从测试索引有放回抽样，两个模型使用完全相同的一组索引，计算差值，重复得到差值分布。它不等于重新训练很多次，也不能单独衡量训练种子的波动。</p>
+<p>教学例子：四个样本上模型 A/B 的正确性差为 <code>[1,−1,1,0]</code>，平均差 0.25。一次抽到索引 <code>[1,1,3,4]</code>，重采样差为 <code>(1+1+1+0)/4=0.75</code>。重复很多次，再取近似分位数区间。若比较 F1 或 AUC 等不可逐样本相加的指标，应每次在抽出的完整样本上重算指标，不能硬拆成每个样本的 F1/AUC 再平均。</p>
+<p>在适用条件下，差值区间跨 0，表示证据尚不足以说明差异；不等于已证明两个模型完全一样。95% 置信区间的覆盖率指重复从总体取数据并构造区间这一整套过程的长期表现；不是说给定测试集上的每次 Bootstrap 差值都以 95% 概率落在真实差异两侧。百分位 Bootstrap 是近似方法，样本独立性和样本量都会影响可靠性。</p>
+<h3>12. 从理论到实验：结果必须能追溯</h3>
+<p>新版第 51—53 页要求记录数据版本、划分、环境、随机种子、超参数、代码状态和指标。独立重复训练的均值/标准差反映训练波动；固定模型的测试集 Bootstrap 反映另一种不确定性，二者不能互相替代。</p>
+<p>固定种子有助于减少随机差异，但不保证跨框架版本、平台和 CPU/GPU 得到逐位相同结果。GPU 是加速工具，不是可复现性的必要条件；容器也不能消除硬件差异。<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html">核验：PyTorch 可复现性说明</a></p>
+<p>对初学者，先理解训练循环：清理上一步梯度、前向预测、计算损失、反向求导、优化器更新。<code>model.eval()</code> 切换 Dropout/BatchNorm 等模块行为，<code>no_grad()</code> 关闭梯度记录，它们作用不同；第 12 章继续解释。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> ★★★ 梯度/Adam、偏差—方差、ERM/VC 界的概率含义、MLE/MAP、评估指标和验证流程；★★ PCA、Bagging 降方差与 Bootstrap；公式证明在理解例子之后展开。</p>
+<p><strong>与其他课件的联系：</strong> 第 06 章优化提供训练工具；第 09—11 章提供具体预测模型；第 12 章将梯度、正则化和计算代价落实到网络；第 13 章的贝叶斯公式为 MAP 提供解释。</p>
+<p><strong>合上课件自检：</strong> 95% 泛化保证是准确率吗？不是。MAP 比 MLE 多了什么？先验。PCA 的最优压缩是无损吗？一般不是。Adam 的第二矩是方差吗？不是。测试集 Bootstrap 是否涵盖重新训练的波动？不能单独涵盖。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-09">课件 09｜线性回归：第一次把学习写成可以手算的公式</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：lr.pdf</span> · 16 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 把特征、预测、损失和优化串起来，是理解分类与神经网络训练的基础。</p>
+<p><strong>先会什么：</strong> 点积、平方误差、导数和第 06 章梯度下降。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—6</td>
+<td>输入表示、线性模型、特征和截距</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>7—12</td>
+<td>损失、残差、训练与测试误差</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>13—16</td>
+<td>最小二乘、梯度下降与 SGD</td>
+<td>★★★</td>
+</tr>
+</tbody></table></div>
+<p>预测模型可以写成：</p>
+<pre><code class="language-text">ŷ = w·φ(x) + b
+</code></pre>
+<p><code>φ(x)</code> 是特征。例如从订单中提取 <code>[路程, 重量, 是否下雨]</code>。w 是各特征的权重，b 是基础偏移。把常数 1 加到特征末尾，可以将 b 合并进权重向量。</p>
+<p>损失衡量预测有多错。平方损失为 <code>(预测值-真实值)^2</code>。例如预测 8、实际 10，单个样本的平方损失为 4。平均平方误差 MSE 把所有样本的平方损失相加，再除以样本数。</p>
+<p>训练就是找一组 w、b，让训练数据的整体损失较小。梯度下降提供了找参数的方法。<strong>线性回归是预测模型，平方损失是评价标准，梯度下降是优化工具。</strong> 它们可以组合，也可以替换某个部件。</p>
+<p>平方损失更重地惩罚大误差，对离群值比较敏感；绝对误差通常更稳健。多项式回归 <code>w0+w1x+w2x²</code> 对 x 是非线性的，对待学习的参数仍是线性的，可以看成在新特征 <code>[1,x,x²]</code> 上做线性回归。</p>
+<h3>用两个点做一次完整训练</h3>
+<p><strong>教学简化：</strong> 先固定截距 b=0，模型 <code>ŷ=wx</code>，训练样本 <code>(x,y)</code> 为 <code>(1,2)</code> 和 <code>(2,4)</code>。平均平方损失为 <code>L(w)=[(w−2)²+(2w−4)²]/2</code>。从 w=0 开始，两个预测都为 0，损失是 <code>(4+16)/2=10</code>。</p>
+<p>导数为 <code>dL/dw=(w−2)+2(2w−4)=5w−10</code>，所以 w=0 时梯度为 −10。取学习率 η=0.1，一次更新得到 <code>w=0−0.1×(−10)=1</code>。新预测为 1 和 2，新损失是 <code>(1+4)/2=2.5</code>，确实下降了。继续更新会朝 w=2 靠近。</p>
+<p>如果损失定义前面多一个 1/2，梯度也会差一个系数。这并不矛盾，只是约定不同；做题必须先照题目的损失定义求导，不能从另一套公式直接搬系数。</p>
+<h3>“线性”到底相对于什么</h3>
+<p><code>ŷ=w₀+w₁x+w₂x²</code> 对原始输入 x 是曲线，但对参数 w₀、w₁、w₂ 是线性的。把 <code>[1,x,x²]</code> 当成特征，仍可使用线性回归的方法。相反，若参数藏在复杂嵌套非线性中，优化性质通常会改变。</p>
+<p>课件通过最小二乘讨论平方误差。若只预测一个常数，用平方误差最小时该常数是样本均值；用绝对误差最小时可取中位数。例如数据 <code>1,2,9</code>，均值为 4，中位数为 2，反映了平方损失更在意远处的大误差。</p>
+<p>本课件前面用手写数字与数值输出引入建模。数字类别的编码大小不必然表示类别之间的距离；实际分类问题应结合下一章的分类损失理解，不能把“数值回归再四舍五入”当作普遍合适的分类方案。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 会代入预测，会计算平均损失，会求一个简单梯度并更新，能解释参数与超参数。</p>
+<p><strong>与其他课件的联系：</strong> 线性分类沿用同一个打分函数但改变输出解释和损失；神经网络把 φ(x) 也变成可以训练的部分。</p>
+<p><strong>合上课件自检：</strong> 为什么损失下降还不能说测试一定更好？答：更新针对训练集；后续可能追逐噪声，仍需独立评价。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-10">课件 10｜线性分类：从打分到 Logistic 和最大间隔 SVM</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：lc.pdf</span> · 28 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 解释分类边界、不同分类损失和 SVM 的几何动机。</p>
+<p><strong>先会什么：</strong> 线性回归打分、向量长度、二分类标签、损失与优化。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—11</td>
+<td>特征、打分、标签与超平面</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>12—21</td>
+<td>距离、损失、间隔、支持向量与硬间隔</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>22—26</td>
+<td>拉格朗日、对偶与 SMO</td>
+<td>理解目的 ★★；完整推导第二轮</td>
+</tr>
+<tr>
+<td>27—28</td>
+<td>复杂性与损失扩展</td>
+<td>★★</td>
+</tr>
+</tbody></table></div>
+<h3>分类先打分，再作决定</h3>
+<p>先计算 <code>z=w·φ(x)+b</code>。二分类时可以规定 z&gt;0 判为正类，z&lt;0 判为负类。<code>z=0</code> 就是分类边界：二维时是一条直线，高维时称为超平面。</p>
+<p>Logistic 分类把分数通过 sigmoid 转成 0–1 之间的模型概率：</p>
+<pre><code class="language-text">p = 1 / (1 + e^(−z))
+</code></pre>
+<p>训练时让真实类别获得较高概率，通常使用对数损失。它名字里虽然有“回归”，这里做的是分类。多分类可用 softmax 将一组分数转成和为 1 的概率向量，再用交叉熵衡量真实标签与预测的差异。输出数值像概率，不等于它必然已经得到良好校准。</p>
+<h3>SVM 为什么要留出“间隔”</h3>
+<p>如果红蓝两类点可以被多条直线分开，选紧贴某几个点的线会比较敏感。SVM 寻找两侧留出较宽空间的分界面，使最近的训练样本也尽量远离边界。</p>
+<p>标签用 y∈{−1,+1} 表示时，<code>y(w·x+b)</code> 为正表示分对，为负表示分错。但把 w、b 同时乘 10，分界线没有动，这个数却变大 10 倍。因此比较真实距离要除以 <code>||w||</code>，得到几何间隔。</p>
+<p>硬间隔 SVM 用于线性可分数据：最小化 <code>½||w||²</code>，同时要求每个样本满足 <code>y_i(w·x_i+b)≥1</code>。支持向量是对最优边界起关键作用、对应非零对偶系数的训练样本。硬间隔情形下它们位于间隔边界上。</p>
+<h3>SMO：怎样求出 SVM 的参数</h3>
+<p>SMO 是求解 SVM 优化问题的方法。对偶形式中有许多系数 α_i，并存在 <code>Σα_i y_i=0</code> 的耦合约束。一次通常选两个系数联合调整，固定其他系数，把大问题变成容易解的小问题。第一遍学习掌握“为什么每次两个”，拉格朗日对偶和 KKT 的完整推导可以稍后再看。</p>
+<h3>分类损失怎样理解</h3>
+<p>设真实标签为 y∈{−1,+1}，模型得分为 z。乘积 yz 很关键：正数表示方向正确，负数表示方向错误，正得越大通常表示越有把握。0–1 损失只看是否分类错，直接优化时难以得到平滑的改进方向；Logistic 损失 <code>log(1+exp(−yz))</code> 和 hinge 损失 <code>max(0,1−yz)</code> 提供不同替代。</p>
+<p><strong>教学例子：</strong> y=+1，若 z=0.2，类别方向正确，但 hinge 损失为 0.8，说明间隔仍不够；z=2 时 hinge 为 0；z=−0.5 时为 1.5。由此可见“分类正确”与“分类损失为零”不是同一回事。</p>
+<p>二维边界 <code>2x₁+0x₂−2=0</code> 就是 x₁=1。点 <code>(2,0)</code> 到边界的距离为 <code>|2×2−2|/√(2²+0²)=1</code>。把所有系数乘 10，边界和真实距离都不变，所以 SVM 必须用归一化间隔，不能只放大权重自称更有把握。</p>
+<p>多分类 softmax 对每个类别的分数做指数后归一化。若真类为第 k 类，对应单样本交叉熵为 <code>−log p_k</code>：模型越不相信正确类别，惩罚越大。本章第 28 页的其他损失扩展先理解用途，优先把二分类几何和三种损失分清。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 能解释几何间隔和支持向量；能算 yz 与 hinge；知道 SMO 是优化器而不是另一种分类任务。</p>
+<p><strong>与其他课件的联系：</strong> 下一章的软间隔允许违例，核函数引入非线性边界；二者与本章硬间隔分别解决不同问题。</p>
+<p><strong>合上课件自检：</strong> 把 w 和 b 乘 10，分类线变了吗？答：没变，函数间隔变大但几何距离不变。为什么 SMO 常改两个系数？为满足对偶的耦合约束。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-11">课件 11｜非线性学习：软间隔、核、KNN 与决策树</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：nl.pdf</span> · 45 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 展示几条突破简单直线边界的路线，并进一步讨论模型复杂性和过拟合。</p>
+<p><strong>先会什么：</strong> SVM 间隔、距离、训练/测试，以及熵的直观意义。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—5</td>
+<td>软间隔与惩罚系数 C</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>6—12</td>
+<td>非线性映射、核与 RKHS</td>
+<td>核 ★★★；RKHS ★</td>
+</tr>
+<tr>
+<td>13—21</td>
+<td>KNN、非参数方法、过拟合讨论</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>22—30</td>
+<td>餐馆例子与决策树构建</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>31—40</td>
+<td>熵、信息增益、增益率、Gini、CART</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>41—45</td>
+<td>其他树方法、剪枝、连续/缺失属性</td>
+<td>剪枝 ★★★；其他 ★★/★</td>
+</tr>
+</tbody></table></div>
+<h3>软间隔：允许现实数据不那么整齐</h3>
+<p>软间隔 SVM 允许一些样本进入间隔甚至分错，其常见目标为：</p>
+<pre><code class="language-text">最小化 J(w,b) = ½ ‖w‖² + C Σᵢ max{0, 1 − yᵢ(w·xᵢ+b)}
+</code></pre>
+<p>右边的 <code>max{0,1-yz}</code> 是 hinge 损失。分对但距离不够远也有损失，正确且达到所需间隔后损失为 0。C 大时相对更重视减少训练中的间隔违例；C 小时相对更重视限制权重大小。hinge 的折点处不可导，实际可用次梯度等方法，不能把它当成处处光滑的函数。</p>
+<p><strong>重点联系：SVM 把“几何上的大间隔”变成了“带正则化的损失最小化”。</strong></p>
+<h3>核技巧：在新的特征表示中分类</h3>
+<p>如果一条直线无法分开数据，可以先改变特征。例如将 <code>[x1,x2]</code> 变成包含平方项、交叉项的特征。SVM 的某些计算只需要两个特征向量的内积，于是核函数直接计算：</p>
+<pre><code class="language-text">K(x,z) = φ(x)·φ(z)
+</code></pre>
+<p>这样常可避免显式展开高维特征。多项式核、高斯核是课件中的例子。核函数不是简单地“把一个 x 输出为高维向量”；它接收两个输入并给出相应内积。并非随便定义一个相似度都能作为标准 SVM 核。</p>
+<p>软间隔与核技巧是两个不同维度的改进：前者允许违例，后者改变可表达的分类边界；它们可以一起使用。核技巧也不意味着训练必然便宜，样本多时核矩阵本身可能很大。</p>
+<h3>KNN：找最像的 K 个旧例子</h3>
+<p>新包裹是什么类别？找特征最接近的 K 个已知包裹，让它们投票。例如 K=3，最近的三个邻居中两个是易碎品，就预测易碎品。</p>
+<p>训练主要是保存样本，预测时再寻找邻居。K 小，边界比较灵活，也容易受到噪声影响；K 大，边界通常较平滑，太大可能忽略局部差异。距离定义和特征尺度很重要，不能让取值范围特别大的某一列无意间支配距离。</p>
+<p>KNN 属于非参数方法，意思是它的模型复杂度不由一个固定长度参数向量完全限定；并不是“没有 K 等超参数”。KNN 和 SVM 都会利用新样本与训练样本的关系，但 SVM 通过全局的间隔优化得到加权决策函数，KNN 做局部邻居投票。不能把 SVM 简单定义成“压缩后的 KNN”。</p>
+<h3>决策树：连续问几个能区分类别的问题</h3>
+<p>课件例子是“餐馆没座时是否等待”。模型可以先问“客人多不多”，再问“预计等多久”，最终输出等待或离开。训练要决定每个节点先问哪个问题；预测则沿一条分支走到叶子。</p>
+<p>好问题应让分出的各组更“纯”。一组全是同类很纯，一半一半则难以判断。熵衡量这种不确定性：</p>
+<pre><code class="language-text">H(D) = − Σₖ pₖ log₂(pₖ)
+</code></pre>
+<p>简化算例：8 个样本中 4 正、4 负，熵为 1 bit。如果某个问题能分成“4 个正”和“4 个负”，两个子组熵都是 0，这次划分的信息增益为 1。若每组依然各有 2 正、2 负，信息增益就是 0。</p>
+<p>信息增益 = 划分前的熵 − 各子组熵的加权平均。<strong>子组必须按样本数加权</strong>，不能直接平均大小不同的组。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>决策树算法</th>
+<th>课件中需要记住的主要区别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID3</td>
+<td>主要按信息增益选属性，容易偏爱取值很多的属性</td>
+</tr>
+<tr>
+<td>C4.5</td>
+<td>引入信息增益率等改进，并处理连续属性等情况</td>
+</tr>
+<tr>
+<td>CART</td>
+<td>二叉划分，分类常用 Gini 不纯度；也可做回归</td>
+</tr>
+</tbody></table></div>
+<p>Gini 不纯度为 <code>1-Σp_k²</code>。上述一半正、一半负的组，Gini=0.5；全为一类时是 0。</p>
+<p>信息增益率的正确分母是这次分支划分本身的熵：设 <code>q_j=|D_j|/|D|</code>，则 <code>SplitInfo=-Σq_j log₂q_j</code>，<code>GainRatio=Gain/SplitInfo</code>。它不是各子组类别熵的直接相加。课件第 36 页的公式需要修正，详见“阅读课件时需要补充条件或修正的地方”。</p>
+<p>树长得太深可能把个别噪声也记下来。预剪枝限制继续生长；后剪枝先长树再删除收益不大的分支。<strong>这与正则化在目的上相通：限制模型追逐训练数据中的偶然细节。</strong> 决策树的每次划分一般是局部贪婪选择，不代表获得了所有可能树中的全局最佳树。</p>
+<h3>非线性不只是一种方法</h3>
+<p>考虑二维 XOR 例子：<code>(0,0)</code> 和 <code>(1,1)</code> 为一类，<code>(1,0)</code> 和 <code>(0,1)</code> 为另一类。一条直线无法把两类分开。可以增加交互特征，如 x₁x₂；也可以用树先判断 x₁ 再判断 x₂；可以依靠局部近邻；还可以用具有非线性激活的多层网络。它们表达复杂边界的方式不同。</p>
+<p>核技巧的一个手算入口：一维多项式核 <code>K(x,z)=(1+xz)²</code>，可对应特征 <code>φ(x)=[1,√2x,x²]</code>。两者的内积正好为 <code>1+2xz+x²z²</code>。因此核直接给出高维内积，并不要求先列出高维向量。</p>
+<h3>决策树多做一步：为什么偏爱“有意义的分组”</h3>
+<p>如果按“学生学号”划分，每人一个叶子，训练数据立刻纯了，却很难预测一个新学号。这说明信息增益可能偏爱取值很多的属性；增益率、最小叶子样本数与剪枝分别从不同方面控制这种问题。C4.5 的实际选属性流程比“对所有属性盲目取最大增益率”更细，这里先掌握增益率动机与正确公式。</p>
+<p>连续属性可以选择阈值，把样本分成“x≤阈值”和“x&gt;阈值”；缺失值需要约定处理机制，不能假设每行数据都完整。课件末尾提到 CHAID、RainForest 等拓展，第一遍理解它们与划分准则、大数据处理的关系即可，不必与 ID3、C4.5、CART 同等展开。</p>
+<p>KNN 的计算负担常集中在预测时；树的预测通常只沿一条根到叶的路径；核 SVM 的预测通过带权支持向量计算。这是比较方法时除准确率之外的另一个重要角度。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 优先手算熵和加权信息增益；解释 K、距离尺度、C、树深度怎样影响模型；记住核技巧与软间隔可组合。</p>
+<p><strong>与其他课件的联系：</strong> 核方法先选特征空间，神经网络学习特征；树剪枝与正则化目标相通；KNN 与 K-means 名字近但任务不同。</p>
+<p><strong>合上课件自检：</strong> KNN 中 K=3 是三类吗？答：是三个邻居。给每个样本单独一片叶子为什么可能不好？答：容易记忆训练细节，缺少可推广的规律。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-12">课件 12｜神经网络与表示学习：计算图、BP、稳定训练与 GPU</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：nn-v26.pdf</span> · 44 页，课件日期 2026-10-08。替代此前 66 页的 nn.pdf；本章页码按新版 PDF 页序。</p>
+<p><strong>这份课件在全课中的作用：</strong> 说明网络能表达什么、梯度怎样计算、训练为什么不稳定，以及计算和数据搬运怎样决定训练成本。新版主线是“表示 → 计算图 → BP → 稳定性 → 硬件执行”。</p>
+<p><strong>先会什么：</strong> 线性模型、损失、梯度与链式法则；第 08 章的优化器与泛化。张量可先理解为多维数表，GPU 可先理解为擅长同时执行大量相似运算的处理器。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—6</td>
+<td>表示学习、层次特征、通用近似定理</td>
+<td>★★★，分清表达能力与可学性</td>
+</tr>
+<tr>
+<td>7—11</td>
+<td>感知机/MLP、Sigmoid/Tanh/ReLU/GELU 等</td>
+<td>★★★；其他激活变体 ★★</td>
+</tr>
+<tr>
+<td>12—20</td>
+<td>计算图、局部导数、BP、前/反向自动微分、Autograd</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>21—27</td>
+<td>梯度问题、残差、初始化、BN/LN、Dropout</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>28—31</td>
+<td>前后向 FLOPs、显存构成、batch/iteration/epoch</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>32—38</td>
+<td>存储层次、带宽/延迟、算术强度、瓶颈与优化</td>
+<td>★★★ 概念；具体硬件数值 ★</td>
+</tr>
+<tr>
+<td>39—44</td>
+<td>计算图并行、分块/融合/重算、执行引擎、训练与推理</td>
+<td>★★★ 机制；实现细节 ★★</td>
+</tr>
+</tbody></table></div>
+<p><strong>与旧版的边界：</strong> CNN、LSTM/GRU、自编码器、胶囊等不再是本新版逐段展开的主线。为保持整门课的知识联系，原有架构解释保存在<a href="#legacy-nn">旧版神经网络补充</a>，其原页码不当作新版页码。</p>
+<h3>1. 表示学习：先学怎样描述对象，再作判断</h3>
+<p>线性模型使用人工给定的 φ(x)，例如颜色统计、边缘数量；神经网络可把 φ 本身做成带参数的层。输入经层层变换后，最后一层再预测类别或数值。识别猫时，“边缘 → 纹理 → 部件”的层次比喻帮助理解组合，但不代表每个神经元都对应一个明确、可解释的词。</p>
+<p>多层感知机可以写成 <code>h=σ(W₁x+b₁)，ŷ=W₂h+b₂</code>。中间的非线性 σ 是关键：若全部只有线性/仿射变换，多层仍可合并为一个仿射变换，不能凭层数突破线性边界。输出层是否加 sigmoid/softmax 等，取决于任务与损失。</p>
+<h3>2. 通用近似定理：能表示，不等于一定能训练出来</h3>
+<p>在合适非线性激活等条件下，足够宽的单隐层网络能在紧致输入域上，以任意给定精度逼近连续函数。可先把“紧致域”想成一个封闭、有界的输入范围，例如所有特征限定在 [0,1] 内。</p>
+<p>这个定理回答<strong>是否存在合适参数</strong>，没有保证需要多少神经元、有限数据能否确定这些参数、GD 是否能找到它们，也没有自动给出泛化保证。它更不表示任何固定大小网络都能拟合任何问题。</p>
+<p>深度可以让某些组合函数的表示更有效率；具体“浅层必须指数大”的结论需要指定函数族、激活和误差标准，不能只背一个 XOR 示意就推广到所有网络。这与第 08 章的区分呼应：表达能力、训练可行性、泛化表现要分别分析。</p>
+<h3>3. 激活函数：非线性与梯度通路一起考虑</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>直觉与形式</th>
+<th>重点限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sigmoid</td>
+<td><code>1/(1+exp(−z))</code>，压到 0—1</td>
+<td>两端饱和，导数很小；隐藏值在 0—1 不自动等于校准概率</td>
+</tr>
+<tr>
+<td>Tanh</td>
+<td>压到 −1—1，零中心</td>
+<td>同样存在饱和</td>
+</tr>
+<tr>
+<td>ReLU</td>
+<td><code>max(0,z)</code>，负值置零</td>
+<td>正半轴导数为 1，负半轴为 0，可能出现长期不激活的单元</td>
+</tr>
+<tr>
+<td>Leaky ReLU</td>
+<td>负半轴保留小斜率</td>
+<td>为负输入提供梯度通路</td>
+</tr>
+<tr>
+<td>GELU</td>
+<td><code>zΦ(z)</code>，Φ 为标准正态累积分布函数</td>
+<td>平滑门控思想，不是所有 Transformer 必须使用它</td>
+</tr>
+<tr>
+<td>SiLU / Swish</td>
+<td><code>z·sigmoid(z)</code></td>
+<td>平滑非单调；了解与 ReLU 的形状差别即可</td>
+</tr>
+<tr>
+<td>Softmax</td>
+<td>把一组分数转成和为 1 的概率向量</td>
+<td>是跨分量归一化，区别于逐元素激活</td>
+</tr>
+</tbody></table></div>
+<p>ELU、Mish、Maxout 在第 11 页作为变体理解动机。Softmax 二分类的一个类别概率等于 <code>sigmoid(z₁−z₂)</code>；它依赖两个得分之差，而非不加条件地把任一个分数直接送进 sigmoid。</p>
+<h3>4. 计算图：把一次复杂运算拆成会求导的小步骤</h3>
+<p>课件第 12 页例子 <code>f=(x+y)z</code> 可拆成 <code>u=x+y，f=uz</code>。前向保存 u、f 的数值；反向先用乘法的局部导数，再用加法的局部导数。</p>
+<p><strong>在课件结构上另设数字：</strong> x=2、y=3、z=4，u=5、f=20。对输出本身的导数先置 1，随后 <code>∂f/∂u=4，∂f/∂z=5</code>；加法对两输入的局部导数都为 1，因此 <code>∂f/∂x=4，∂f/∂y=4</code>。</p>
+<pre><code class="language-text">前向：输入数值 → 局部运算 → 中间数值 → 损失
+反向：损失处的梯度 → 乘局部导数 → 汇总到参数
+原则：沿一条路径相乘；同一变量的多条路径贡献相加。
+</code></pre>
+<p>共享变量尤其容易漏加：<code>L=wx+w²</code>，w=3、x=2，w 通过两条路径影响 L，所以 <code>∂L/∂w=x+2w=8</code>。只算其中一条会错。计算图一般是有向无环图，不必是一棵每个节点只用一次的树。</p>
+<h3>5. Hinge 与平方损失：同一条链式法则怎样复用</h3>
+<p>第 16 页 hinge：先算 score=W·φ(x)，再算 margin=y·score，最后 <code>ℓ=max(0,1−margin)</code>。margin&lt;1 时损失梯度为 <code>−yφ(x)</code>；margin&gt;1 时为 0；margin=1 处不可微，应按次梯度约定处理。若目标还含正则化，这只是样本损失项的梯度，不能忘掉正则化项。</p>
+<p>第 17 页用 sigmoid 隐层、线性输出与平方损失：</p>
+<pre><code class="language-text">h_j = sigmoid(v_j·φ(x))
+score = Σ_j w_j h_j；residual = score−y；ℓ = residual²
+∂ℓ/∂w_j = 2 residual × h_j
+∂ℓ/∂v_j = 2 residual × w_j × h_j(1−h_j) × φ(x)
+</code></pre>
+<p>公式从右向左对应“输出误差、输出权重、激活斜率、输入特征”，是一串局部影响。第 20 页 Autograd 原例取 x=2、w=3、b=1，<code>y=wx+b=7，L=y²=49</code>，得到 <code>w.grad=28，b.grad=14</code>。这里 L=y² 是例子指定的损失，不要凭习惯擅自补一个标签或 1/2。</p>
+<p><strong>BP 负责计算梯度，优化器负责用梯度更新参数。</strong> 课件把前向、反向、更新合称训练三步，做概念题时仍要区分职责。</p>
+<h3>6. 前向计算、前向自动微分和反向自动微分</h3>
+<p>普通前向计算只得到输出值。前向模式自动微分额外传播一个输入方向的变化，得到该方向对所有输出的影响；选择某一个坐标方向时，就得到对该输入分量的导数。反向模式给定一个输出方向，反传到所有输入；训练中损失通常是标量，因此一次反向遍历就能计算大量参数的梯度。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>比较</th>
+<th>前向模式自动微分</th>
+<th>反向模式自动微分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一次主要得到什么</td>
+<td>某个输入方向引起的输出变化</td>
+<td>某个输出组合对各输入的梯度</td>
+</tr>
+<tr>
+<td>常见优势</td>
+<td>输入方向少、输出多</td>
+<td>输入参数多、输出少</td>
+</tr>
+<tr>
+<td>中间信息</td>
+<td>可随前向传播方向导数</td>
+<td>通常保存求反向所需的前向信息，或在反向重算</td>
+</tr>
+</tbody></table></div>
+<p>不是所有中间值都必须永久保存；保存哪些由局部导数需要什么决定。检查点机制又可以少存一些，在反向时重算。<a href="https://docs.pytorch.org/docs/stable/notes/autograd.html">核验：PyTorch 自动微分机制</a></p>
+<h3>7. 梯度消失与爆炸：层数让局部影响不断相乘</h3>
+<p>若一路的局部因子大多很小，传到前面就可能非常小；若连乘不断放大，更新可能失控。只看 sigmoid 斜率的简化示例，<code>0.25²⁰≈9.1×10⁻¹³</code>，说明深链可能强烈衰减；真实网络还包含权重、矩阵方向和多条路径，不能把它当作所有网络梯度的精确值。</p>
+<p>RNN 沿时间展开后也形成长计算链，所以长序列会遇到类似困难。新版第 23 页把谱半径与最大奇异值混写：谱半径是最大特征值绝对值，最大奇异值衡量最大长度放大，两者一般不同。完整梯度由权重、激活导数和累加结构决定，不能把“ρ(W)&lt;1”当成网络训练收敛的充分必要条件。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>缓解方法</th>
+<th>为什么有帮助</th>
+<th>不能误记成什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ReLU 家族</td>
+<td>正区间避免 sigmoid 式饱和斜率</td>
+<td>不保证所有路径梯度都不消失</td>
+</tr>
+<tr>
+<td>残差 <code>y=x+F(x)</code></td>
+<td>梯度有恒等支路，局部导数含 <code>I+J_F</code></td>
+<td>整体梯度不恒等于 1，也不保证无抵消</td>
+</tr>
+<tr>
+<td>Xavier / He 初始化</td>
+<td>控制初始信号与梯度的尺度</td>
+<td>合理初始化不等于训练全程稳定</td>
+</tr>
+<tr>
+<td>BN / LN</td>
+<td>调整指定维度的均值与方差</td>
+<td>不把数据强制变成标准正态分布</td>
+</tr>
+<tr>
+<td>梯度裁剪</td>
+<td>梯度过大时缩短它</td>
+<td>主要限制爆炸，不能恢复已经消失的信息</td>
+</tr>
+</tbody></table></div>
+<p>范数裁剪：若 <code>‖g‖&gt;c</code>，令 <code>g←g·c/‖g‖</code>。g=[3,4]、c=2 时，长度从 5 缩到 2，结果 [1.2,1.6]，方向不变。</p>
+<h3>8. 初始化、BatchNorm 与 LayerNorm</h3>
+<p>第 25 页中 n_in/n_out 是层的输入/输出宽度。常见 Xavier 正态初始化方差约为 <code>2/(n_in+n_out)</code>，He 对 ReLU 常取 <code>2/n_in</code>。注意这是<strong>方差</strong>；若函数要的是标准差，需要开平方。这些量级来自简化的方差传播分析，不是严格保持每个样本每层方差完全相同。</p>
+<p>先把 batch 看成“多行样本、多列特征”的矩阵：BN 按列用一批样本估计统计量；LN 按行在一个样本的指定特征维度统计。归一化大致是减均值、除以标准差，再乘可学尺度 γ、加可学偏移 β。这里的 γ/β 不是 MDP 的折扣。</p>
+<p>教学矩阵为 <code>[[1,3],[5,7]]</code>：BN 两列均值为 3、5；LN 两行均值为 2、6，已经能看出二者比较的对象不同。卷积 BN 还常将空间位置纳入每通道统计；序列 LN 常针对每个 token 的特征维，不能机械理解成把整条序列所有数混在一起。</p>
+<p>BN 通常训练用 batch 统计，推理用累计的运行统计；LN 通常两阶段都用当前输入的指定维度统计，不依赖其他样本。BN 在小 batch 下可能不稳定，但不能把“在序列网络中不常作为默认选择”说成数学上绝对不能使用。</p>
+<h3>9. Dropout 与正则化：训练稳定和泛化是两个目标</h3>
+<p>按课件第 27 页的记号，p 是<strong>保留概率</strong>：训练时随机保留激活，保留的除以 p；推理时用完整网络且不再缩放。</p>
+<pre><code class="language-text">训练：h′ = m h / p，m∈{0,1}，P(m=1)=p
+因此 E[h′]=h；推理：h′=h
+</code></pre>
+<p>h=10、p=0.8 时，训练输出以 80% 概率为 12.5、20% 为 0，均值仍为 10。保留期望不等于保留每次预测，也不保证完整网络输出等于所有随机子网络输出的精确平均。PyTorch 的 Dropout 参数 p 则表示<strong>丢弃概率</strong>，读公式和看代码要换算。</p>
+<p>L1/L2、Dropout、数据增强、早停都可用于改善泛化，但机制不同。数据增强利用保持标签的变换，生成样本不等于获得同样数量的独立新观测。权重衰减与 L2 惩罚在普通 SGD 的适当系数对应下等价，在 Adam 等自适应更新中不直接等价；AdamW 将衰减与梯度更新分开。<a href="https://arxiv.org/abs/1711.05101">核验：AdamW 原论文</a></p>
+<h3>10. 训练循环：每个动作分别负责什么</h3>
+<pre><code class="language-text">对每个 batch：
+    optimizer.zero_grad()   清理上一步梯度（有意累积梯度时另行安排）
+    prediction = model(x)   前向计算，并记录所需信息
+    loss = criterion(prediction, y)
+    loss.backward()        计算并累积梯度
+    optimizer.step()       按 SGD / Adam 等规则更新参数
+</code></pre>
+<p>这是顺序示意，变量需由具体任务定义。<code>.grad</code> 会累积，因此不能漏掉清理或有意累积的控制。评估时 <code>model.eval()</code> 改变 Dropout/BN 的行为，<code>no_grad()</code> 避免记录梯度，两者常一起用，但互不替代。<a href="https://docs.pytorch.org/docs/stable/notes/autograd.html#evaluation-mode-nn-module-eval">核验：PyTorch 的评估模式与梯度模式</a></p>
+<p>batch size B 是一次处理多少样本；iteration 通常是一轮前向、反向和更新；epoch 是遍历训练集一遍。n=100、B=32，保留最后不足一批的数据时，一个 epoch 是 4 个 batch；丢弃最后一批则为 3。梯度累积时，处理若干 batch 才更新一次，更新步数又不同。</p>
+<h3>11. 为什么训练通常比推理贵</h3>
+<p>对全连接层 <code>Y=XW</code>，X 有 B 行、d_in 列，W 有 d_in 行、d_out 列。忽略偏置等小项、把乘法和加法各计一次，前向约 <code>2B d_in d_out</code> FLOPs。</p>
+<p>反向通常要算权重梯度和输入梯度，各需类似规模的矩阵乘法，合计约前向两倍；前向加反向约为前向三倍。若输入梯度不需要、部分层冻结或使用重算等方法，比例就会改变。FLOPs 是操作总数，FLOP/s 是每秒操作数，不是同一个量。</p>
+<p><strong>课件的 2N/4N/6N 是在特定稠密计算假设下的估算。</strong> N 是参数数，还需说明按单样本、单 token，还是整个 batch 计数。卷积的参数会在空间重复使用，注意力还受序列长度影响，因此相同参数量不保证相同 FLOPs。训练时间也受数据加载、访存与通信影响，不能把“3 倍 FLOPs”直接写成实测时间必然 3 倍。</p>
+<h3>12. 显存装了什么：不只是模型参数</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>组成</th>
+<th>简化 FP32、全参数训练时的量级</th>
+<th>与 batch 的关系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>参数</td>
+<td>每个数 4 字节，共 4N</td>
+<td>同一模型通常不随 B 变</td>
+</tr>
+<tr>
+<td>参数梯度</td>
+<td>4N 字节</td>
+<td>通常不随 B 变</td>
+</tr>
+<tr>
+<td>Adam 两组矩状态</td>
+<td>8N 字节</td>
+<td>通常不随 B 变</td>
+</tr>
+<tr>
+<td>保存的激活</td>
+<td>取决于 B、层数、宽度、序列/空间尺寸及实现</td>
+<td>通常随 B 增加</td>
+</tr>
+<tr>
+<td>临时缓冲与运行开销</td>
+<td>取决于算子、后端和内存管理</td>
+<td>不是普适固定的 1.5 GB</td>
+</tr>
+</tbody></table></div>
+<p>所以简单 FP32 Adam 模型侧可粗估 <code>16N</code> 字节，<strong>不是整个训练的显存</strong>。100 万参数对应约 16 MB（十进制），还要加激活和缓冲。无动量 SGD 不需要 Adam 那两组状态，有动量 SGD 则仍需额外状态；混合精度、主参数副本和分片会改变清单。</p>
+<p>课件的激活估式 <code>4BLd</code> 可作每层保存一个宽度 d 向量的玩具估算，实际网络往往每层保存多个张量，序列和图像尺寸也须计入。减小 B 主要减激活；模型参数与优化器状态过大时，单减 B 可能仍装不下。</p>
+<p>激活检查点少存中间张量，反向时重算，<strong>用更多计算换更少显存</strong>；它不同于把训练模型保存到硬盘的 checkpoint。<a href="https://docs.pytorch.org/docs/stable/checkpoint.html">核验：PyTorch 激活检查点</a></p>
+<h3>13. 数据为什么会拖慢 GPU</h3>
+<p>可把数据流记成：硬盘取样 → 主机内存预处理 → 传入显存 → GPU 计算单元从显存/片上存储取数 → 写回激活、梯度和参数。容量回答“装得下多少”，带宽回答“每秒搬多少”，延迟回答“一次请求要等多久”。高带宽并不自动意味着低延迟。</p>
+<p>算术强度 <code>AI=FLOPs/访问字节数</code>，这里 AI 是 Arithmetic Intensity，不是 Artificial Intelligence。高强度意味着每次搬来的数据被用于较多运算，可能受算力限制；低强度算子可能主要在等数据。是否受带宽限制，需要和具体硬件、形状、实现一起判断。<a href="https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html">核验：NVIDIA 矩阵乘法性能说明</a></p>
+<p>教学估算：一段计算有 10¹² FLOPs，峰值算力 10¹³ FLOP/s，纯计算至少约 0.1 秒；若要搬 10¹¹ 字节、可用带宽 5×10¹¹ 字节/秒，纯搬运至少约 0.2 秒。理想重叠下时间也至少受二者较大值限制；单把算力翻倍不能消除带宽下限。</p>
+<p>课件第 32—38 页的硬件速率、能耗和加速倍数是具体条件下的示例，不是 BP 算法的固定常数。学习重点是解释瓶颈和选择针对性办法，不背“所有 BP 总是 memory-bound”或“矩阵乘法永远占某个百分比”。</p>
+<h3>14. GPU 并行：遵守依赖，然后减少搬运</h3>
+<p>拓扑顺序保证输入已备齐再执行运算。两节点没有直接边，不一定没有依赖，例如 A→B→C 中 A 与 C 无直接边，但 C 仍依赖 A。只有所需输入已就绪、没有未满足依赖且资源允许的工作，才可以并行。</p>
+<p>全连接层已获得上游梯度 G 后，<code>dW=XᵀG</code> 和 <code>dX=GWᵀ</code> 可具有并行机会；但是它们都需要 G，不能提前到上游梯度尚未产生时执行。“乱序”是选择不同的合法顺序，不是破坏数学依赖。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>优化办法</th>
+<th>主要节省什么</th>
+<th>取舍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分块矩阵乘法</td>
+<td>在片上重复利用一小块数据，减少全局显存读写</td>
+<td>块大小受片上空间和调度约束</td>
+</tr>
+<tr>
+<td>Kernel 融合</td>
+<td>合并相邻算子，少启动任务、少落盘式写回中间结果</td>
+<td>必须保留原始计算语义；融合并非无限有利</td>
+</tr>
+<tr>
+<td>预取与流水</td>
+<td>让数据准备和计算有机会重叠</td>
+<td>需额外缓冲，不能解决所有带宽问题</td>
+</tr>
+<tr>
+<td>多流/多卡</td>
+<td>分配可并行工作，重叠部分通信与计算</td>
+<td>仍有依赖、资源竞争和同步代价</td>
+</tr>
+<tr>
+<td>混合精度</td>
+<td>减少部分数据字节并使用相应计算单元</td>
+<td>数值范围、精度与状态存储要处理</td>
+</tr>
+<tr>
+<td>激活检查点</td>
+<td>减少保存的中间激活</td>
+<td>增加重算，不是减少 FLOPs</td>
+</tr>
+<tr>
+<td>参数/梯度/状态分片</td>
+<td>降低每张卡负责的模型状态量</td>
+<td>引入通信与调度成本</td>
+</tr>
+</tbody></table></div>
+<p>例如原计算是 <code>sum(σ(a+b)×w)</code>，融合可以让中间结果少写回，但不能随意换成 <code>sum(σ((a+b)×w))</code>，因为二者通常不同。GPU 优化的正确性仍以计算图的数学结果和训练所需依赖为准。</p>
+<p>PyTorch 动态执行可配合编译优化。新版第 42 页所说的 PyTorch 2.x 编译入口应区分 <code>torch.compile</code> 与较早的 TorchScript；第一轮只需理解“从计算图提取与融合运算，同时遵守依赖”。<a href="https://docs.pytorch.org/tutorials/intermediate/torch_compile_tutorial.html">核验：PyTorch 编译教程</a></p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> ★★★ UAT 的保证边界、计算图路径乘法/汇合加法、BP 手算、梯度问题与缓解、BN/LN、Dropout、batch/epoch、训练显存组成及并行依赖；★★ 自动微分模式和优化实现；硬件型号数值以理解量级为主。</p>
+<p><strong>与其他课件的联系：</strong> 第 08 章解释优化与泛化，本章解释如何高效算出梯度并实现训练；第 10—11 章的分类损失也能放进计算图；第 02 章的计算复杂性在这里扩展为算力、存储和数据移动的综合代价。</p>
+<p><strong>合上课件自检：</strong> UAT 保证训练成功吗？不保证。BN/LN 是否令数据正态？不是。减 batch 能减少参数数吗？不能。没有直接边能否直接并行？还要检查间接依赖。激活检查点减少计算吗？通常用重算换空间。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-13">课件 13｜贝叶斯网络：不确定知识怎样表示、学习和推理</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：bn.pdf</span> · 42 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 为后面随机决策打概率基础，展示结构化概率模型如何减少完整联合表的复杂度。</p>
+<p><strong>先会什么：</strong> 条件概率、独立性、乘法规则、求和与归一化。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—13</td>
+<td>随机变量、概率、联合表、条件概率</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>14—22</td>
+<td>警铃网络、概率分解、独立性、NB 与 HMM</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>23—30</td>
+<td>结构/参数学习、频率估计与平滑</td>
+<td>参数/平滑 ★★★；结构搜索 ★★</td>
+</tr>
+<tr>
+<td>31—33</td>
+<td>隐变量与 EM</td>
+<td>★★；掌握软归属</td>
+</tr>
+<tr>
+<td>34—40</td>
+<td>边缘化、变量消元、推理复杂性</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>41—42</td>
+<td>抽样、MCMC 与粒子滤波等</td>
+<td>★★ 概念；实现 ★</td>
+</tr>
+</tbody></table></div>
+<h3>从条件概率到贝叶斯公式</h3>
+<p>课件例子是“盗窃、地震、警铃”。警铃响了可能由盗窃引起，也可能由地震引起，所以不能直接得出确定结论。</p>
+<p>贝叶斯公式把已有认识和新证据结合起来：</p>
+<pre><code class="language-text">P(B｜A) = P(A｜B) × P(B) / P(A)
+</code></pre>
+<p><code>P(B)</code> 是看到警报前的先验；<code>P(A|B)</code> 是发生盗窃时响警报的概率；<code>P(B|A)</code> 是听到警报后的后验。</p>
+<p>下面是为教学另设的简化数字，不是课件原题：盗窃概率 1%，发生盗窃时警报响的概率 90%，未盗窃时误报率 5%。想象 10000 次情形，约 100 次盗窃，其中 90 次响警报；9900 次未盗窃，其中约 495 次误报。于是响警报后盗窃的概率是 <code>90/(90+495)≈15.4%</code>。</p>
+<p><strong><code>P(警报|盗窃)</code> 与 <code>P(盗窃|警报)</code> 是不同问题。</strong> 即使检测很敏感，也必须考虑事件本身有多常见。</p>
+<h3>为什么要有一张“网络”</h3>
+<p>n 个二值变量的完整联合分布有 <code>2^n</code> 种组合。贝叶斯网络用有向无环图及局部条件概率表表示联合分布：</p>
+<pre><code class="language-text">P(X₁,…,Xₙ) = Πᵢ P(Xᵢ｜Pa(Xᵢ))
+</code></pre>
+<p><code>Pa(X_i)</code> 指 X_i 的父节点。例如假设盗窃 B 与地震 E 先验独立，二者影响警铃 A，那么 <code>P(B,E,A)=P(B)P(E)P(A|B,E)</code>。</p>
+<p>网络的价值是利用条件独立结构减少表示所需的信息。并不是只要画成网络，存储与推理就自动变得便宜；一个节点父节点很多时，条件概率表仍可能很大。箭头首先表达分解所用的依赖结构，只有增加因果建模假设后，才可以进行相应因果解释。</p>
+<p><strong>没有直接连边，不能直接判定独立。</strong> 在单独的链式 <code>A→B→C</code> 或叉式 <code>A←B→C</code> 结构中，给定中间节点 B 后，两端条件独立；在碰撞结构 <code>A→B←C</code> 中，两端在未观测 B 及其后代时可独立，观测 B 后反而可能相关。更大网络还要检查其他路径。<a href="https://inst.eecs.berkeley.edu/~cs188/textbook/bayes-nets/d-separation.html">核验：Berkeley CS188 的 d-separation 说明</a></p>
+<p>直观例子：已经听到警铃时，若又得知发生地震，就可能降低对盗窃的怀疑，因为警铃多了另一个解释。这称为解释消除，是理解条件独立很好的入口。</p>
+<h3>朴素贝叶斯、HMM、EM 各在哪里</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>要解决的问题</th>
+<th>通俗理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>朴素贝叶斯</td>
+<td>根据多个特征判断类别</td>
+<td>给定类别后，近似认为各特征条件独立</td>
+</tr>
+<tr>
+<td>隐马尔可夫模型 HMM</td>
+<td>从观测序列推断隐藏状态</td>
+<td>看得到现象，看不到背后的状态</td>
+</tr>
+<tr>
+<td>EM</td>
+<td>隐变量未观测时学习参数</td>
+<td>交替估计隐变量的不确定归属和模型参数</td>
+</tr>
+<tr>
+<td>变量消元</td>
+<td>计算查询的概率</td>
+<td>把不关心的变量逐个求和消掉</td>
+</tr>
+<tr>
+<td>蒙特卡罗推理</td>
+<td>精确计算太贵时估计概率</td>
+<td>用适当抽样的频率近似概率</td>
+</tr>
+</tbody></table></div>
+<p>朴素贝叶斯分类比较 <code>P(类别)×ΠP(特征_i|类别)</code>。其中“朴素”指条件独立假设，<strong>不是无条件地认为所有特征独立</strong>。</p>
+<p>有限数据中没出现某种情况，不代表其概率必为零。拉普拉斯平滑给各类计数加 1：K 个可能值、总计 N 个样本时，用 <code>(该值次数+1)/(N+K)</code>。分母必须同步改变，才能仍然归一化。</p>
+<p>HMM 假设隐藏状态沿时间变化，每个时刻又产生观测。例如天气状态不可见，只看到某人是否带伞。HMM 主要描述和推断隐藏序列；MDP 则围绕行动、奖励与策略选择，两者不要因名称都有“马尔可夫”而混为一谈。</p>
+<p>标准 EM 的 E 步计算隐变量在当前参数下的后验分布或期望统计量，M 步用这些“软归属”更新参数。例如某个样本可以以 0.7 的权重属于第一组、0.3 属于第二组；并非必须先强行划入一组。课件第 32 页用取最大值填隐变量的方式讲解，更接近硬指派简化，不能直接当作标准 EM。EM 可能收敛到局部最优，初值有影响。<a href="https://cs229.stanford.edu/summer2022/cs229-notes7b.pdf">核验：Stanford CS229 的 EM 讲义</a></p>
+<p>课件提到 K-means 与 EM 的关系，可先理解为都有“确定归属—更新组代表”的交替结构。K-means 使用硬分组，标准混合模型 EM 使用软归属；严格的特例或极限关系需要补充模型假设。K-means 做聚类，与 KNN 的有标签邻居预测是不同方法。</p>
+<p>推理时先固定已知证据，再将不关心的变量求和，最后归一化。变量消元通过安排因子相乘与求和的顺序，避免先构造完整大表。蒙特卡罗则用抽样换取近似答案，需关注抽样方式、稀有证据和样本相关性，不能认为随便抽一些就准确。</p>
+<p>MCMC、Metropolis–Hastings、Gibbs 和粒子滤波在本章最后主要是扩展提及。Gibbs 可理解为按其他变量给定后的条件分布，轮流更新一个变量；粒子滤波用一批带权候选跟踪随时间变化的隐藏状态。第一次阅读先掌握概率分解与推理流程。</p>
+<h3>条件概率表为什么能压缩</h3>
+<p>三个二值变量的完整联合分布有 8 个条目，但总和为 1，所以自由参数为 7。如果结构是 <code>A→B→C</code>，只需 P(A) 的 1 个自由参数、P(B｜A) 的 2 个和 P(C｜B) 的 2 个，共 5 个。减少来自“给定 B 后，C 不再需要额外依赖 A”的假设；不是随便少填几项。</p>
+<p>对于盗窃 B、地震 E、警铃 A、两位邻居来电 J 和 M 的课件结构，可以写为 <code>P(B)P(E)P(A｜B,E)P(J｜A)P(M｜A)</code>。查问“已知两人来电，盗窃多可能”，就固定 J、M，对未知的 E、A 求和，分别得到 B=true 与 false 的分数，最后归一化。</p>
+<h3>推理和学习分别在做什么</h3>
+<p>推理是假定结构、参数已给定，利用证据求未知量；学习是从数据估计结构或参数。例如“警报响时盗窃概率多大”是推理，“历史上盗窃时警报响了多少次”用于学习条件概率表。EM 解决含隐变量时的参数学习，变量消元解决给定模型后的概率计算，二者不能混成一个算法。</p>
+<p><strong>平滑手算：</strong> 某二值特征在某类的 3 个训练样本里出现了 0 次。未平滑估计为 0，会在朴素贝叶斯连乘中把整个类别得分压成 0；加一平滑后为 <code>(0+1)/(3+2)=1/5</code>。分母的 2 来自该特征在此条件下的两种可能值。</p>
+<h3>HMM 的最小结构</h3>
+<p>隐藏状态 h₁、h₂……串成时间链，每个 h_t 产生一个观测 o_t。联合概率由初始状态概率、相邻隐藏状态的转移概率和观测的发射概率相乘。它可以回答“从伞的出现情况推断天气”，但普通 HMM 本身没有智能体要选择的行动和奖励。</p>
+<p>本章最值得练的是写分解式、判断给定条件下的独立关系、对隐变量求和并归一化。复杂结构学习、MCMC 细节与采样算法推导可放在第二轮；图的稀疏程度与变量消元次序会影响实际推理难度。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 先把条件概率方向、乘积表示、求和消元分清；“没有边就独立”和“EM 必须硬分类”是重点易错点。</p>
+<p><strong>与其他课件的联系：</strong> HMM 用隐藏状态解释序列，RNN 用可学习状态总结历史（RNN 架构详见旧版补充）；MDP 加入行动与奖励。新版第 08 章的 MLE/MAP 为本章参数学习提供另一条联系。</p>
+<p><strong>合上课件自检：</strong> P(警报｜盗窃) 很大，能推出 P(盗窃｜警报) 很大吗？答：不能，先验与误报同样重要。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-14">课件 14｜MDP：随机环境中的长期决策</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：mdp.pdf</span> · 24 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 从固定路线转向遇到不同结果仍知道怎样行动的策略，为强化学习定义目标。</p>
+<p><strong>先会什么：</strong> 状态建模、期望、条件概率、max 与 argmax。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—6</td>
+<td>随机行动后果与策略需求</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>7—13</td>
+<td>退出/继续例子、转移与 MDP 定义</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>14—18</td>
+<td>策略、累计回报、递推与策略评估</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>19—24</td>
+<td>V/Q、策略改进、策略迭代、值迭代、折扣</td>
+<td>★★★</td>
+</tr>
+</tbody></table></div>
+<p>普通确定性搜索中，“向右走”通常确定到达右边。若地面打滑，同一动作可能以不同概率到达不同位置，预先给出一条固定路线就不够了。我们需要策略 π：在每个可能状态下采取什么行动。</p>
+<p>MDP 包括状态 S、行动 A、转移概率 P、奖励 R 和所采用的时间范围/折扣设置。<strong>马尔可夫性</strong>指：当前状态和行动一旦给定，下一状态与奖励的分布不再需要额外依赖更早历史。它对状态是否包含足够信息提出要求，而不只是说“行动只看当前状态”。</p>
+<h3>V、Q 和 Bellman 关系</h3>
+<p><code>V^π(s)</code> 是从状态 s 开始，以后按照策略 π 行动的期望累计回报；<code>Q^π(s,a)</code> 是先在 s 执行指定行动 a，再按照 π 行动的期望累计回报。</p>
+<p><strong>V 评价处境，Q 评价在这个处境下的一种行动。</strong> 对确定性策略，有 <code>V^π(s)=Q^π(s,π(s))</code>；一般不等于任意行动的 Q 值。最优值满足 <code>V*(s)=max_a Q*(s,a)</code>。</p>
+<p>Bellman 最优方程把长期回报拆成当前奖励与下一状态价值：</p>
+<pre><code class="language-text">V*(s) = maxₐ Σₛ′ P(s′｜s,a) [R(s,a,s′) + γ V*(s′)]
+</code></pre>
+<p>读法：对每个行动，枚举可能结果，把“即时奖励加折扣后的未来价值”按概率求平均，再选最大的行动。γ 是折扣因子；越接近 1，未来奖励通常越重要。在无限时域、有限状态行动且奖励有界的常见设定中，<code>0≤γ&lt;1</code> 提供良好的收敛条件。γ=1 需要额外的终止或其他问题条件。</p>
+<h3>用课件原例理解递推</h3>
+<p>每回合可退出拿 15 元；也可继续拿 4 元，随后以 30% 概率结束、70% 概率进入下一回合。</p>
+<p>若策略为“永远继续”，价值满足 <code>V=4+0.7V</code>，解得 <code>V=40/3≈13.33</code>。这是<strong>指定策略的价值</strong>，尚不是最优策略的价值。</p>
+<p>若当前继续、下一轮一有机会就退出，则期望是 <code>4+0.7×15=14.5</code>，小于立即退出的 15。最优 Bellman 关系为 <code>V*=max(15,4+0.7V*)</code>，V*=15 满足它，对应立即退出。这个例子展示了“先评价一个策略”和“比较后选最优策略”的差别。</p>
+<h3>策略迭代与值迭代</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>每轮主要做什么</th>
+<th>直观解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>策略评估</td>
+<td>固定 π，求 V^π</td>
+<td>这套做法平均能得到多少回报？</td>
+</tr>
+<tr>
+<td>策略改进</td>
+<td>比较 Q^π，换成更有利的行动</td>
+<td>在每个处境下能否作出更好的选择？</td>
+</tr>
+<tr>
+<td>策略迭代</td>
+<td>反复评估与改进</td>
+<td>先算清当前办法，再更换办法</td>
+</tr>
+<tr>
+<td>值迭代</td>
+<td>对价值反复做 Bellman 最优更新</td>
+<td>不必先完整评价每个中间策略</td>
+</tr>
+</tbody></table></div>
+<p>确定性路径规划可嵌入适当的 MDP，将转移概率设为 0/1，并把路径成本转成负奖励。但“都是递推”不意味着 A* 和值迭代是同一个算法：前者以候选路径的优先扩展为核心，后者以状态价值的更新为核心。</p>
+<h3>Bellman 方程为什么能避免枚举无限未来</h3>
+<p>如果把所有未来行动与随机结果一层层列出，树会迅速变大，甚至无限长。Bellman 的办法是把“未来全部回报”压缩成下一状态的一个价值 V(s′)。当同一状态从不同路径出现时，可以复用该状态价值，而不用每次重新枚举后半生。</p>
+<p>固定策略时，下一步行动由策略决定，所以先计算概率加权平均；求最优时，才在各行动平均回报之间取 max。<strong>先对随机结果求期望，再由自己选择行动。</strong> 不能把这两层算子随意调换，否则等于假装事先知道随机结果。</p>
+<h3>课件原例中的值迭代</h3>
+<p>在“退出 15、继续 4、70% 再来一轮”的例子里，终止状态价值为 0。设活动状态初值 V₀=0，不另加时间折扣，则更新为 <code>V_{k+1}=max(15,4+0.7V_k)</code>。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>轮次</th>
+<th align="right">退出的价值</th>
+<th align="right">继续的价值</th>
+<th align="right">更新结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>从 V₀=0 更新</td>
+<td align="right">15</td>
+<td align="right">4</td>
+<td align="right">V₁=15</td>
+</tr>
+<tr>
+<td>从 V₁=15 更新</td>
+<td align="right">15</td>
+<td align="right">14.5</td>
+<td align="right">V₂=15</td>
+</tr>
+</tbody></table></div>
+<p>这里 0.7 是“还会回来”的概率，<strong>不是题目另设的折扣因子 γ</strong>。若未来还要乘 γ，继续项应是 <code>4+0.7γV</code>。这两种让未来影响变小的因素来源不同。</p>
+<p>最终从 V 取策略时，对每个状态比较所有行动的期望“当前奖励+未来价值”，选择最大者。价值是辅助判断的数字，策略才直接回答“遇到该状态要做什么”。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 会写策略的含义，区分奖励与回报、V 与 Q、评估与改进；会做一轮 Bellman 更新。</p>
+<p><strong>与其他课件的联系：</strong> 确定搜索可看作特殊的确定转移决策问题；RL 用经验近似未知环境中的价值；博弈把部分环境变化交给有目的的对手。</p>
+<p><strong>合上课件自检：</strong> “永远继续”价值 13.33，是最优价值吗？答：不是，只是指定策略的价值；课件原例立即退出得到 15 更好。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-15">课件 15｜强化学习：把经历变成更好的行动判断</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：rl.pdf</span> · 20 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 环境模型未知或不直接使用完整模型时，仍通过交互数据学习序贯决策。</p>
+<p><strong>先会什么：</strong> 第 14 章 MDP、奖励/回报、V/Q、Bellman 递推。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—9</td>
+<td>未知环境、交互与问题描述</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>10—11</td>
+<td>基于模型的转移/奖励估计</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>12—16</td>
+<td>MC、TD、SARSA 与 Q-learning</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>17—18</td>
+<td>探索与利用、ε-greedy</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>19—20</td>
+<td>价值的函数逼近</td>
+<td>★★</td>
+</tr>
+</tbody></table></div>
+<p>课件从“转移概率和奖励规则不完全知道”的情形引出强化学习。每次得到一条经历 <code>(s,a,r,s&#39;)</code>：在什么状态，做了什么，收到多少奖励，到了哪里。</p>
+<p>MDP 是建模框架。已知模型时可以规划；模型未知时可通过数据学习。强化学习也可以利用已有数据进行离线学习，不能简单记成“MDP=离线、强化学习=在线”。</p>
+<h3>先学环境，或者直接学价值</h3>
+<p>基于模型的方法先估计转移与奖励，再利用规划算法。课件例子中，某状态执行某行动 3 次，2 次回到该状态，则对应转移概率可估为 2/3。</p>
+<p>无模型方法可以不显式建立完整转移表，直接学习价值或策略。蒙特卡罗评价用一段完整经历的实际累计回报；时序差分 TD 方法用“刚获得的奖励加下一步已有的价值估计”，不必等到整段结束。这种用估计更新估计的方式叫自举。</p>
+<h3>Q-learning 的核心公式</h3>
+<pre><code class="language-text">Q(s,a) ← Q(s,a) + α [r + γ maxₐ′ Q(s′,a′) − Q(s,a)]
+</code></pre>
+<p>可以分成四段理解：旧判断是 Q(s,a)；新证据给出的目标是即时奖励 r 加下一状态的最好价值；二者差距是需要修正的量；α 决定这一次修正多少。</p>
+<p>简化算例：旧 Q=2，刚获得奖励 1，下一状态最大 Q=4，γ=0.9，α=0.5。目标为 <code>1+0.9×4=4.6</code>，新 Q=<code>2+0.5×(4.6-2)=3.3</code>。这表示此次经历让你提高了对该行动的评价，但没有完全推翻旧经验。</p>
+<p>到达真正终止状态时，后续价值通常取 0。表格型 Q-learning 在充分探索、合适步长等条件下有收敛保证；不能直接把保证套到任意函数逼近或神经网络版本。</p>
+<h3>SARSA 与 Q-learning 的关键差别</h3>
+<p>SARSA 更新为：</p>
+<pre><code class="language-text">Q(s,a) ← Q(s,a) + α [r + γ Q(s′,a′) − Q(s,a)]
+</code></pre>
+<p>这里 a&#39; 是行为策略下一步实际选择的行动。SARSA 用这个行动的价值；Q-learning 用下一状态所有行动中当前估计的最大值。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>比较</th>
+<th>SARSA</th>
+<th>Q-learning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>下一步目标</td>
+<td>实际选出的 a&#39; 的 Q 值</td>
+<td>所有 a&#39; 中最大的 Q 值</td>
+</tr>
+<tr>
+<td>与行为策略的关系</td>
+<td>同策略，在策略学习</td>
+<td>异策略，行为可以探索，更新目标按贪婪行动</td>
+</tr>
+<tr>
+<td>直观侧重</td>
+<td>把自己接下来如何行动也算进去</td>
+<td>朝当前估计的最优行动价值学习</td>
+</tr>
+</tbody></table></div>
+<p>仍用上例，如果实际探索到的下一行动 Q=1，SARSA 目标为 1.9，新 Q=1.95；Q-learning 仍使用最大 Q=4，更新为 3.3。差别来自学习目标，不是简单的“一个好、一个差”。SARSA 也可以结合策略改进用于控制，不仅能评价固定策略。</p>
+<h3>探索与利用</h3>
+<p>利用：根据当前知识选择预计回报最高的行动。探索：尝试不够了解的行动，以获得信息。ε-greedy 通常以 1−ε 的概率选择贪婪行动，以 ε 的概率随机选合法行动；随机时也可能恰好选到贪婪行动。</p>
+<p>如果永远只去第一次觉得不错的路线，可能永远不知道另一条更好；如果总是乱试，已有知识又没有转化为回报。</p>
+<p>当状态太多无法列 Q 表时，课件用 <code>Q(s,a;w)=w·φ(s,a)</code> 做函数逼近。神经网络也能承担价值或策略的近似任务，这就把监督学习中的表示与优化工具连接到强化学习。<strong>能给未见过的状态输出数值，不等于这些数值一定可靠。</strong></p>
+<h3>用同一段经历理解“学模型”与“学价值”</h3>
+<p>课件有一段经历：<code>s₁ --A,3→ s₂ --B,0→ s₁ --A,5→ s₁ --A,7→ s₁</code>。从 s₁ 执行 A 共 3 次，其中 2 次到 s₁，所以模型估计 <code>P(s₁｜s₁,A)=2/3</code>；在这两次返回 s₁ 的转移中奖励为 5、7，所以相应的条件平均奖励为 6。若奖励模型只按 <code>(s,a)</code> 记录，则应平均三次奖励，得到 5，必须与题目的 R 定义一致。</p>
+<p>如果按课件的回报示例，将这段记录视为完整结束且 γ=1，那么三次 <code>(s₁,A)</code> 后的回报分别是 15、12、7，每次访问 MC 估计为 <code>34/3</code>。如果记录只是被截断、环境并未终止，就不能直接认为之后回报为零。这里同时训练两种意识：明确样本怎样统计，明确轨迹是否真正结束。</p>
+<h3>MC 与 TD 为什么不同</h3>
+<p>MC 像等到一次旅行完全结束再总结值不值；TD 像走了一步后，结合刚付出的代价和下一位置的已有判断立即修正。MC 的目标可以直接使用完整样本回报；TD 的目标借用了当前估计，能较快更新，但估计误差也会传递。</p>
+<p>表格型一步 TD 状态价值更新是 <code>V(s)←V(s)+α[r+γV(s′)−V(s)]</code>。SARSA 和 Q-learning 把类似思想放到行动价值 Q 上，并分别使用实际下一行动和最大下一行动值作为目标。</p>
+<h3>遇到公式题的四步</h3>
+<p>先圈出本次要改哪个 <code>(s,a)</code>；再确定下一状态是否终止；然后按算法算目标；最后做“旧值+α×差距”。除非题目指定同步或批量更新，按经历逐条在线更新时，后续步骤可能需要用已更新的表值。</p>
+<p>探索不只是“噪声”。只有经历足够多种状态和行动，数据才可能纠正早先的偏差。理论收敛还需要环境、访问次数、学习率等条件，固定探索概率加任意步长不自动满足所有定理。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 必须能用同一组数分别算 SARSA 和 Q-learning；再解释它们为什么得到不同结果。</p>
+<p><strong>与其他课件的联系：</strong> 值迭代用模型对后果求平均，Q-learning 用样本修正；神经网络可替代巨大 Q 表，MCTS 也要平衡探索与利用。</p>
+<p><strong>合上课件自检：</strong> Q-learning 是否要求行为每次都贪婪？答：不要求；可探索收集经历，学习目标仍用下一状态最大 Q。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="ppt-16">课件 16｜博弈：把其他人的选择纳入推理</h2>
+<p><span class="source-reference" title="原始资料未随公开阅读版发布">打开原课件：prn-9-game.pdf</span> · 54 页。下列页码均为 PDF 页序，包含封面。</p>
+<p><strong>这份课件在全课中的作用：</strong> 从单方规划走向策略相互影响，并把树搜索、评估模型与学习组合起来。</p>
+<p><strong>先会什么：</strong> 搜索树、max/min、期望、MDP 的随机结果与主动选择之间的区别。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>回看页码</th>
+<th>这一段讲什么</th>
+<th>建议深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3—17</td>
+<td>囚徒困境、最佳应对、占优、混合与纳什</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>18—28</td>
+<td>博弈 AI 背景及对抗搜索建模</td>
+<td>背景 ★；建模 ★★</td>
+</tr>
+<tr>
+<td>29—43</td>
+<td>博弈树、有限深度、Minimax 与 α–β</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>44—50</td>
+<td>AlphaGo 类系统与 MCTS/UCT</td>
+<td>MCTS ★★★；系统细节 ★★</td>
+</tr>
+<tr>
+<td>51—54</td>
+<td>变体、多智能体与研究方向</td>
+<td>★</td>
+</tr>
+</tbody></table></div>
+<h3>从最佳应对到纳什均衡</h3>
+<p>最佳应对：给定对方的选择，我怎样做最有利。占优策略：不管对方怎样选，我的这个选择都至少不差于其他选择。纳什均衡：在给定他人策略时，没有人能仅靠自己改变策略提高收益。</p>
+<p><strong>均衡强调单方面改变没有好处，不保证所有人的总收益最高，也不保证公平。</strong> 囚徒困境就是个体激励与共同利益可能不一致的例子。混合策略是按一定概率随机选择纯策略；石头剪刀布的均衡概念讨论期望收益，并不保证每一局都不输。</p>
+<h3>Minimax 与 α–β 剪枝</h3>
+<p>在典型二人零和、轮流行动的设定中：我方节点取最大值，对方节点取最小值，因为对方收益越大，通常意味着我方收益越小。</p>
+<p>简化算例：我方可以选择 A 或 B。选 A 后对手能让我的分数变成 3 或 5；选 B 后能变成 2 或 9。对手会分别选 3 和 2，我方最终选择 A，获得可保证的 3。不能被 B 分支中看起来很大的 9 迷惑，因为这条分支不是我方控制的。</p>
+<p>α–β 剪枝利用已知上下界减少计算。如果 A 已能保证 3，检查 B 时发现对手有办法把我压到 2，那么 B 下面剩下的 9 等结果已无法让 B 胜过 A，可以跳过。</p>
+<p><strong>在相同搜索深度、相同叶子评价下，正确的 α–β 剪枝保留 Minimax 的根节点值。</strong> 它节约搜索，不改变决策目标。好的访问顺序可大幅增加剪枝，最坏时改进有限。若只搜有限深度，中间局面的评价函数好坏会影响实际下棋水平。</p>
+<h3>MCTS：用有选择的模拟估计哪条分支值得继续研究</h3>
+<p>完整博弈树太大时，可以反复做四步：选择一条值得研究的树内路径；扩展新节点；从那里模拟或评估后续结果；把结果回传，更新经过节点的访问次数和收益统计。</p>
+<p>UCT 的常见形式可以理解为：</p>
+<pre><code class="language-text">UCT 评分 = 已观察到的平均回报 + c √(ln N / n)
+</code></pre>
+<p>N 是父节点访问次数，n 是该子节点访问次数。第一项偏向已知较好的选择，第二项鼓励继续了解尝试较少的选择。尚未访问的节点需单独处理，不能直接除以零。不同记号下常数可并入 c。</p>
+<p><strong>MCTS 中的奖励回传是沿搜索路径更新统计；神经网络 BP 是沿计算图计算导数。两者名字相近，但操作不同。</strong></p>
+<p>本章连接搜索与机器学习：策略网络可帮助确定优先研究哪些行动，价值网络可估计局面好坏，再与树搜索配合。课件用 AlphaGo/AlphaZero 举例，入门时掌握这类组合关系即可，不能把不同系统的网络结构和训练细节都视为相同。</p>
+<p>MDP 的随机结果一般按给定概率求平均，Minimax 的对手节点按最不利结果处理。若固定一个对手策略，可以把它诱导的随机性纳入单方 MDP；对手也在改变策略时，就不能简单把所有博弈当作固定 MDP。</p>
+<h3>纳什均衡做题先找“单方愿不愿改”</h3>
+<p><strong>教学收益表：</strong> 两人同时选择合作 C 或背叛 D。表内是 <code>(甲收益,乙收益)</code>。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>甲 / 乙</th>
+<th>乙 C</th>
+<th>乙 D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>甲 C</td>
+<td>(3,3)</td>
+<td>(0,5)</td>
+</tr>
+<tr>
+<td>甲 D</td>
+<td>(5,0)</td>
+<td>(1,1)</td>
+</tr>
+</tbody></table></div>
+<p>若乙 C，甲选 D 得 5 大于 3；若乙 D，甲选 D 得 1 大于 0，所以 D 是甲的严格占优策略。乙同理。<code>(D,D)</code> 是均衡：任一人单独改成 C 都更差。可是 <code>(C,C)</code> 的总收益 6 高于 2，说明均衡不保证集体最佳。</p>
+<p>如果没有纯策略均衡，有限博弈仍有混合策略均衡的存在性结论。混合策略要比较期望收益；石头剪刀布均匀随机可以避免被固定偏好针对，但每一局仍可能输。</p>
+<h3>α 和 β 在剪什么</h3>
+<p>α 可理解为 MAX 沿当前搜索已能保证的下界，β 是 MIN 沿当前搜索已能保证的上界。当边界相遇或交叉，即 <code>α≥β</code>，相应分支的后续搜索已不可能影响当前决策，可以剪掉。计算题应按题目指定顺序展开；顺序不同，被剪掉的叶子可能不同，根值应相同。</p>
+<p>有限深度搜索在截止处使用局面评价，不是真正知道最终胜负。这个限制带来“视野之外可能还有逆转”的问题，因此深度、叶子评价和搜索顺序都会影响实际效果。</p>
+<h3>MCTS 的四步与容易忽视的方向</h3>
+<p>选择利用树内统计确定一条路径；扩展加入新节点；模拟/评估给出结果；回传更新路径统计。一轮结束还会继续重复，逐渐把更多计算分配到有希望或尚不确定的分支。</p>
+<p>若用 UCT 分数比较子节点，平均回报必须与当前决策者的视角一致。零和游戏中，对手节点也在争取对手的利益，不能在所有层都最大化“我方收益”而把对手当帮手。也可统一存根玩家收益，在对手层采取相应反向选择，关键是定义一致。</p>
+<p>课件后面提到多智能体强化学习及研究方向，第一轮认识问题即可。完美信息指行动时可看到相关局面或历史，完全信息主要涉及对规则、收益和参与者信息的了解，两者不能只因字面相近混用。</p>
+<h3>本章重点、联系与自检</h3>
+<p><strong>复习抓手：</strong> 会找小收益表的最佳应对与均衡；手算 Minimax、剪枝；用语言解释 MCTS 四步和探索项。</p>
+<p><strong>与其他课件的联系：</strong> Minimax 和随机 MDP 的核心差别是对手选择与概率平均；学习模型可以给博弈树提供行动偏好和局面评分。</p>
+<p><strong>合上课件自检：</strong> B 分支里最高得分 9，为什么还可能选 A？答：若 B 后由对手控制，对手会选让自己有利、让我方更差的结果。</p>
+<p><a href="#course-map">返回全课目录</a></p>
+<h2 id="connections">综合分析：把算法放在一起，才能看出它们的联系</h2>
+<h3>新版补充：一条完整的学习链</h3>
+<pre><code class="language-text">定义任务与模型 H → 用损失表达错误 → GD / Adam 寻找参数
+                              ↓
+                神经网络用计算图 / BP 高效求梯度
+                              ↓
+          初始化 / 残差 / 归一化改善训练，正则化控制拟合
+                              ↓
+       偏差—方差解释误差，VC 界联系容量、样本与泛化差距
+                              ↓
+      验证选模型 → 独立测试 → 指标 / 配对 Bootstrap 比较
+</code></pre>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>新增联系</th>
+<th>为什么相通</th>
+<th>需要分清</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MAP 与正则化</td>
+<td>负对数先验变成参数惩罚</td>
+<td>MAP 是点估计，不是完整后验</td>
+</tr>
+<tr>
+<td>PCA 与表示学习</td>
+<td>都改变输入表示</td>
+<td>PCA 选无监督线性大方差方向；网络按目标学习多层表示</td>
+</tr>
+<tr>
+<td>偏差—方差与随机森林</td>
+<td>多个不完全相关的预测聚合可降方差</td>
+<td>不是重复相同模型就必定改善</td>
+</tr>
+<tr>
+<td>VC 界与第 02 章复杂性</td>
+<td>表达能力影响需要多少样本</td>
+<td>统计容量不等于运行时间或参数数</td>
+</tr>
+<tr>
+<td>Adam 与显存估算</td>
+<td>两组矩状态帮助更新，也占内存</td>
+<td>更复杂的优化器有额外计算和存储代价</td>
+</tr>
+<tr>
+<td>检查点与 IDS/IDA*</td>
+<td>都可用重复计算减少同时保存的信息</td>
+<td>一个重算网络激活，一个重访搜索路径</td>
+</tr>
+<tr>
+<td>交叉验证与 Bootstrap</td>
+<td>都通过重用数据帮助评价</td>
+<td>前者含反复训练/验证，后者可固定模型只重采样测试索引</td>
+</tr>
+</tbody></table></div>
+<h3>第一条线：从状态空间到参数空间</h3>
+<p>搜索在可能状态和路径中找解；CSP 在变量取值组合中找合法赋值；优化在候选方案中找更好的目标值；机器学习训练则经常在参数空间里找较低损失。它们共同需要“候选表示、评价办法、改进或扩展规则、停止条件”，但不能因此把它们当成同一套具体算法。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>一个候选是什么</th>
+<th>怎样评价</th>
+<th>一步怎么变化</th>
+<th>最终交付</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A* 路径搜索</td>
+<td>到某状态的一条路径</td>
+<td>已走成本+剩余估计</td>
+<td>扩展一个后继</td>
+<td>路径</td>
+</tr>
+<tr>
+<td>CSP 回溯</td>
+<td>部分变量赋值</td>
+<td>约束是否可满足</td>
+<td>赋一个值并传播</td>
+<td>完整合法赋值</td>
+</tr>
+<tr>
+<td>局部优化</td>
+<td>一个完整方案</td>
+<td>目标函数</td>
+<td>换成邻居方案</td>
+<td>较好的方案</td>
+</tr>
+<tr>
+<td>回归训练</td>
+<td>一组模型参数</td>
+<td>样本上的损失</td>
+<td>沿负梯度调整</td>
+<td>预测模型</td>
+</tr>
+<tr>
+<td>策略迭代</td>
+<td>各状态下的一套行动规则</td>
+<td>策略期望回报</td>
+<td>评估后改进动作</td>
+<td>策略</td>
+</tr>
+</tbody></table></div>
+<p><strong>关键区别：</strong> 优化、训练过程中的每一步通常是计算过程；机器人执行的行动路径则是输出的一部分。不要因为都“逐步改进”，就忽略问题需要返回什么。</p>
+<h3>第二条线：从人工特征到学习表示</h3>
+<p>线性回归和线性分类先接收特征 φ(x)；核方法选定一个特征空间，隐式计算内积；神经网络让中间特征随任务训练；CNN 再用局部连接与权重共享限制表示结构（架构细节见旧版补充）。新版增加 PCA 作为线性降维的对照，并强调表示能力之后还需分析优化和泛化。决策树走另一条路线，用一连串规则将输入空间分区；KNN 则依据已有样本的邻近关系预测。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>主要依靠什么表达规律</th>
+<th>训练时主要做什么</th>
+<th>初学比较重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线性回归/分类</td>
+<td>特征的加权组合</td>
+<td>学权重和截距</td>
+<td>简洁，但依赖特征是否合适</td>
+</tr>
+<tr>
+<td>核 SVM</td>
+<td>选定核对应的特征空间</td>
+<td>间隔优化</td>
+<td>核、C、支持向量、样本规模</td>
+</tr>
+<tr>
+<td>KNN</td>
+<td>局部邻居及其标签</td>
+<td>保存数据及必要预处理</td>
+<td>距离、尺度、K、预测成本</td>
+</tr>
+<tr>
+<td>决策树</td>
+<td>条件判断形成的区域划分</td>
+<td>选择属性与阈值</td>
+<td>划分指标、深度、剪枝</td>
+</tr>
+<tr>
+<td>神经网络</td>
+<td>可学习的多层表示</td>
+<td>BP 加优化器</td>
+<td>非线性、结构、数据与训练</td>
+</tr>
+</tbody></table></div>
+<p>这些方法不能脱离数据和任务一概排名。“哪种最好”必须补上条件：样本多少、特征是什么、允许多少计算、需要多强解释性、用什么独立指标评价。</p>
+<h3>第三条线：未来怎样汇总，决定采用什么算法</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>后续由谁决定</th>
+<th>聚合方式</th>
+<th>典型位置</th>
+<th>最容易犯的错</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自己选择行动</td>
+<td>取最大收益或最小成本</td>
+<td>MDP 的 max、搜索选路线</td>
+<td>只顾当前收益，忘记未来</td>
+</tr>
+<tr>
+<td>按给定概率发生</td>
+<td>概率加权求平均</td>
+<td>Bellman 的 ΣP、概率推理</td>
+<td>把随机结果当作自己可以挑</td>
+</tr>
+<tr>
+<td>对手主动选择</td>
+<td>取对手有利、我方不利的结果</td>
+<td>Minimax 的 MIN 层</td>
+<td>假定对手会配合我选大分数</td>
+</tr>
+<tr>
+<td>模型未知、只能观察样本</td>
+<td>用样本修正估计</td>
+<td>TD、Q-learning、MC</td>
+<td>把一次经历当成真实期望</td>
+</tr>
+</tbody></table></div>
+<p>同一个随机决策题里，常同时出现“我选动作的 max”和“环境结果的加权平均”。博弈里则出现交替的 MAX/MIN。这是看懂 MDP、强化学习与博弈联系最有效的入口。</p>
+<h3>第四条线：所有“剪枝”和“回传”并不相同</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>实际做了什么</th>
+<th>对结果的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>搜索中的合法性剪枝</td>
+<td>排除违反规则的分支</td>
+<td>正确规则下不会丢掉合法解</td>
+</tr>
+<tr>
+<td>CSP 约束传播</td>
+<td>删除没有相容支持的值</td>
+<td>提前发现某些不可能性，仍可能需要搜索</td>
+</tr>
+<tr>
+<td>α–β 剪枝</td>
+<td>跳过不能改变当前 Minimax 值的分支</td>
+<td>在相同截止深度/评价下保留根值</td>
+</tr>
+<tr>
+<td>决策树剪枝</td>
+<td>删减训练后或训练中的模型分支</td>
+<td>会改变模型预测，目的是改善泛化</td>
+</tr>
+<tr>
+<td>神经网络 BP</td>
+<td>沿计算图累计导数</td>
+<td>为参数更新提供梯度</td>
+</tr>
+<tr>
+<td>MCTS 回传</td>
+<td>沿搜索路径累计访问与收益统计</td>
+<td>改善后续树内选择依据</td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>联系</th>
+<th>如何理解</th>
+<th>不要混淆的地方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>搜索与优化</td>
+<td>都在候选中找较好的结果</td>
+<td>找行动路径与找最终参数，输出要求不同</td>
+</tr>
+<tr>
+<td>BFS、UCS、A*</td>
+<td>改变候选扩展的优先级</td>
+<td>深度、已走代价、预计总代价各不相同</td>
+</tr>
+<tr>
+<td>启发式与 CSP</td>
+<td>利用结构减少无效尝试</td>
+<td>搜索排序与直接排除不合法取值是不同操作</td>
+</tr>
+<tr>
+<td>优化与机器学习</td>
+<td>训练常转为损失最小化</td>
+<td>参数上的搜索不一定采用图搜索算法</td>
+</tr>
+<tr>
+<td>线性模型、核方法、NN</td>
+<td>都依赖输入如何表示</td>
+<td>人工特征、隐式特征内积、可学习特征，各有机制</td>
+</tr>
+<tr>
+<td>决策树剪枝与正则化</td>
+<td>控制模型对训练细节的依赖</td>
+<td>搜索中的剪枝通常是在削减候选路径</td>
+</tr>
+<tr>
+<td>贝叶斯网络与 CNN</td>
+<td>都通过结构假设减少自由度</td>
+<td>条件独立与局部连接/共享权重不是同一种假设</td>
+</tr>
+<tr>
+<td>MDP 与强化学习</td>
+<td>在序贯决策中追求长期回报</td>
+<td>建模框架与学习过程不在同一层次</td>
+</tr>
+<tr>
+<td>值迭代与 Q-learning</td>
+<td>都借助当前奖励与未来价值的递推</td>
+<td>前者用模型期望，后者可用采样经历更新</td>
+</tr>
+<tr>
+<td>模拟退火、强化学习、MCTS</td>
+<td>都需兼顾已有好结果与新探索</td>
+<td>接受差解、选行动、分配树搜索次数的目标不同</td>
+</tr>
+<tr>
+<td>贝叶斯抽样、RL 的 MC、MCTS</td>
+<td>都利用样本近似难算的量</td>
+<td>分别估概率、估回报、支持树搜索</td>
+</tr>
+<tr>
+<td>NN 与强化学习/博弈</td>
+<td>网络可提供价值估计或行动偏好</td>
+<td>用上网络不意味着就自动替代所有规划</td>
+</tr>
+</tbody></table></div>
+<p>还可以从“哪些信息保留下来”理解算法：DFS 保留当前搜索路径；CLOSED 保存已扩展状态；Tabu 保留近期禁忌；KNN 保存训练样本；神经网络用参数保存学到的模式；Q 表保存行动价值。这些“记忆”服务于不同目的。</p>
+<h3>一个跨全课的综合题，应该怎样组织答案</h3>
+<p>题目：设计一个会从经验改进的校园配送系统。先分清输入数据、环境规则、目标和可用经验，再逐层设计：CNN 或其他模型识别图像；回归预测时间；贝叶斯模型综合不确定传感器；已知地图用 A* 找路；排班用 CSP；目标涉及随机长期结果时用 MDP；模型未知时用强化学习；存在会主动竞争的对手时再引入博弈分析。</p>
+<p>不能只把所有算法名称列上去。每放入一种方法，都要说明：<strong>它接收什么，输出什么，输出交给谁，为什么适合，误差会怎样影响下一步。</strong> 例如道路识别错了，A* 即使在输入地图上算出最优路径，也不保证现实中能通行。这说明上游学习误差与下游规划正确性是两个层次的问题。</p>
+<p>本目录另有课堂练习“<strong>大模型能不能求解搜索问题？请从问题建模、求解代价、存在问题等角度，结合实际的案例进行阐述。</strong>”它提示需要练习跨章节论述，而不仅是记公式。可用数独作具体案例：语言模型帮助把题意转成变量和值域、提出候选，CSP 求解器执行约束传播和回溯，检验器核对行/列/宫。代价要分生成、搜索与验证来谈；局限包括非法候选、状态遗漏、无法仅凭语言流畅就保证正确或最优。这里是本课程知识的论述练习，不把大模型具体产品能力或课程之外的研究细节当作考点。</p>
+<p>原练习见 <span class="source-reference" title="原始资料未随公开阅读版发布">课堂练习2.md</span>。其中既有题目，也有以往讨论内容；本报告只据题目说明能力训练方向。</p>
+<h2 id="formulas">复习工具一：公式要能翻译成人话，算法要能走一步</h2>
+<h3>核心公式速查</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>公式或文字式</th>
+<th>一句话解释</th>
+<th>使用前检查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A*</td>
+<td><code>f=g+h</code></td>
+<td>已经花的加上估计还要花的</td>
+<td>h 的性质、重复状态与终止条件</td>
+</tr>
+<tr>
+<td>启发式一致性</td>
+<td><code>h(n)≤c(n,n′)+h(n′)</code></td>
+<td>估计下降不能超过真实一步成本</td>
+<td>每条相关边、目标 h=0 等条件</td>
+</tr>
+<tr>
+<td>梯度下降</td>
+<td><code>w←w−η∇L(w)</code></td>
+<td>沿损失局部下降方向走一步</td>
+<td>损失定义、梯度符号、学习率</td>
+</tr>
+<tr>
+<td>线性预测</td>
+<td><code>ŷ=w·φ(x)+b</code></td>
+<td>特征按权重加起来</td>
+<td>特征顺序、截距是否合并</td>
+</tr>
+<tr>
+<td>MSE</td>
+<td><code>L=(1/N)Σ(ŷ_i−y_i)²</code></td>
+<td>平均每个样本的平方错误</td>
+<td>题目有无额外的 1/2</td>
+</tr>
+<tr>
+<td>hinge</td>
+<td><code>max(0,1−yz)</code></td>
+<td>分错或离边界太近都罚</td>
+<td>y 使用 −1/+1 编码</td>
+</tr>
+<tr>
+<td>SVM 几何间隔</td>
+<td><code>yz/‖w‖</code></td>
+<td>带标签方向的点到边界距离</td>
+<td>z=w·x+b，w 非零</td>
+</tr>
+<tr>
+<td>核</td>
+<td><code>K(x,z)=φ(x)·φ(z)</code></td>
+<td>直接算新表示中的内积</td>
+<td>两个输入，不是单输入映射</td>
+</tr>
+<tr>
+<td>熵</td>
+<td><code>H=−Σ p_k log₂p_k</code></td>
+<td>标签有多难猜</td>
+<td>约定 0 log 0 为 0</td>
+</tr>
+<tr>
+<td>信息增益</td>
+<td><code>IG=H(父)−Σ q_j H(子_j)</code></td>
+<td>一次划分减少多少不确定性</td>
+<td>q_j 为子组样本比例</td>
+</tr>
+<tr>
+<td>增益率</td>
+<td><code>IG / (−Σ q_j log₂q_j)</code></td>
+<td>对多分支划分作修正</td>
+<td>分母不能写成子组类别熵之和；分母为 0 需处理</td>
+</tr>
+<tr>
+<td>Gini</td>
+<td><code>1−Σp_k²</code></td>
+<td>标签不纯程度</td>
+<td>不要与熵混用数值</td>
+</tr>
+<tr>
+<td>贝叶斯</td>
+<td><code>P(B｜A)=P(A｜B)P(B)/P(A)</code></td>
+<td>用新证据更新旧判断</td>
+<td>不能颠倒条件方向</td>
+</tr>
+<tr>
+<td>BN 分解</td>
+<td><code>P(全部变量)=Π P(节点｜其父节点)</code></td>
+<td>大联合表拆成局部表</td>
+<td>图有向无环，采用对应独立性假设</td>
+</tr>
+<tr>
+<td>策略评估</td>
+<td><code>V^π(s)=Σ_a π(a｜s)Σ_s′ P(s′｜s,a)[R+γV^π(s′)]</code></td>
+<td>固定策略后的长期期望</td>
+<td>确定策略时只保留所选行动项</td>
+</tr>
+<tr>
+<td>Bellman 最优</td>
+<td><code>V*(s)=max_a Σ_s′ P(s′｜s,a)[R+γV*(s′)]</code></td>
+<td>比较每个行动的即时加未来收益</td>
+<td>对结果求平均，再选行动</td>
+</tr>
+<tr>
+<td>最优 Q</td>
+<td><code>Q*(s,a)=Σ_s′P(s′｜s,a)[R+γ max_a′Q*(s′,a′)]</code></td>
+<td>当前行动已固定，未来再选最好行动</td>
+<td>外层不再对已固定的 a 取 max</td>
+</tr>
+<tr>
+<td>Q-learning</td>
+<td><code>Q←Q+α[r+γ max_a′Q(s′,a′)−Q]</code></td>
+<td>朝样本给出的贪婪目标修正</td>
+<td>到达真正终点，未来项为 0</td>
+</tr>
+<tr>
+<td>SARSA</td>
+<td><code>Q←Q+α[r+γQ(s′,a′)−Q]</code></td>
+<td>朝实际下一行动的目标修正</td>
+<td>a′ 由行为策略实际选出</td>
+</tr>
+<tr>
+<td>UCT</td>
+<td><code>平均回报+c√(ln N/n)</code></td>
+<td>好结果与少尝试分支都可获优先</td>
+<td>n=0 单独处理，玩家视角统一</td>
+</tr>
+<tr>
+<td>Adam 两矩与更新</td>
+<td><code>m←β₁m+(1−β₁)g；v←β₂v+(1−β₂)g²；θ←θ−ηm̂/(√v̂+ε)</code></td>
+<td>用方向均值与平方尺度调整每个参数</td>
+<td>校正 m̂=m/(1−β₁^t)，v̂=v/(1−β₂^t)</td>
+</tr>
+<tr>
+<td>Logistic 单样本梯度</td>
+<td><code>∂ℓ/∂w=(p−y)x；∂ℓ/∂b=p−y</code></td>
+<td>预测概率与答案差决定调整</td>
+<td>sigmoid + 二元交叉熵，y 为 0/1</td>
+</tr>
+<tr>
+<td>偏差—方差</td>
+<td><code>E[(y−h_D)²]=Bias²+Var+σ²</code></td>
+<td>平均平方预测误差拆成三项</td>
+<td>固定 x，对训练集与独立零均值测试噪声求期望</td>
+</tr>
+<tr>
+<td>有限类风险上界</td>
+<td><code>R≤R̂+√[(ln H大小+ln(1/δ))/(2n)]</code></td>
+<td>训练风险加容量/置信修正</td>
+<td>固定有限类、独立同分布、损失有界</td>
+</tr>
+<tr>
+<td>样本复杂度直觉</td>
+<td><code>n 随 d_VC/ε² 增长</code></td>
+<td>容量大或差距要求小，需要更多样本</td>
+<td>忽略对数因子的分类框架量级，非通用精确值</td>
+</tr>
+<tr>
+<td>MLE / MAP</td>
+<td><code>MLE 最小化负对数似然；MAP 再减对数先验</code></td>
+<td>数据证据与先验合起来估参数</td>
+<td>总损失/平均损失的正则化系数须对应</td>
+</tr>
+<tr>
+<td>PCA 平方重构误差</td>
+<td><code>Σ_{j&gt;k} σ_j²</code></td>
+<td>丢掉方向的奇异值平方和</td>
+<td>中心化矩阵、截断 SVD、平方重构标准</td>
+</tr>
+<tr>
+<td>Precision / Recall</td>
+<td><code>P=TP/(TP+FP)；R=TP/(TP+FN)</code></td>
+<td>查准与查全</td>
+<td>先指定正类，检查分母为零的情况</td>
+</tr>
+<tr>
+<td>F1 / FPR</td>
+<td><code>F1=2PR/(P+R)；FPR=FP/(FP+TN)</code></td>
+<td>正类识别平衡与负类误报比例</td>
+<td>不要把 Precision 和 FPR 互补理解</td>
+</tr>
+<tr>
+<td>范数裁剪</td>
+<td><code>g←g·min(1,c/‖g‖)</code></td>
+<td>缩短过大的梯度</td>
+<td>g=0 时直接保持 0</td>
+</tr>
+<tr>
+<td>Inverted Dropout</td>
+<td><code>h′=mh/p_keep；E[h′]=h</code></td>
+<td>随机保留并补偿均值</td>
+<td>课件 p 是保留率，PyTorch p 是丢弃率</td>
+</tr>
+<tr>
+<td>稠密层前向 FLOPs</td>
+<td><code>约 2B d_in d_out</code></td>
+<td>每个输出做一组乘加</td>
+<td>忽略偏置等，乘/加各计一次</td>
+</tr>
+<tr>
+<td>FP32 Adam 模型侧</td>
+<td><code>4N+4N+8N=16N 字节</code></td>
+<td>参数、梯度和两组矩状态</td>
+<td>尚未计入激活/缓冲，混合精度或分片另算</td>
+</tr>
+<tr>
+<td>算术强度</td>
+<td><code>AI=FLOPs/访问字节数</code></td>
+<td>每搬一个字节做多少运算</td>
+<td>AI 此处不是人工智能缩写</td>
+</tr>
+</tbody></table></div>
+<p>表中 R 在 MDP 公式里简写为 R(s,a,s′)，不同教材也可能按 <code>(s,a)</code> 定义奖励。γ 是折扣，α/η 是步长；课件若使用不同字母，以变量含义对应。公式表只供复习，第一次阅读应先做前面相应例子。</p>
+<h3>五套算法骨架</h3>
+<p>这些是帮助理解的伪代码，不是任何语言的可直接运行程序。</p>
+<p><strong>1. 搜索：先定义“取出谁”和“如何处理更便宜路径”。</strong></p>
+<pre><code class="language-text">初始化 OPEN 与起点记录
+循环取出优先级最高的有效候选
+    按该算法的正确终止规则检查目标
+    对每个合法后继：
+        计算新路径成本
+        若是新状态，或找到了应保留的更便宜路径：
+            更新父节点、成本和 OPEN
+BFS：按深度；UCS：按 g；A*：按 g+h
+A* 若 h 不一致：还要允许必要的状态重开
+</code></pre>
+<p><strong>2. CSP：选变量、试值、传播、回退。</strong></p>
+<pre><code class="language-text">若所有变量已合法赋值，返回解
+按 MRV 等规则选未赋值变量 X
+按 LCV 等顺序试 X 的每个值 v
+    保存当前值域改动，暂设 X=v
+    检查约束，并做前向检验或传播
+    若仍可能有解，递归求解
+    若失败，撤销赋值并恢复本分支删掉的值
+所有值都失败，返回上层
+</code></pre>
+<p><strong>3. 模型训练：预测、损失、梯度、更新。</strong></p>
+<pre><code class="language-text">划分数据，选模型、损失与训练设置
+初始化参数
+重复：取训练批次 → 前向预测 → 计算损失
+      → 求梯度（网络可用 BP）→ 优化器更新
+用验证集选择设置，最后用测试集独立评价
+</code></pre>
+<p><strong>4. 值迭代：有模型就枚举随机后果。</strong></p>
+<pre><code class="language-text">初始化每个状态的 V
+重复：
+    对每个状态、每个动作，按模型计算“奖励+折扣后 V”的期望
+    取动作中的最大值作为该状态的新 V
+达到题目指定轮数或误差准则后，从 V 提取贪婪策略
+</code></pre>
+<p><strong>5. Q-learning：没有完整模型就使用一条经历。</strong></p>
+<pre><code class="language-text">初始化 Q
+从当前状态按带探索的行为策略选动作
+观察奖励和下一状态
+目标 = 奖励 + 折扣 × 下一状态最大 Q（终点的未来值为 0）
+当前 Q += 步长 ×（目标 − 当前 Q）
+转到下一状态，继续收集经历和更新
+</code></pre>
+<p>做算法题时，先写清使用哪套骨架，再代入题目定义。尤其注意当前记录是旧值还是刚更新的值、目标检测在哪一步、回溯是否恢复信息。</p>
+<h2 id="practice">复习工具二：综合练习与逐步答案</h2>
+<p>以下为依据本课知识自编的练习，<strong>不是历年真题</strong>。共 28 题：1—16 保留原有基础训练，17—28 对应新版新增重点。建议先遮住每题答案，写出过程后再对照。数值题的关键不只是最终数字，还要标明为什么选择该公式。</p>
+<h3>练习 1：给一个新问题建模</h3>
+<p>机器人需从宿舍去实验室，中途必须先拿钥匙，且电量限制能够移动的步数。写出状态、初态、行动、目标和代价。</p>
+<p><strong>答案要点：</strong> 状态至少为 <code>(位置,是否有钥匙,剩余电量)</code>；初态根据题目给定；行动是合法移动、取钥匙和题目允许的其他操作；目标为到实验室且满足进入条件；代价可按步数、时间或耗电定义，不能把三者不加说明地混用。关键是钥匙、电量都影响未来，所以状态不能只写位置。</p>
+<h3>练习 2：BFS、UCS 和 A* 的选择有什么不同</h3>
+<p>当前候选 A 深度 2、g=8、h=1；B 深度 3、g=4、h=6；C 深度 4、g=5、h=2。假定这就是所有有效候选，三种算法和贪婪最佳优先分别扩展谁？</p>
+<p><strong>答案：</strong> BFS 选深度最小的 A；UCS 选 g 最小的 B；贪婪选 h 最小的 A；A* 计算 f 分别为 9、10、7，选 C。题目只确定本轮扩展对象，并未给出完整图或 h 的性质，因此不能据此断言最终路径最优。</p>
+<h3>练习 3：区分可采纳与一致</h3>
+<p>只有两条边 <code>S→A</code> 成本 1，<code>A→G</code> 成本 2。取 h(S)=3、h(A)=0、h(G)=0，判断可采纳性与一致性。</p>
+<p><strong>答案：</strong> 真实最小剩余代价分别为 3、2、0，因此 h 从未高估，满足可采纳性。S→A 上要求 <code>3≤1+0</code>，不成立，所以不一致。沿该边 f 从 3 下降到 1，正好展示不一致可能导致 f 下降。把 h(A) 改为 2 后，两条边都满足一致性。</p>
+<h3>练习 4：梯度下降与学习率</h3>
+<p><code>L(w)=(w−3)²</code>，w=0，分别取 η=0.1 与 η=1.5，做一次更新并比较损失。</p>
+<p><strong>答案：</strong> 初始梯度 −6，初始损失 9。η=0.1 时新 w=0.6，新损失 5.76；η=1.5 时新 w=9，新损失 36。负梯度给出局部下降方向，但步长太大可能跨过低点并使损失上升。</p>
+<h3>练习 5：MRV、度启发式与 LCV</h3>
+<p>X 有 2 个可选值、约束连接 4 个未赋值变量；Y 有 2 个可选值、连接 2 个；Z 有 3 个可选值、连接 5 个。先选谁？选定后，值 a 会从邻居中共删 3 个值，b 会删 1 个值，且两者都不立即造成空值域，先试哪个？</p>
+<p><strong>答案：</strong> MRV 先把候选缩到 X、Y；度启发式打破并列，选 X；LCV 先试 b，给邻居保留更多选择。它们先后回答不同问题，不可把“可选值最多”记成 MRV。</p>
+<h3>练习 6：一次回归训练</h3>
+<p>沿用模型 ŷ=wx，样本 <code>(1,2)</code>、<code>(2,4)</code>，损失为两个平方误差的平均，从 w=1 以 η=0.1 更新一次。</p>
+<p><strong>答案：</strong> <code>L(w)=[(w−2)²+(2w−4)²]/2</code>，梯度 <code>5w−10</code>，在 w=1 时为 −5，新 w=1.5。新预测为 1.5、3，新损失 <code>(0.25+1)/2=0.625</code>。如果遗漏样本 x 对导数的影响，就会算错梯度。</p>
+<h3>练习 7：分类间隔与损失</h3>
+<p>真实标签 y=−1，得分 z=−0.2。是否分对？hinge 损失是多少？若 w 的长度为 2，带标签方向的几何间隔是多少？</p>
+<p><strong>答案：</strong> yz=0.2&gt;0，分对；hinge 为 <code>1−0.2=0.8</code>；几何间隔为 <code>0.2/2=0.1</code>。分对不代表远离边界，也不代表损失已经为零。</p>
+<h3>练习 8：完整算一次信息增益</h3>
+<p>父节点有 10 个样本，6 正 4 负。某属性分成两组：第一组 4 正 0 负，第二组 2 正 4 负。求信息增益、分支熵、增益率和加权 Gini。</p>
+<p><strong>答案：</strong> 父熵 <code>H(0.6,0.4)≈0.97095</code>。第一组熵为 0；第二组正类比例 1/3，熵约 0.91830。加权子熵 <code>0.4×0+0.6×0.91830≈0.55098</code>，信息增益约 <strong>0.41997</strong>。分支比例为 0.4、0.6，SplitInfo 约 0.97095，增益率约 <strong>0.43254</strong>。第二组 Gini 为 <code>1−(1/3)²−(2/3)²=4/9</code>，加权 Gini 为 <code>0.6×4/9≈0.26667</code>。父 Gini 为 0.48，所以这次 Gini 减少约 0.21333。几种数字各有含义，不要相互替换。</p>
+<h3>练习 9：BP 不是“简单分摊误差”</h3>
+<p>设 u=wx、ŷ=vu、L=(ŷ−y)²，x=2、y=4、w=1、v=3。求两个参数梯度，并解释为什么不同。</p>
+<p><strong>答案：</strong> ŷ=6，<code>∂L/∂ŷ=4</code>。v 到输出的局部导数为 u=2，故梯度 8；w 经过 u 和输出两段，局部导数分别为 x=2 与 v=3，故梯度 <code>4×3×2=24</code>。参数影响输出的路径不同，梯度就不同。多个参数应基于同一组前向中间值计算，再按训练规则更新。</p>
+<h3>练习 10：从低先验理解贝叶斯</h3>
+<p>盗窃先验 1%，盗窃时警报响的概率 90%，无盗窃误报率 5%。警报响后盗窃的后验是多少？</p>
+<p><strong>答案：</strong> 盗窃且响的概率为 0.009；无盗窃但响为 <code>0.99×0.05=0.0495</code>；警报总概率 0.0585；后验 <code>0.009/0.0585≈0.15385</code>。关键是分母要包含其他导致警报的情况，不能直接回答 90%。</p>
+<h3>练习 11：BN 中怎样消掉未知量</h3>
+<p>三个二值变量按 <code>A→B→C</code> 构成网络。已知 P(A)、P(B｜A)、P(C｜B)，要求 P(C=true)，应该怎样计算？</p>
+<p><strong>答案：</strong> <code>Σ_b P(C=true｜b) Σ_a P(b｜a)P(a)</code>。先对 A 求和得到每个 b 的边缘概率，再对 B 求和。这里不需要枚举并长期保存完整三变量联合表。这也是变量消元“把乘法与求和安排得更经济”的小例子。</p>
+<h3>练习 12：Bellman 更新里有两种选择</h3>
+<p>某状态有行动 A、B。A 以 0.5 概率得到奖励 2 并转到价值 10 的状态，另以 0.5 得到奖励 0 并转到价值 4 的状态；B 确定得到奖励 3 并转到价值 5 的状态。γ=0.9，求一轮更新。</p>
+<p><strong>答案：</strong> A 的期望为 <code>0.5×(2+0.9×10)+0.5×(0+0.9×4)=7.3</code>；B 为 <code>3+0.9×5=7.5</code>。新 V=7.5，基于本轮价值估计的贪婪行动为 B。A 的某个结果值 11 虽很大，却不能只取那一个随机结果。</p>
+<h3>练习 13：同样经历，SARSA 和 Q-learning 为什么不同</h3>
+<p>旧 Q=2，r=1，γ=0.9，α=0.5。下一状态两个行动的 Q 分别为 4、1，行为实际选了后者。两种更新分别是多少？若已到真正终点呢？</p>
+<p><strong>答案：</strong> Q-learning 目标 4.6，更新到 3.3；SARSA 目标 1.9，更新到 1.95。若到真正终点，两者未来项均为 0，更新到 <code>2+0.5×(1−2)=1.5</code>。差别来自是否使用实际下一行动，不来自是否接触这条经历。</p>
+<h3>练习 14：Minimax 与 α–β</h3>
+<p>根为 MAX，有 A、B 两个 MIN 子节点；A 的叶子按顺序为 3、5，B 为 2、9。先搜 A，再搜 B。求根值，指出可剪的叶子。</p>
+<p><strong>答案：</strong> A 的值为 min(3,5)=3，根已至少能保证 3。进入 B 先见 2，则 B 的最终最小值不可能超过 2，因此剩下的 9 不会使 B 胜过 A，可剪。根值为 3。剪枝依据是上下界，不是觉得 9 小或没价值。</p>
+<h3>练习 15：用反例辨认概念错误</h3>
+<p>判断并解释：① h 越大 A* 越好；② 训练误差低就是过拟合；③ BN 无直接边就独立；④ 深度网络不用 BP；⑤ 纳什均衡是共同收益最大；⑥ 软间隔 SVM 与核方法只能二选一。</p>
+<p><strong>答案：</strong> 六句都不准确。① 先满足不高估等保证条件，再考虑估计紧度与计算成本；② 需结合新数据表现判断；③ 要看给定条件与所有相关路径；④ 深层网络可通过 BP 训练；⑤ 均衡只要求单方改动不能获益；⑥ 前者允许违例，后者改变表示，能够组合。</p>
+<h3>练习 16：论述题怎样写得有内容</h3>
+<p>题目：比较搜索、监督学习和强化学习，并说明三者能否组合。</p>
+<p><strong>参考组织：</strong> 先说搜索在给定状态/行动模型中求路径或方案；监督学习利用输入与标签样本学预测；强化学习围绕状态、行动、奖励和长期回报，从经验改进决策。再比较已知信息、直接输出和评价标准。最后用具体组合解释：监督学习估计局面价值或路程，搜索利用估计安排尝试；RL 从互动获得的回报训练价值或策略，也能与规划结合。补充限制：学出的估计未必满足 A* 可采纳性，预测精度也不自动等于决策收益。</p>
+<p>论述题自查：有没有定义任务，交代假设，给出具体例子，解释为什么适合，讨论代价和局限？只列名词不能展示理解。</p>
+<h3>练习 17：新版 Logistic 梯度</h3>
+<p>单样本 x=2、y=1，w=b=0，sigmoid 输出配二元交叉熵，η=0.1。求本次梯度、更新后参数和预测概率。</p>
+<p><strong>答案：</strong> 原 p=0.5，<code>dw=(p−y)x=−1，db=p−y=−0.5</code>；新 w=0.1、b=0.05，z=0.25，新 p≈0.56218。概率向正确标签 1 移动。这里 y 为 0/1 编码。</p>
+<h3>练习 18：Adam 的第一次更新</h3>
+<p>初始 θ=1、m=v=0，g=2，β₁=0.9、β₂=0.999，η=0.1。做一次带偏差校正的 Adam，计算时忽略 ε。</p>
+<p><strong>答案：</strong> m=0.2、v=0.004；m̂=2、v̂=4；<code>θ_new=1−0.1×2/√4=0.9</code>。v 跟踪平方梯度的原点矩，不是已减去均值平方的方差；不能漏掉第一次的偏差校正。</p>
+<h3>练习 19：偏差和方差分别在哪里</h3>
+<p>固定输入的真实均值为 5，噪声方差 0.25。模型 A 在不同训练集下等概率预测 4 或 6；模型 B 总预测 3。比较期望平方误差。</p>
+<p><strong>答案：</strong> A 的平均预测 5，偏差²=0，方差=1，总误差 1.25；B 的平均预测 3，偏差²=4，方差=0，总误差 4.25。比较是在零均值测试噪声与训练集独立等分解条件下进行。低方差本身不代表好模型。</p>
+<h3>练习 20：泛化界中的 95% 与样本数量</h3>
+<p>采用第 08 章有限假设类界，|H|=100、n=1000、δ=0.05，训练错误率 0.10。求风险上界；n 增为 4000 时修正项怎样变？</p>
+<p><strong>答案：</strong> 修正项 <code>√[ln(2000)/2000]≈0.06165</code>，上界约 0.16165；样本四倍后修正项约 0.03082，为原来一半。保证来自训练集抽样，不是说模型有 95% 准确率。计算以固定有限 H、独立同分布、有界损失等条件为前提。</p>
+<h3>练习 21：MLE 与 MAP 的收缩</h3>
+<p>观测 2、4，已知观测方差 σ²=4，对未知均值 μ 设先验 N(0,1)。求 MLE 与 MAP，并说明先验方差变大时的趋势。</p>
+<p><strong>答案：</strong> 样本均值 3，所以 MLE=3；<code>MAP=3/[1+4/(2×1)]=1</code>。先验方差变大代表先验限制更弱，MAP 更接近 3。MAP 是一个点估计，不能当作整个后验分布。</p>
+<h3>练习 22：PCA 的“最优”是否等于“无损”</h3>
+<p>中心化数据矩阵的非零奇异值为 5、3、1，保留前 2 个主成分。求平方重构误差和保留变化比例。</p>
+<p><strong>答案：</strong> 平方重构误差为被舍弃部分 <code>1²=1</code>；保留比例 <code>34/35≈97.14%</code>。它在秩不超过 2 的近似中平方误差最小，仍然丢失信息。除非被舍弃奇异值全为零，否则不能叫无损。</p>
+<h3>练习 23：准确率高，警报就可信吗</h3>
+<p>TP=8、FN=2、FP=12、TN=78。求 Accuracy、Precision、Recall、F1 和 FPR。</p>
+<p><strong>答案：</strong> Accuracy=86%，Precision=40%，Recall=80%，F1≈53.33%，FPR≈13.33%。模型能找到大部分正例，但发出的警报中 60% 是误报。各指标分母不同，先用中文说清“在谁里面数比例”再计算。</p>
+<h3>练习 24：配对 Bootstrap 重采样的是什么</h3>
+<p>四个测试样本上的模型 A/B 正确性差为 <code>[1,−1,1,0]</code>。一次有放回抽到索引 <code>[1,1,3,4]</code>，计算原差值和这次差值。若最终差值区间包含 0，能否证明两模型相同？</p>
+<p><strong>答案：</strong> 原平均差 0.25，本次差 0.75。两个模型必须共同使用这批索引，保持同一样本上的配对。区间包含 0 表示未获得足够差异证据，不是证明相同；一次重采样也不足以构造稳定区间。若比较 F1，要在抽出的整批样本上重新计算两个 F1。</p>
+<h3>练习 25：共享变量的梯度要相加</h3>
+<p><code>L=wx+w²</code>，w=3、x=2。求 L、∂L/∂w、∂L/∂x，并说明 w 有几条贡献路径。</p>
+<p><strong>答案：</strong> L=6+9=15；w 通过 wx 和 w² 两条路径影响输出，梯度为 <code>x+2w=2+6=8</code>；x 只经 wx，梯度为 w=3。反向传播的加法是累加导数贡献，不是按平均值分摊损失。</p>
+<h3>练习 26：归一化、Dropout 与裁剪</h3>
+<p>数据矩阵 <code>[[1,3],[5,7]]</code>，按初学版 BN/LN 方向分别求均值。若激活 h=10、保留概率 p=0.8，训练时的 inverted Dropout 输出与期望是什么？再把 g=[3,4] 裁剪到最大范数 2。</p>
+<p><strong>答案：</strong> BN 按列均值为 [3,5]；LN 按行均值为 [2,6]。Dropout 以 80% 概率输出 12.5、20% 输出 0，期望 10；推理不再随机丢弃，输出 10。梯度长度为 5，乘 2/5 得 [1.2,1.6]。这些方法分别调整激活统计、引入随机正则化、限制梯度幅度，不能混成同一种操作。</p>
+<h3>练习 27：计算量、模型状态与 batch 数</h3>
+<p>全连接层 d_in=256、d_out=128、B=32，忽略偏置，FP32 Adam 全参数训练且需要输入梯度。估计前向 FLOPs、前向加反向 FLOPs和参数/梯度/Adam 状态字节数。100 个样本以 B=32 训练、保留尾批，一个 epoch 有几个 batch？</p>
+<p><strong>答案：</strong> N=32768；前向 <code>2BN=2,097,152</code> FLOPs；前向加反向约 <code>6BN=6,291,456</code> FLOPs。模型侧 <code>16N=524,288</code> 字节，即 0.5 MiB，尚未包含激活和临时缓冲。一个 epoch 为 4 个 batch。若有梯度累积，优化器更新次数不必等于 batch 数。</p>
+<h3>练习 28：更强算力为什么可能不提速</h3>
+<p>工作量 10¹² FLOPs，算力 10¹³ FLOP/s，访存 10¹¹ 字节，带宽 5×10¹¹ 字节/秒。按理想重叠的简化模型估计时间下限；算力翻倍是否解决瓶颈？此外，A→B→C 中 A 和 C 无直接边，是否可以因此并行？</p>
+<p><strong>答案：</strong> 计算下限 0.1 秒，访存下限 0.2 秒，整体至少受 max(0.1,0.2)=0.2 秒限制。算力翻倍后仍受 0.2 秒搬运下限限制；实际还有其他开销。A 和 C 有间接依赖，不能因为没有直接边就让尚未获得输入的 C 先执行。加速需要同时满足资源条件与数据依赖。</p>
+<h2 id="revision">复习工具三：分轮学习与掌握清单</h2>
+<h3>第一轮：建立问题意识</h3>
+<p>目标是看到算法名，能够回答“它解决什么问题”。按 01—16 顺序阅读正文和例子，优先口头复述，不必先背所有公式。每章写一张卡片：输入、输出、核心动作、适用条件、一个反例或限制。</p>
+<h3>第二轮：练习手算和比较</h3>
+<p>重点完成上面的 28 道综合练习，已做过旧版练习时优先补 17—28。算错时给错因归类：建模遗漏、公式含义不清、条件忘记、执行顺序错误或纯算术错误。前四类需要回到相应课件补概念，反复机械代数通常不能解决。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>建议达到的能力</th>
+<th>达标检查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AI 与复杂性（01—02）</td>
+<td>定义智能体，分别说清表示/学习/应用成本</td>
+<td>用一个新系统举例，不照抄原句</td>
+</tr>
+<tr>
+<td>搜索（03—05）</td>
+<td>独立建模；运行 BFS/UCS/A*；说明最优条件</td>
+<td>完成练习 1—3，并解释一个反例</td>
+</tr>
+<tr>
+<td>优化与约束（06—07）</td>
+<td>做梯度更新；解释局部最优；运行回溯与传播</td>
+<td>完成练习 4—5</td>
+</tr>
+<tr>
+<td>学习理论、回归、分类（08—10）</td>
+<td>算损失/Adam；解释偏差方差、VC、MLE/MAP；选择评估方式</td>
+<td>练习 6—7、17—24</td>
+</tr>
+<tr>
+<td>非线性与网络（11—12）</td>
+<td>算信息增益/BP；解释归一化、Dropout、显存与 GPU 瓶颈</td>
+<td>练习 8—9、25—28；CNN/LSTM 见补充</td>
+</tr>
+<tr>
+<td>概率模型（13）</td>
+<td>写 BN 分解、条件关系、边缘化和后验</td>
+<td>完成练习 10—11</td>
+</tr>
+<tr>
+<td>随机决策与学习（14—15）</td>
+<td>区分 V/Q；运行一次 Bellman/SARSA/Q 更新</td>
+<td>完成练习 12—13</td>
+</tr>
+<tr>
+<td>博弈（16）</td>
+<td>找最佳应对；算 Minimax 与剪枝；解释 MCTS</td>
+<td>完成练习 14 及章内收益表</td>
+</tr>
+</tbody></table></div>
+<h3>第三轮：串联与纠错</h3>
+<p>脱离原课件回答练习 15—16，再对照跨章节表。优先检查容易“会背但理解反了”的内容：生成目标与取出目标、条件概率的方向、树剪枝与搜索剪枝、BP 与参数更新、V 与任意行动的 Q、策略价值与最优价值。</p>
+<p>如果教师要求推导，再展开 SVM 对偶/KKT/SMO、A* 最优性证明、网络各层梯度和 MDP 收敛等内容；本讲义提供入门接口，不冒充完整的数学证明教材。</p>
+<h3>时间有限时的优先级</h3>
+<p><strong>先确保会做：</strong> 建模、BFS/UCS/A*、梯度与 Adam、CSP、偏差—方差/VC 界解释、MLE/MAP、评估指标、SVM 间隔、树的信息增益、BP 与共享梯度、BN/LN/Dropout、训练显存和 GPU 瓶颈、贝叶斯网络分解、Bellman、SARSA/Q-learning、Minimax/α–β/MCTS。BN 在归一化语境指 BatchNorm，BN 在概率模型语境指贝叶斯网络，务必辨认。</p>
+<p><strong>再确保会比较：</strong> IDS/BFS、爬山/退火、核/网络、KNN/k-means、PCA/表示学习、偏差—方差/VC、交叉验证/配对 Bootstrap、前向/反向自动微分、BN/LN、计算/访存限制、NB/HMM、模型/无模型方法、MC/TD。CNN 与 RNN/LSTM 作为旧版架构补充对照。</p>
+<p><strong>最后扩展：</strong> 人物细节、Kolmogorov 复杂性、进化变体、RKHS、特殊网络变体、MCMC 实现、博弈研究方向。这里的顺序反映对后续理解的帮助，不是断言它们不会考试。</p>
+<h3>做题的通用检查顺序</h3>
+<ol>
+<li><strong>先认任务。</strong> 要预测数值、判断类别、找路径、满足约束，还是选长期行动？</li>
+<li><strong>圈出假设。</strong> 步长相同吗？成本非负吗？环境模型已知吗？有终止状态吗？对方是随机还是主动决策？</li>
+<li><strong>写清符号。</strong> 哪个是当前状态、哪个是下一状态，哪个是标签、概率或价值？</li>
+<li><strong>只执行一套明确规则。</strong> 标记队列/栈顺序、并列规则、更新新旧值和停止条件。</li>
+<li><strong>解释结果。</strong> 最浅不一定最便宜，训练好不一定泛化好，期望高不保证单次最好，均衡不保证共同最好。</li>
+</ol>
+<h3>最后做一次不看答案的口头自检</h3>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>应能说出的关键答案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>只知道路线每步花费不同，BFS 能保证最便宜吗？</td>
+<td>不能；它按深度排序，可考虑 UCS</td>
+</tr>
+<tr>
+<td>A* 的 h 估得越大越好吗？</td>
+<td>需在不高估真实最小剩余代价等条件下比较；也要考虑计算 h 的开销</td>
+</tr>
+<tr>
+<td>A* 把所有重复状态都丢掉安全吗？</td>
+<td>不一定；需处理更便宜的到达路径，能否关闭不重开与一致性有关</td>
+</tr>
+<tr>
+<td>MRV 与 LCV 为什么一个“先难”、一个“留余地”？</td>
+<td>前者选变量尽早暴露冲突，后者选值减少对其他变量的限制</td>
+</tr>
+<tr>
+<td>神经网络多叠几层线性层就能获得非线性吗？</td>
+<td>不能，需要非线性激活等机制</td>
+</tr>
+<tr>
+<td>BP 是否就是梯度下降？</td>
+<td>BP 算梯度，梯度下降利用梯度更新</td>
+</tr>
+<tr>
+<td>KNN 的 K 是类别数吗？</td>
+<td>不是，是参与预测的邻居数</td>
+</tr>
+<tr>
+<td>信息增益为什么对子组熵加权？</td>
+<td>不同子组包含的样本数不同</td>
+</tr>
+<tr>
+<td>贝叶斯网络没有直接边就独立吗？</td>
+<td>不能这样推断，必须结合条件变量和所有相关路径</td>
+</tr>
+<tr>
+<td>MDP 的解为什么常用策略表示？</td>
+<td>一个行动可能产生不同结果，需要规定到不同状态后怎样应对</td>
+</tr>
+<tr>
+<td>SARSA 与 Q-learning 下一步用了什么不同的信息？</td>
+<td>实际下一行动的 Q 值，与最大行动 Q 值</td>
+</tr>
+<tr>
+<td>α–β 剪枝会牺牲给定深度下的 Minimax 值吗？</td>
+<td>正确剪枝不会；它跳过不会改变该值的分支</td>
+</tr>
+</tbody></table></div>
+<p>能把这些问题讲给另一个初学者，才说明概念之间已连起来。遇到说不清的一句，优先回到对应课件的例子，而不是把整本从头重读。</p>
+<h2 id="corrections">阅读课件时需要补充条件或修正的地方</h2>
+<p>以下结合课件原文与关键页图像核对。旧课件原有提醒保留，新版 ML/NN 的限定条件采用各自新版页码。它们会影响初学者建立概念，值得单独标记。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>课件位置</th>
+<th>容易误记的内容</th>
+<th>更准确的理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bsearch 第 4、27 页</td>
+<td>盲搜索无序；无限空间就不完备</td>
+<td>盲搜索有明确次序；有解能找到与无解能停止要区分</td>
+</tr>
+<tr>
+<td>heuristic 第 3、30 页</td>
+<td>生成目标即可停止</td>
+<td>该通用框架不能原样用来保证 UCS/A* 最优，通常在目标出队时判断</td>
+</tr>
+<tr>
+<td>heuristic 第 25、39 页</td>
+<td>一致性意味着越往下 h 越准；h=0 等价于步代价相同</td>
+<td>一致性控制相邻估计与路径上 f 的单调性；h=0 导出 UCS，等步长时才对应 BFS</td>
+</tr>
+<tr>
+<td>optimization 第 18 页</td>
+<td>first-found 爬山就是 SGD</td>
+<td>两者只是“减少每步计算”的类比，SGD 对数据抽样，first-found 对邻居检查</td>
+</tr>
+<tr>
+<td>nl 第 19–21 页</td>
+<td>训练误差低就是过拟合；两边误差接近就是好模型；SVM 只是 KNN 压缩</td>
+<td>需看新数据实际表现与训练差距；SVM 的间隔优化与 KNN 投票机制不同</td>
+</tr>
+<tr>
+<td>nl 第 36 页</td>
+<td>信息增益率分母为子组类别熵之和</td>
+<td>应为分支比例形成的 SplitInfo；不能直接相加子组类别熵</td>
+</tr>
+<tr>
+<td>bn 第 4 页</td>
+<td>概率密度直接当成单点概率</td>
+<td>连续变量的区间概率由密度积分得到，密度可以超过 1</td>
+</tr>
+<tr>
+<td>bn 第 19 页</td>
+<td>无直接边就条件独立</td>
+<td>必须指定条件集合，并检查路径结构与 d-separation</td>
+</tr>
+<tr>
+<td>bn 第 32–33 页</td>
+<td>标准 EM 直接填最可能隐变量</td>
+<td>标准 E 步求后验/期望，硬指派是不同的简化或变体</td>
+</tr>
+<tr>
+<td>mdp 第 10 页、rl 第 6 页</td>
+<td>马尔可夫性只是行动只看当前；RL 一定在线</td>
+<td>马尔可夫性主要约束转移与奖励对历史的依赖；RL 也可以离线</td>
+</tr>
+<tr>
+<td>rl 第 12、16 页</td>
+<td>任意 Q^π(s,a) 都等于 V^π(s)；固定 a 的 Q 公式又对 a 取 max</td>
+<td>确定性 π 下仅有 V^π(s)=Q^π(s,π(s))；对行动取 max 得到 V*，固定行动的 Q* 不在外层再取这个 max</td>
+</tr>
+<tr>
+<td>ml-v26 第 5—8、15—16 页</td>
+<td>精确满足样本方程等于所有学习；零梯度总是最优；凸就一定有有限解</td>
+<td>噪声下常改为损失最小化；无约束可微凸问题才有相应一阶充分条件；可分 Logistic 还可能无有限最优权重</td>
+</tr>
+<tr>
+<td>ml-v26 第 19—22 页</td>
+<td>只对训练集取期望却直接加入测试噪声方差；复杂度越高方差必增</td>
+<td>平方误差分解需对训练集与测试噪声的随机性明确取期望；经典权衡曲线是条件性直觉</td>
+</tr>
+<tr>
+<td>ml-v26 第 24、26—31 页</td>
+<td>未见区域必然预测失败；95% 是测试准确率；一个 XOR 例子就证明 VC 上界</td>
+<td>分布变化会削弱保证但并非逻辑上必败；概率针对训练集；证明 VC≤3 需排除任意四点被打散</td>
+</tr>
+<tr>
+<td>ml-v26 第 36、38、40 页</td>
+<td>MAP 之外只能近似推断；L2 永远留全部非零特征；经验 KL 可无条件用于连续密度</td>
+<td>共轭模型可精确求后验；L2 通常不诱导稀疏而非绝不为零；KL 推导须说明支持与密度条件</td>
+</tr>
+<tr>
+<td>ml-v26 第 42 页</td>
+<td>最优低秩近似就是无损压缩</td>
+<td>重构损失为被丢弃奇异值平方和，通常大于 0</td>
+</tr>
+<tr>
+<td>ml-v26 第 48—50 页</td>
+<td>用调参验证分数当最终独立评价；Bootstrap 包含训练随机性；区间跨 0 就证明一样</td>
+<td>选择与最终评价分开；固定模型的测试重采样只描述相应不确定性；跨 0 是未充分证实差异</td>
+</tr>
+<tr>
+<td>ml-v26 第 51—53 页</td>
+<td>GPU 是可复现前提；固定种子/容器消除跨硬件差异</td>
+<td>CPU 也能做可复现实验；需记录环境/数据/随机性，不能保证跨平台逐位一致</td>
+</tr>
+<tr>
+<td>nn-v26 第 6、18—20 页</td>
+<td>UAT 保证训练与泛化；BP 是更新器；每个中间值都须永久保存</td>
+<td>UAT 是合适条件下的表示存在性；BP 算梯度、优化器更新；按反向所需信息保存或重算</td>
+</tr>
+<tr>
+<td>nn-v26 第 22—26 页</td>
+<td>光看激活导数就确定梯度；谱半径等于最大奇异值；归一化把数据变正态</td>
+<td>梯度还含权重和路径；两种矩阵量一般不同；归一化调整统计量而非保证分布形状</td>
+</tr>
+<tr>
+<td>nn-v26 第 27 页</td>
+<td>Dropout 的 p 在公式与 API 中同义；权重衰减总等于 L2；增强样本都独立</td>
+<td>课件 p 为保留率，PyTorch 为丢弃率；Adam 下需区分 AdamW；数据增强引入的样本相关</td>
+</tr>
+<tr>
+<td>nn-v26 第 29—31、43 页</td>
+<td>任意模型前向都为 2N，Adam 总显存固定为 16N+1.5GB</td>
+<td>FLOPs 需给出结构和数据量；16N 是简化 FP32 模型侧，另有激活与依实现而变的缓冲</td>
+</tr>
+<tr>
+<td>nn-v26 第 35—40 页</td>
+<td>BP 永远受带宽限制；百分比是固定常数；没直接边就能并行</td>
+<td>需实测算子/形状/硬件；比例是具体条件示例；还需检查间接依赖与输入是否就绪</td>
+</tr>
+<tr>
+<td>nn-v26 第 41—42 页</td>
+<td>融合可以改变算子语义或越过依赖；PyTorch 2.x 编译入口就是 TorchScript</td>
+<td>融合必须保持原结果，权重梯度仍依赖上游梯度；应区分 torch.compile 与 TorchScript</td>
+</tr>
+</tbody></table></div>
+<p>可核验的补充来源：A* 条件参见 <a href="https://www-inst.eecs.berkeley.edu/~cs188/fa23/assets/notes/cs188-fa23-note03.pdf">Berkeley CS188 搜索讲义</a>；增益率和剪枝参见 <a href="https://www.cs.cmu.edu/~bhiksha/courses/10-601/decisiontrees/">CMU 决策树课程资料</a>。BP、条件独立和 EM 的核验链接已放在对应解释旁。上述补充帮助纠正概念，不是额外扩展考试范围。</p>
+<h2 id="legacy-nn">旧版补充：CNN、RNN 与 LSTM 的知识联系</h2>
+<p>来源：<span class="source-reference" title="原始资料未随公开阅读版发布">旧版 nn.pdf</span> 第 39—62 页。以下保留原讲义的架构解释，方便理解图像、序列以及其他课程章节中的联系；当前 nn-v26 的主复习内容以第 12 章为准。旧版这部分页数不另计入 551 页主版本总数。</p>
+<h3>CNN：利用图片的局部结构和重复模式</h3>
+<p>同一个边缘或小图案可能出现在图片不同位置。CNN 用一个小卷积核在多个位置重复检测：局部连接减少每次观察的范围，权重共享减少需学习的参数。不同卷积核学习不同模式，各自产生特征图。</p>
+<p>类比：拿同一个小窗口在整张图上滑动，逐处检测是否出现某种纹理。后面的层再组合局部信息，形成更大范围的表示。池化对小区域取最大值或平均值等，压缩空间尺寸。</p>
+<p>卷积层参数个数通常由核大小、输入通道和输出通道决定；图片变大并不直接增加该层核参数个数，但会增加计算量与中间特征图内存。权重共享也不是整个网络只允许使用同一种卷积核。</p>
+<h3>RNN、LSTM、GRU：怎样利用前面出现过的信息</h3>
+<p>RNN 处理序列，每一步同时接收当前输入和此前的隐藏状态：</p>
+<pre><code class="language-text">h(t) = σ[Wₓ x(t) + Wₕ h(t−1) + b]
+</code></pre>
+<p>可以把 h_t 理解为“读到这里时保留的小笔记”。各时刻通常共享参数，但笔记内容随输入改变。普通 RNN 在长序列上可能遇到梯度消失或爆炸，长期信息难以保留和学到。</p>
+<p>LSTM 增加记忆状态和门控：遗忘门决定保留多少旧信息，输入门决定写入多少新信息，输出门决定显露哪些信息。核心更新为：</p>
+<pre><code class="language-text">c(t) = f(t) ⊙ c(t−1) + i(t) ⊙ c̃(t)
+</code></pre>
+<p><code>⊙</code> 表示对应元素相乘。它像“保留部分旧笔记，再添入筛选后的新笔记”。门值由网络学出，通常在 0–1 之间，并非每个门只有完全开或完全关两个状态。GRU 以更新门、重置门等构造较简洁的门控结构。它们缓解长期依赖问题，但不保证无限久的信息都能准确记住。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>偏重处理的结构</th>
+<th>核心思想</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>普通前馈网络</td>
+<td>固定特征向量</td>
+<td>多层非线性变换</td>
+</tr>
+<tr>
+<td>CNN</td>
+<td>具有局部空间结构的数据</td>
+<td>局部连接、权重共享</td>
+</tr>
+<tr>
+<td>RNN</td>
+<td>有顺序的数据</td>
+<td>历史状态参与当前计算</td>
+</tr>
+<tr>
+<td>LSTM/GRU</td>
+<td>需要选择性保留历史的序列</td>
+<td>门控记忆</td>
+</tr>
+</tbody></table></div>
+<p>这张表强调结构设计动机，不是说 CNN 只能处理图片、RNN 只能处理文字。</p>
+<h3>CNN 参数共享的补充算例</h3>
+<p><strong>教学例子：</strong> 输入有 3 个通道，卷积核大小为 3×3，输出有 8 个通道，普通卷积含偏置。权重数为 <code>3×3×3×8=216</code>，每个输出通道一个偏置，共 8 个，总参数 224。这里“8 个核”按覆盖全部输入通道的卷积滤波器理解。</p>
+<p>同一个滤波器在不同位置反复使用，所以输入宽高改变时这组参数仍为 224；输出图大小和运算量却会改变。若问输出尺寸，还需知道步长、填充和膨胀率，不能只凭核大小算。</p>
+<p>旧版第 31—38 页还讨论自编码器和逐层预训练：重建输入可以提供表示学习信号，逐层预训练是一条历史路线，不能理解成深度网络不用 BP。旧版末尾的注意力、胶囊、水库模型只作为扩展入口，不构成新版的系统架构教学。</p>
+<p><a href="#ppt-12">返回第 12 章新版主线</a></p>
+<h2 id="sources">16 份原课件页码索引</h2>
+<p>下面的页码给出适合本导读的重点入口；不表示其他页没有价值。</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>课件</th>
+<th align="right">页数</th>
+<th>优先回看</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">whatwhyhist.pdf</span></td>
+<td align="right">23</td>
+<td>7–14：AI 定义、智能体；历史人物作背景</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">fkc(1).pdf</span></td>
+<td align="right">16</td>
+<td>3、8–16：函数、表示复杂性、学习与求解</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">search.pdf</span></td>
+<td align="right">50</td>
+<td>4–5、16–22、25–37、41–48：建模与搜索框架</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">bsearch.pdf</span></td>
+<td align="right">27</td>
+<td>7–22：算法对比；23–26：重复状态</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">heuristic.pdf</span></td>
+<td align="right">46</td>
+<td>5–10、21–30、36–45：A* 与启发式性质</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">optimization.pdf</span></td>
+<td align="right">32</td>
+<td>10–22：梯度与局部搜索；23–32：群体和构造搜索</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">csp.pdf</span></td>
+<td align="right">31</td>
+<td>4–16：建模和回溯；18–30：启发式与传播</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">ml-v26.pdf</span></td>
+<td align="right">53</td>
+<td>8—17：优化；19—32：偏差/方差与 VC；34—40：MLE/MAP；42—50：模型与评估；51—53：可复现工程</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">lr.pdf</span></td>
+<td align="right">16</td>
+<td>5–16：特征、损失、梯度下降与 SGD</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">lc.pdf</span></td>
+<td align="right">28</td>
+<td>8–21：分类与间隔；24–26：SMO；28：损失扩展</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">nl.pdf</span></td>
+<td align="right">45</td>
+<td>3–11：软间隔与核；13–21：KNN；26–42：决策树</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">nn-v26.pdf</span></td>
+<td align="right">44</td>
+<td>3—11：表示/激活；12—20：计算图/BP；21—27：训练稳定；29—31：开销；32—44：访存/GPU</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">bn.pdf</span></td>
+<td align="right">42</td>
+<td>9、14–22：概率与图；29–33：学习；34–41：推理</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">mdp.pdf</span></td>
+<td align="right">24</td>
+<td>6–10：建模；14–24：策略、V/Q、迭代</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">rl.pdf</span></td>
+<td align="right">20</td>
+<td>8–16：学习与更新；17–20：探索和函数逼近</td>
+</tr>
+<tr>
+<td><span class="source-reference" title="原始资料未随公开阅读版发布">prn-9-game.pdf</span></td>
+<td align="right">54</td>
+<td>7–17：均衡；29–43：Minimax/剪枝；44–50：MCTS</td>
+</tr>
+</tbody></table></div>
+<p>上述 16 份当前主版本合计 551 页；ml.pdf、nn.pdf 旧文件保留供对照，不重复计数。目录里的研究论文和实验代码属于其他学习材料，未混入本课件主体；课堂练习仅用于说明可以怎样训练综合论述能力。</p>
+</main></div><footer>依据本目录 16 份原课件整理。重点等级为学习建议，具体考试范围以教师要求为准。<br><span class="source-reference" title="原始资料未随公开阅读版发布">Markdown 讲义</span> · 支持离线阅读</footer><a class="to-top" href="#top">回到顶部 ↑</a><script>
+const searchInput=document.getElementById('search');
+let marks=[],current=-1;
+function clearMarks(){document.querySelectorAll('.search-mark').forEach(m=>m.replaceWith(document.createTextNode(m.textContent)));document.getElementById('content').normalize();marks=[];current=-1;}
+function selectMatch(index){if(!marks.length)return;marks.forEach(m=>m.classList.remove('current'));current=(index+marks.length)%marks.length;marks[current].classList.add('current');marks[current].scrollIntoView({block:'center',behavior:'instant'});document.getElementById('match-count').textContent=(current+1)+' / '+marks.length;}
+function search(){clearMarks();const q=searchInput.value.trim();if(!q){document.getElementById('match-count').textContent='';return;}const walker=document.createTreeWalker(document.getElementById('content'),NodeFilter.SHOW_TEXT);const nodes=[];let node;while(node=walker.nextNode())nodes.push(node);nodes.forEach(n=>{const value=n.nodeValue;const low=value.toLocaleLowerCase();const query=q.toLocaleLowerCase();let pos=0,idx;const frag=document.createDocumentFragment();while((idx=low.indexOf(query,pos))!==-1){frag.append(value.slice(pos,idx));const mark=document.createElement('mark');mark.className='search-mark';mark.textContent=value.slice(idx,idx+q.length);frag.append(mark);marks.push(mark);pos=idx+q.length;}if(pos){frag.append(value.slice(pos));n.replaceWith(frag);}});document.getElementById('match-count').textContent=marks.length?'':'未找到';selectMatch(0);}
+document.getElementById('search-form').addEventListener('submit',e=>{e.preventDefault();search();});
+document.getElementById('next').addEventListener('click',()=>selectMatch(current+1));
+document.getElementById('prev').addEventListener('click',()=>selectMatch(current-1));
+document.getElementById('clear').addEventListener('click',()=>{searchInput.value='';clearMarks();document.getElementById('match-count').textContent='';});
+document.getElementById('print-btn').addEventListener('click',()=>window.print());
+let size=18;document.getElementById('font-btn').addEventListener('click',()=>{size=size>=22?18:size+2;document.documentElement.style.setProperty('--font',size+'px');});
+const headings=[...document.querySelectorAll('main h2')];const links=[...document.querySelectorAll('aside nav a')];
+function updateProgress(){const max=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('progress').style.width=(max>0?Math.min(100,100*window.scrollY/max):0)+'%';let active=headings[0];for(const h of headings){if(h.getBoundingClientRect().top<150)active=h;else break;}links.forEach(a=>a.classList.toggle('active',a.hash==='#'+active.id));}
+window.addEventListener('scroll',updateProgress,{passive:true});updateProgress();
+</script></body></html>

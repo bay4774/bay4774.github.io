@@ -9,7 +9,7 @@ import DigestCard from '../components/DigestCard.astro';
 import { news } from '../data/news';
 import '../styles/digest.css';
 const publications = (await getCollection('publications', ({data}) => !data.draft && data.featured)).sort((a,b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2);
-const digests = (await getCollection('digest', ({data}) => !data.draft)).sort((a,b) => b.data.date.getTime() - a.data.date.getTime()).slice(0,3);
+const digests = (await getCollection('digest', ({data}) => !data.draft)).sort((a,b) => Number(b.data.featured) - Number(a.data.featured) || b.data.date.getTime() - a.data.date.getTime()).slice(0,3);
 const notes = (await getCollection('notes', ({data}) => !data.draft)).sort((a,b) => b.data.date.getTime() - a.data.date.getTime()).slice(0,3);
 const projects = (await getCollection('projects', ({data}) => !data.draft)).sort((a,b) => Number(b.data.featured) - Number(a.data.featured));
 const project = projects[0];
@@ -23,7 +23,7 @@ const project = projects[0];
         <p class="hero-subtitle">让智能，走进物理世界。</p>
         <p class="hero-intro">我是{site.nameZh}。{site.intro}</p>
         <div class="hero-topics">{site.topics.map(topic => <span>{topic}</span>)}</div>
-        <div class="hero-actions"><a class="button button-primary" href={withBase('/publications/')}>Explore my research <Icon name="arrow-up-right" size={15} /></a><a class="button button-secondary" href={withBase('/digest/')}>阅读研究手记 <Icon name="book" size={15} /></a></div>
+        <div class="hero-actions"><a class="button button-primary" href={withBase('/publications/')}>Explore my research <Icon name="arrow-up-right" size={15} /></a><a class="button button-secondary" href={withBase('/digest/')}>阅读论文分享 <Icon name="book" size={15} /></a></div>
         <div class="hero-links"><span>{site.affiliation}</span><span class="sep"></span>{site.github ? <a href={site.github} target="_blank" rel="noopener noreferrer"><Icon name="github" size={13} /> GitHub</a> : <a href={withBase('/trajectory/')}>About me <Icon name="arrow-up-right" size={12} /></a>}{site.scholar && <a href={site.scholar} target="_blank" rel="noopener noreferrer"><Icon name="book" size={13} /> Scholar</a>}{site.email && <a href={`mailto:${site.email}`}><Icon name="mail" size={13} /> Email</a>}{site.location && <span>{site.location}</span>}</div>
       </div>
       <div class="hero-visual">
@@ -35,7 +35,7 @@ const project = projects[0];
     </section>
     <div class="home-ledger" aria-label="研究内容入口">
       <div class="ledger-item"><span class="num">01 /</span><div><h2>Research output</h2><p>原创成果与开放研究</p></div><a href={withBase('/publications/')} aria-label="查看学术发表"><Icon name="arrow-up-right" size={16} /></a></div>
-      <div class="ledger-item"><span class="num">02 /</span><div><h2>Critical insights</h2><p>前沿精读与我的思考</p></div><a href={withBase('/digest/')} aria-label="查看论文精读"><Icon name="arrow-up-right" size={16} /></a></div>
+      <div class="ledger-item"><span class="num">02 /</span><div><h2>Critical insights</h2><p>精选文献与研究思考</p></div><a href={withBase('/digest/')} aria-label="查看论文精读"><Icon name="arrow-up-right" size={16} /></a></div>
       <div class="ledger-item"><span class="num">03 /</span><div><h2>Built to explore</h2><p>从理论推导到系统实践</p></div><a href={withBase('/projects/')} aria-label="查看工程项目"><Icon name="arrow-up-right" size={16} /></a></div>
     </div>
     {news.slice(0,1).map(item => <div class="home-news"><span class="eyebrow">LATEST NEWS</span><time datetime={item.date}>{item.date.replaceAll('-','.')}</time><a href={withBase(item.href)}>{item.title} <Icon name="arrow-up-right" size={12} /></a>{item.demo && <span class="demo-badge">示例动态</span>}</div>)}
@@ -45,7 +45,7 @@ const project = projects[0];
       {publications.map(entry => <PublicationCard entry={entry} />)}
     </section>
     <section class="section-block">
-      <div class="section-head"><div><span class="eyebrow">READ, QUESTION, CONNECT / 论文精读</span><h2 class="section-title">From my reading desk<span>不止读懂，更要追问</span></h2></div><a class="text-link" href={withBase('/digest/')}>All field notes <Icon name="arrow-up-right" size={14} /></a></div>
+      <div class="section-head"><div><span class="eyebrow">READ, QUESTION, CONNECT / 论文分享</span><h2 class="section-title">From my reading desk<span>从经典方法，走向研究问题</span></h2></div><a class="text-link" href={withBase('/digest/')}>All shared papers <Icon name="arrow-up-right" size={14} /></a></div>
       <div class="home-digest-grid">{digests.map(entry => <DigestCard entry={entry} />)}</div>
     </section>
     <div class="home-lab">

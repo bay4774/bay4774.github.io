@@ -41,6 +41,14 @@ const digest = defineCollection({
     verdict: z.string(),
     readTime: z.number(),
     week: z.string(),
+    curated: z.boolean().default(false),
+    featured: z.boolean().default(false),
+    citations: z.object({
+      count: z.number().int().nonnegative(),
+      source: z.string(),
+      url: z.url(),
+      accessed: z.string(),
+    }).optional(),
     originalUrl: z.string().optional(),
     code: z.string().optional(),
     related: z.array(z.string()).default([]),
@@ -55,6 +63,7 @@ const notes = defineCollection({
     chapters: z.number().default(1),
     pdf: z.string().optional(),
     slides: z.string().optional(),
+    html: z.string().optional(),
   }),
 });
 const projects = defineCollection({

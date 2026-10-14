@@ -4,6 +4,7 @@ description: "示例精读：从语义、节奏与运动约束三个尺度阅读
 date: "2026-10-09"
 tags: ["Co-Speech-Gesture","Human-Robot Interaction","Bionic-Head"]
 demo: true
+draft: true
 originalTitle: "示例：Speech-conditioned Embodied Gestures（待替换）"
 authors: "Original authors · 示例（待替换）"
 lab: "Original laboratory · 示例（待替换）"

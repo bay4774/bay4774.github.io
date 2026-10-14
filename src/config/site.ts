@@ -18,7 +18,7 @@ export const site = {
 export const navigation = [
   { label: 'Home', zh: '主页', href: '/' },
   { label: 'Publications', zh: '学术发表', href: '/publications/' },
-  { label: 'Paper Digest', zh: '论文精读', href: '/digest/' },
+  { label: 'Paper Digest', zh: '论文分享与精读', href: '/digest/' },
   { label: 'Lectures & Notes', zh: '讲义与笔记', href: '/notes/' },
   { label: 'Projects', zh: '工程项目', href: '/projects/' },
   { label: 'Trajectory', zh: '科研轨迹', href: '/trajectory/' },

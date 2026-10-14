@@ -4,6 +4,7 @@ description: "示例精读：把仿真参数变化与真实系统中的不确定
 date: "2026-10-11"
 tags: ["Sim-to-Real","Robotics","Reinforcement-Learning"]
 demo: true
+draft: true
 originalTitle: "示例：Robust Transfer through Simulation（待替换）"
 authors: "Original authors · 示例（待替换）"
 lab: "Original laboratory · 示例（待替换）"

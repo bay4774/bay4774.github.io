@@ -4,6 +4,7 @@ description: '示例讲义：从广义坐标、质量矩阵到接触约束，组
 date: 2026-10-10
 tags: ['Dynamics', 'Physics-based Animation', 'Robotics']
 demo: true
+draft: true
 category: 'theory'
 readTime: 12
 chapters: 4

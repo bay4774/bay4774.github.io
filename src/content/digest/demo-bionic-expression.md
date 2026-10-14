@@ -4,6 +4,7 @@ description: "示例精读：从表情目标到可执行机构，关注同步、
 date: "2026-10-12"
 tags: ["Bionic-Head","Human-Robot Interaction","Embodied AI"]
 demo: true
+draft: true
 originalTitle: "示例：Perception-driven Bionic Expression（待替换）"
 authors: "Original authors · 示例（待替换）"
 lab: "Original laboratory · 示例（待替换）"

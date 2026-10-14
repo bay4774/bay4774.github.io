@@ -44,7 +44,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
     <main id="main-content"><slot /></main>
     <footer class="site-footer">
       <div class="container footer-top"><div><a class="footer-wordmark" href={withBase('/')}>{site.name}<span> / Research & Field Notes</span></a><p>从阅读中发现问题，在实践中寻找答案。</p></div><a class="back-top" href="#main-content">Back to top ↑</a></div>
-      <div class="container footer-bottom"><span>© {new Date().getFullYear()} {site.name} · Built with Astro</span><span>{site.demoMode ? '预览模式 · 内容均为示例，待替换' : site.affiliation}</span><div>{site.github && <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}{site.email && <a href={`mailto:${site.email}`}>Email ↗</a>}</div></div>
+      <div class="container footer-bottom"><span>© {new Date().getFullYear()} {site.name} · Built with Astro</span><span>{site.demoMode ? '部分模块保留标注的演示内容' : site.affiliation}</span><div>{site.github && <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}{site.email && <a href={`mailto:${site.email}`}>Email ↗</a>}</div></div>
     </footer>
     <dialog class="citation-dialog" id="citation-dialog" aria-labelledby="citation-title"><div class="dialog-head"><div><span class="eyebrow">REFERENCE</span><h2 id="citation-title">BibTeX citation</h2></div><button class="icon-button" data-close-dialog aria-label="关闭引用窗口"><Icon name="close" /></button></div><p class="muted" id="citation-warning"></p><pre><code id="citation-content"></code></pre><div class="dialog-actions"><button class="button button-primary" data-copy-citation>复制 BibTeX</button><button class="button button-secondary" data-close-dialog>关闭</button></div></dialog>
     <script src="../scripts/site.ts"></script>

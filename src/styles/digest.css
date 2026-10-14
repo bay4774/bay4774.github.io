@@ -298,4 +298,7 @@
   .digest-prose .analysis-columns, .digest-prose .pros-cons, .digest-prose .analysis-grid { grid-template-columns: 1fr; }
   .digest-article-byline > span:last-child { display: none; }
 }
+.digest-citations { margin: 13px 0 0; color: var(--muted); font-size: 11px; }
+.digest-citation-audit { margin: -20px 0 30px; padding: 18px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.digest-citation-audit strong { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .digest-card, .digest-title-arrow, .graph-line, .graph-node, .digest-topic { transition: none; } .digest-card:hover { transform: none; } }

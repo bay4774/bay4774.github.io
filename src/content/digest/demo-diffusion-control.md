@@ -4,6 +4,7 @@ description: "示例精读：将扩散动作序列放回闭环系统，重新审
 date: "2026-10-14"
 tags: ["Diffusion-Policy","Embodied AI","Motion-Tracking"]
 demo: true
+draft: true
 originalTitle: "示例：Conditional Diffusion for Action Sequences（待替换）"
 authors: "Original authors · 示例（待替换）"
 lab: "Original laboratory · 示例（待替换）"

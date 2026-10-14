@@ -4,6 +4,7 @@ description: "示例精读：拆解参考动作、接触约束与反馈控制，
 date: "2026-10-13"
 tags: ["Motion-Tracking","Reinforcement-Learning","Physics-based Animation"]
 demo: true
+draft: true
 originalTitle: "示例：Contact-aware Motion Tracking（待替换）"
 authors: "Original authors · 示例（待替换）"
 lab: "Original laboratory · 示例（待替换）"
