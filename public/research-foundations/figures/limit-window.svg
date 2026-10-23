@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+  <title id="title">极限定义中的输入窗口与输出窗口</title>
+  <desc id="desc">对f(x)等于2x加1，x0等于1，目标值3。输入与1的距离小于0.5时，输出与3的距离小于1。两个窗口对应严格不等式，端点不包括在内。</desc>
+  <rect width="600" height="380" rx="12" fill="#f0f4ed"/>
+  <g font-family="Microsoft YaHei,Arial,sans-serif" fill="#223c34" font-size="21">
+    <text x="27" y="38" font-size="24" font-weight="600">f(x) = 2x + 1：让输出靠近 3</text>
+    <rect x="70" y="108" width="425" height="106" fill="#c6dce6" fill-opacity=".55"/>
+    <rect x="176" y="70" width="212" height="250" fill="#d8e8c6" fill-opacity=".65"/>
+    <path d="M70 320H520M70 320V65" fill="none" stroke="#7c8c84" stroke-width="2"/>
+    <path d="M70 267L473 65.5" stroke="#214e40" stroke-width="4"/>
+    <path d="M70 108H495M70 214H495" stroke="#407d9b" stroke-width="2" stroke-dasharray="7 5"/>
+    <path d="M176 320V70M388 320V70" stroke="#819f57" stroke-width="2" stroke-dasharray="7 5"/>
+    <circle cx="282" cy="161" r="5" fill="#214e40"/>
+    <text x="27" y="116">4</text><text x="27" y="169">3</text><text x="27" y="222">2</text>
+    <text x="156" y="347">0.5</text><text x="275" y="347">1</text><text x="373" y="347">1.5</text>
+    <text x="410" y="183">|f(x) − 3| &lt; 1</text>
+    <text x="203" y="295">|x − 1| &lt; 0.5</text>
+    <text x="71" y="373" font-size="18">蓝带：输出误差；绿带：输入限制。图中窗口均不含边界。</text>
+  </g>
+</svg>

@@ -1,6 +1,12 @@
 export const news = [
   {
     date: '2026-10-23',
+    title: '上线80章公共基础与六方向80章讲义：推导、算例、练习和先修导航',
+    href: '/notes/',
+    demo: false,
+  },
+  {
+    date: '2026-10-23',
     title: '更新高级人工智能讲义：16章逐例详解、原图与28道综合练习',
     href: '/lectures/advanced-artificial-intelligence/index.html',
     demo: false,

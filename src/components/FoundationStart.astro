@@ -1,0 +1,35 @@
+---
+import { withBase } from '../lib/paths';
+interface Props { mode?: 'notes' | 'papers'; }
+const { mode = 'notes' } = Astro.props;
+const papers = mode === 'papers';
+---
+<section class="foundation-start" aria-label="科研公共基础学习入口">
+  <div class="foundation-start-copy">
+    <h2>{papers ? '让经典论文接住基础知识。' : '先把公共基础，一层层搭起来。'}</h2>
+    <p>{papers ? '6 篇公共基础经典 + 2 篇方向选读。先沿章节讲义补齐先修，再逐节阅读与验证。' : '按 00–79 章逐章重建概念，每章讲清一个主题，配有推导、例题、自测和答案。40 周路径只安排每两周读哪几章。'}</p>
+    <ol class="foundation-steps" aria-label="学习阶段">
+      <li>语言与逻辑</li><li>线代与微积分</li><li>概率与建模</li><li>数值与优化</li><li>方向基础与论文</li>
+    </ol>
+    <p class="foundation-status">讲义自纠与个人学习分开记录；个人作答和学习成果仅私下保存。</p>
+    {!papers && <p><a href={withBase('/notes/foundations-study-guide/')}>学习方法与先修补救</a> · <a href={withBase('/notes/foundations-review-exercises/')}>跨章复习与答案</a> · <a href={withBase('/notes/direction-foundations/')}>已掌握公共基础：进入六方向讲义</a></p>}
+  </div>
+  <div class="foundation-actions">
+    <a class="button button-primary" href={withBase(papers ? '/notes/foundations-paper-reading/' : '/notes/foundations-00-math-language/')}>{papers ? '查看基础论文阅读路径' : '从第 00 章开始'} <span aria-hidden="true">↗</span></a>
+    <a class="button button-secondary" href={withBase('/notes/foundations-course-index/')}>查看章节与 40 周阅读路径</a>
+    <a class="text-link" href={withBase(papers ? '/notes/' : '/notes/foundations-paper-reading/')}>{papers ? '回到基础讲义' : '配套经典论文与原文'} <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+<style>
+  .foundation-start{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:34px;padding:30px;background:var(--mint);margin:6px 0 32px}
+  .foundation-start h2{font-family:var(--sans);font-size:25px;font-weight:500;line-height:1.5;margin:0 0 12px;letter-spacing:-.4px}
+  .foundation-start-copy>p{font-size:16px;line-height:1.9;color:var(--ink);max-width:690px}
+  .foundation-steps{display:flex;flex-wrap:wrap;gap:8px 0;list-style:none;padding:0;margin:20px 0 15px;font-size:14px;color:var(--green)}
+  .foundation-steps li+li:before{content:'→';margin:0 9px;color:#93a28b}
+  .foundation-start .foundation-status{font-size:13px;color:var(--muted)}
+  .foundation-actions{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:10px}
+  .foundation-actions .button,.foundation-actions .text-link{font-size:14px;min-height:44px}
+  .foundation-actions .text-link{justify-content:center;margin-top:4px}
+  @media(max-width:850px){.foundation-start{grid-template-columns:1fr;gap:20px}.foundation-actions{align-items:flex-start}.foundation-start h2{font-size:22px}}
+  @media(max-width:680px){.foundation-start{padding:22px}.foundation-start h2{font-size:20px}.foundation-actions .button{width:100%}.foundation-actions .text-link{align-self:center}}
+</style>

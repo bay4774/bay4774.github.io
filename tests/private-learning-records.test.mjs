@@ -9,6 +9,8 @@ const privateMarker = Buffer.from('PRIVATE_LEARNING_RECORD_CANARY_40W_20261016_D
 test('private learning records are ignored by Git and absent from generated site artifacts', async () => {
   const ignored = execFileSync('git', ['check-ignore', '--no-index', '.private/research-foundations/records/example.md'], { encoding: 'utf8' }).trim();
   assert.equal(ignored, '.private/research-foundations/records/example.md');
+  const trackedPrivate = execFileSync('git', ['ls-files', '--', '.private'], { encoding: 'utf8' }).trim();
+  assert.equal(trackedPrivate, '', 'Personal learning records must not enter version control');
   const root = path.resolve(process.env.TEST_DIST || 'dist');
   let inspected = 0;
   async function visit(folder) {

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">二维正交投影与残差</title>
+  <desc id="desc">目标向量b等于2,1，投影到横轴得到p等于2,0，残差r等于0,1。残差与横轴垂直，b等于p加r。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="context-stroke"/></marker></defs>
+  <rect width="600" height="360" rx="12" fill="#f0f4ed"/>
+  <g font-family="Microsoft YaHei,Arial,sans-serif" fill="#223c34" font-size="21">
+    <text x="28" y="38" font-size="24" font-weight="600">投影保留横向分量，残差留下竖向分量</text>
+    <path d="M65 265H555" stroke="#7c8c84" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M85 285V70" stroke="#7c8c84" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M85 265L385 115" stroke="#214e40" stroke-width="5" marker-end="url(#arrow)"/>
+    <path d="M85 265H385" stroke="#9b6b25" stroke-width="5" marker-end="url(#arrow)"/>
+    <path d="M385 265V115" stroke="#407d9b" stroke-width="4" stroke-dasharray="8 5" marker-end="url(#arrow)"/>
+    <path d="M363 265V243H385" fill="none" stroke="#407d9b" stroke-width="2"/>
+    <circle cx="385" cy="115" r="5" fill="#214e40"/>
+    <text x="402" y="116">b = (2, 1)</text><text x="270" y="299">p = (2, 0)</text>
+    <text x="407" y="209" fill="#316882">r = (0, 1)</text>
+    <text x="58" y="296">O</text><text x="510" y="247">横轴</text>
+    <text x="28" y="336">b = p + r；r · (1, 0) = 0；距离最短处就在 p。</text>
+  </g>
+</svg>

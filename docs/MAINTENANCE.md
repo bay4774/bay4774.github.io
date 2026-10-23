@@ -39,6 +39,14 @@ pnpm preview
 
 ## 替换为你的资料
 
+公共基础从`/notes/foundations-course-index/`进入：讲义按00–79章组织，每篇一个主题；40周仅列出每两周读哪些章节。章节目录与先修在`src/data/foundations-chapters.json`，周次映射在`src/data/foundations-curriculum.json`。章节页使用`foundationChapter`标号，不再用weekStart/weekEnd定义讲义。
+
+Notes和Digest可用`foundationOrder`排序，但该字段不表示学习进度。课程路径/阶段路线/论文导航/内容校验分别为0–3，学习指南和跨章复习分别为4、5，各章为10+章节号；Digest基础条目仍为1–8。`chapters`只统计页面内H2小节，章节页显示“小节”，避免把一篇误当多章。`reviewStatus`只记录讲义内容校验。
+
+每四章成稿后回读自纠，记录在`docs/foundations/chapter-reviews/`，再继续下一组。校验页为`/notes/foundations-course-audit/`。原两周稿、旧02/03起步稿与旧审查可移入`docs/foundations/archive/`，不继续留在Notes列表；`src/data/foundations-legacy-links.json`提供兼容跳转，由Astro构建根路径与子路径版本。新增章节时同步维护先修、阅读路径、前后导航与测试。未完成的方向分支仍标规划中，引用记录不迁移重印章计数。
+
+用户实际作答、订正、成绩、总结与进度仅存`.private/research-foundations/records/`；该目录被Git忽略，位于站点内容和public之外。个人记录不生成页面，不复制到公开自纠记录。通用参考答案和原创教学脚本可以随讲义发布。构建测试用无个人信息的canary检查私人记录没有进入`dist`。详细规则见[课程内容约定](foundations/CONTENT_POLICY.md)。不要将讲义成稿日期当作个人通过日期。
+
 1. 编辑 `src/config/site.ts`：姓名、中英文简介、机构、研究方向、城市、邮箱及 GitHub / Google Scholar / CV 链接。未提供的链接保持空字符串即可。
 2. 替换 `src/data/news.ts` 和 `src/data/trajectory.ts` 中的演示事件与履历。时间轴中的 `academic` 表示教育/科研，`practice` 表示工程/职业实践。
 3. 在四个内容文件夹中替换演示文章，或将暂时不用的文章设为 `draft: true`。草稿不生成列表条目或公开详情页。
@@ -186,3 +194,13 @@ GitHub Pages 足以承载当前需求。媒体较多时压缩 teaser 为短 WebM
 - 内容：自己的成果与精读他人的论文身份清楚；原文证据、个人推断、实验设想分开。
 - 元数据：姓名、联系方式、作者顺序、会议状态、日期、原文资源核对；演示素材已替换或设为草稿。
 - 根路径和项目子路径各执行一次 `pnpm build` + `pnpm test`；外部链接另外人工检查。
+
+## 六方向基础讲义维护
+
+总入口为`src/content/notes/direction-foundations.mdx`。方向名称和顺序由`src/data/direction-curriculum.json`维护，现为大模型、具身智能、仿生机器人头、物理约束、Agent、伴语手势生成。
+
+新增讲义仍放在`src/content/notes/`，使用`category: lecture`，同时提供`directionTrack`与正整数`directionChapter`。同方向的教学顺序须连续且不重复；不要给方向章设置公共基础的`foundationChapter`或`foundationOrder`。章数不设上限，`chapters`仍表示本篇实际二级标题数。
+
+目录、章节导航、方向筛选和数量自动读取内容集合。新增概念需要插章时，保留已有URL，更新教学顺序和标题编号，并同步修改正文中的先修和上下一章链接。阅读顺序以页面章号为准，不能按历史文件名数字推断。
+
+内容需沿用`docs/directions/TEACHING_DESIGN.md`以及公共教材的教学、来源和私有记录边界。`tests/direction-curriculum.test.mjs`检查元数据、顺序、必要教学结构、目录与导航和数学渲染；全站链接和私有资料隔离继续由原有测试检查。自动结构检查无法代替推导复算和读者反馈，实际审读记录放在`docs/directions/`。

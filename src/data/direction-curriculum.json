@@ -1,0 +1,11 @@
+{
+  "updated": "2026-10-17",
+  "tracks": [
+    { "id": "llm", "prefix": "L", "title": "大模型", "subtitle": "从词元概率到可验证的语言模型实验" },
+    { "id": "embodied", "prefix": "E", "title": "具身智能", "subtitle": "从观测、状态估计到闭环策略" },
+    { "id": "robotics", "prefix": "R", "title": "仿生机器人头", "subtitle": "从颈眼颌机构到传感、伺服与表达验证" },
+    { "id": "physics", "prefix": "P", "title": "物理约束", "subtitle": "从守恒、接触与约束求解到物理残差学习" },
+    { "id": "agent", "prefix": "T", "title": "Agent", "subtitle": "从工具契约到规划、恢复与端到端验证" },
+    { "id": "gesture", "prefix": "G", "title": "伴语手势生成", "subtitle": "从语音动作对齐到条件生成与人感评估" }
+  ]
+}

@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import curriculum from '../data/direction-curriculum.json';
+import { directionChapters } from '../lib/directions';
+import { withBase } from '../lib/paths';
+const entries = await getCollection('notes');
+---
+{curriculum.tracks.map(track => <section id={track.id} aria-label={track.title + '章节目录'}>
+  <h3>{track.title} · {track.prefix} 系列</h3>
+  <p>{track.subtitle}。当前 {directionChapters(entries, track.id).length} 个独立章节，按下面的教学顺序阅读。</p>
+  <ol class="direction-catalog">{directionChapters(entries, track.id).map(entry => <li><a href={withBase('/notes/' + entry.id + '/')}>{entry.data.title}</a><p>{entry.data.description}</p></li>)}</ol>
+</section>)}
+<style>
+  .direction-catalog{padding-left:22px}
+  .direction-catalog li{padding:5px 0 9px}
+  .direction-catalog li>p{font-size:.88em;color:var(--muted);margin:5px 0 0;line-height:1.8}
+  section{scroll-margin-top:100px}
+</style>

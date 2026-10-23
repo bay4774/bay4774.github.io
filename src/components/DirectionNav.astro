@@ -1,0 +1,33 @@
+---
+import curriculum from '../data/direction-curriculum.json';
+import { getCollection } from 'astro:content';
+import { directionChapters } from '../lib/directions';
+import { withBase } from '../lib/paths';
+interface Props { directionTrack?: string; directionChapter?: number; }
+const { directionTrack, directionChapter } = Astro.props;
+const track = curriculum.tracks.find(item => item.id === directionTrack);
+const chapters = directionChapters(await getCollection('notes'), directionTrack ?? '');
+const index = chapters.findIndex(item => item.data.directionChapter === directionChapter);
+const chapter = chapters[index];
+const previous = index > 0 ? chapters[index - 1] : undefined;
+const next = index >= 0 ? chapters[index + 1] : undefined;
+const label = (id: number) => track?.prefix + String(id).padStart(2, '0');
+---
+{track && chapter && <div class="container"><nav class="direction-nav" aria-label="方向章节导航">
+  <p>{track.title} · {label(chapter.data.directionChapter!)} / {chapters.length} 章<span>方向基础讲义 · 个人学习进度私下记录</span></p>
+  <div>
+    {previous && <a href={withBase('/notes/' + previous.id + '/')}>← {previous.data.title}</a>}
+    {next && <a href={withBase('/notes/' + next.id + '/')}>{next.data.title} →</a>}
+    <a href={withBase('/notes/direction-foundations/#' + track.id)}>本方向目录</a>
+    <a href={withBase('/notes/direction-foundations/')}>六方向学习路径</a>
+    <a href={withBase('/notes/foundations-course-index/')}>公共基础回查</a>
+  </div>
+</nav></div>}
+<style>
+  .direction-nav{border:1px solid var(--line);background:#eef3e8;border-radius:8px;padding:16px 20px;margin:0 0 24px}
+  .direction-nav p{font-size:12px;color:var(--green);margin-bottom:10px}
+  .direction-nav p span{font-size:10px;margin-left:15px;color:var(--muted)}
+  .direction-nav div{display:flex;flex-wrap:wrap;gap:10px 20px}
+  .direction-nav a{font-size:12px;text-decoration:underline;text-underline-offset:3px}
+  @media(max-width:680px){.direction-nav{padding:15px}.direction-nav p span{display:block;margin:5px 0 0}}
+</style>

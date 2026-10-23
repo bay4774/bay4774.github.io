@@ -7,6 +7,8 @@ import Icon from '../components/Icon.astro';
 import PublicationCard from '../components/PublicationCard.astro';
 import DigestCard from '../components/DigestCard.astro';
 import { news } from '../data/news';
+import FoundationStart from '../components/FoundationStart.astro';
+import DirectionStart from '../components/DirectionStart.astro';
 import '../styles/digest.css';
 const publications = (await getCollection('publications', ({data}) => !data.draft && data.featured)).sort((a,b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2);
 const digests = (await getCollection('digest', ({data}) => !data.draft)).sort((a,b) => Number(b.data.featured) - Number(a.data.featured) || b.data.date.getTime() - a.data.date.getTime()).slice(0,3);
@@ -39,6 +41,8 @@ const project = projects[0];
       <div class="ledger-item"><span class="num">03 /</span><div><h2>Built to explore</h2><p>从理论推导到系统实践</p></div><a href={withBase('/projects/')} aria-label="查看工程项目"><Icon name="arrow-up-right" size={16} /></a></div>
     </div>
     {news.slice(0,1).map(item => <div class="home-news"><span class="eyebrow">LATEST NEWS</span><time datetime={item.date}>{item.date.replaceAll('-','.')}</time><a href={withBase(item.href)}>{item.title} <Icon name="arrow-up-right" size={12} /></a>{item.demo && <span class="demo-badge">示例动态</span>}</div>)}
+    <FoundationStart />
+    <DirectionStart />
     <section class="section-block">
       <div class="section-head"><div><span class="eyebrow">SELECTED WORK / 原创研究</span><h2 class="section-title">Selected publications<span>让想法成为可验证的成果</span></h2></div><a class="text-link" href={withBase('/publications/')}>View all research <Icon name="arrow-up-right" size={14} /></a></div>
       {site.demoMode && <p class="section-description" style="margin:-12px 0 20px">以下为演示条目，用于预览论文陈列效果，待替换为你的真实成果。</p>}

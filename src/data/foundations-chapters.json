@@ -1,0 +1,1015 @@
+{
+  "version": 2,
+  "date": "2026-10-16",
+  "chapters": [
+    {
+      "id": 0,
+      "title": "数学热身：符号、代数与数量关系",
+      "slug": "foundations-00-math-language",
+      "sourceBlockId": 1,
+      "sourceSlug": "foundations-weeks-01-02",
+      "topic": "math-language",
+      "prerequisites": []
+    },
+    {
+      "id": 1,
+      "title": "逻辑基础：命题、量词与科研判断",
+      "slug": "foundations-01-logic",
+      "sourceBlockId": 1,
+      "sourceSlug": "foundations-weeks-01-02",
+      "topic": "logic",
+      "prerequisites": [
+        0
+      ]
+    },
+    {
+      "id": 2,
+      "title": "证明方法：直接证明、逆否与归纳",
+      "slug": "foundations-02-proof-methods",
+      "sourceBlockId": 1,
+      "sourceSlug": "foundations-weeks-01-02",
+      "topic": "proof-methods",
+      "prerequisites": [
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "title": "弧度与三角函数：从单位圆理解周期",
+      "slug": "foundations-03-trigonometry",
+      "sourceBlockId": 1,
+      "sourceSlug": "foundations-weeks-01-02",
+      "topic": "trigonometry",
+      "prerequisites": [
+        0
+      ]
+    },
+    {
+      "id": 4,
+      "title": "向量与子空间：组合能到达哪里",
+      "slug": "foundations-04-vectors-subspaces",
+      "sourceBlockId": 2,
+      "sourceSlug": "foundations-weeks-03-04",
+      "topic": "vectors-subspaces",
+      "prerequisites": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": 5,
+      "title": "矩阵与线性映射：计算背后的规则",
+      "slug": "foundations-05-matrices-maps",
+      "sourceBlockId": 2,
+      "sourceSlug": "foundations-weeks-03-04",
+      "topic": "matrices-maps",
+      "prerequisites": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": 6,
+      "title": "线性方程组：消元、解集与零空间",
+      "slug": "foundations-06-linear-systems",
+      "sourceBlockId": 2,
+      "sourceSlug": "foundations-weeks-03-04",
+      "topic": "linear-systems",
+      "prerequisites": [
+        5
+      ]
+    },
+    {
+      "id": 7,
+      "title": "基、维数与秩：怎样描述一个空间",
+      "slug": "foundations-07-basis-rank",
+      "sourceBlockId": 2,
+      "sourceSlug": "foundations-weeks-03-04",
+      "topic": "basis-rank",
+      "prerequisites": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "id": 8,
+      "title": "内积、长度与正交：比较方向的语言",
+      "slug": "foundations-08-inner-products",
+      "sourceBlockId": 3,
+      "sourceSlug": "foundations-weeks-05-06",
+      "topic": "inner-products",
+      "prerequisites": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": 9,
+      "title": "正交投影：寻找最近的点",
+      "slug": "foundations-09-orthogonal-projection",
+      "sourceBlockId": 3,
+      "sourceSlug": "foundations-weeks-05-06",
+      "topic": "orthogonal-projection",
+      "prerequisites": [
+        8
+      ]
+    },
+    {
+      "id": 10,
+      "title": "最小二乘：从残差推导拟合",
+      "slug": "foundations-10-least-squares",
+      "sourceBlockId": 3,
+      "sourceSlug": "foundations-weeks-05-06",
+      "topic": "least-squares",
+      "prerequisites": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": 11,
+      "title": "正交基与QR：把几何变成求解步骤",
+      "slug": "foundations-11-qr-factorization",
+      "sourceBlockId": 3,
+      "sourceSlug": "foundations-weeks-05-06",
+      "topic": "qr-factorization",
+      "prerequisites": [
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": 12,
+      "title": "行列式与可逆性：面积怎样变化",
+      "slug": "foundations-12-determinants",
+      "sourceBlockId": 4,
+      "sourceSlug": "foundations-weeks-07-08",
+      "topic": "determinants",
+      "prerequisites": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": 13,
+      "title": "特征值与正定性：寻找不变方向",
+      "slug": "foundations-13-eigenvalues",
+      "sourceBlockId": 4,
+      "sourceSlug": "foundations-weeks-07-08",
+      "topic": "eigenvalues",
+      "prerequisites": [
+        7,
+        8,
+        12
+      ]
+    },
+    {
+      "id": 14,
+      "title": "奇异值分解：矩阵的伸缩结构",
+      "slug": "foundations-14-svd",
+      "sourceBlockId": 4,
+      "sourceSlug": "foundations-weeks-07-08",
+      "topic": "svd",
+      "prerequisites": [
+        8,
+        13
+      ]
+    },
+    {
+      "id": 15,
+      "title": "PCA：从中心化数据到主方向",
+      "slug": "foundations-15-pca",
+      "sourceBlockId": 4,
+      "sourceSlug": "foundations-weeks-07-08",
+      "topic": "pca",
+      "prerequisites": [
+        9,
+        13,
+        14
+      ]
+    },
+    {
+      "id": 16,
+      "title": "函数与反函数：先把输入输出说清",
+      "slug": "foundations-16-functions-inverses",
+      "sourceBlockId": 5,
+      "sourceSlug": "foundations-weeks-09-10",
+      "topic": "functions-inverses",
+      "prerequisites": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": 17,
+      "title": "极限与连续：把足够靠近说准确",
+      "slug": "foundations-17-limits-continuity",
+      "sourceBlockId": 5,
+      "sourceSlug": "foundations-weeks-09-10",
+      "topic": "limits-continuity",
+      "prerequisites": [
+        16
+      ]
+    },
+    {
+      "id": 18,
+      "title": "导数与求导规则：从差商到链式法则",
+      "slug": "foundations-18-derivatives",
+      "sourceBlockId": 5,
+      "sourceSlug": "foundations-weeks-09-10",
+      "topic": "derivatives",
+      "prerequisites": [
+        3,
+        16,
+        17
+      ]
+    },
+    {
+      "id": 19,
+      "title": "导数的应用：单调、极值与局部近似",
+      "slug": "foundations-19-derivative-applications",
+      "sourceBlockId": 5,
+      "sourceSlug": "foundations-weeks-09-10",
+      "topic": "derivative-applications",
+      "prerequisites": [
+        18
+      ]
+    },
+    {
+      "id": 20,
+      "title": "定积分：从分割求和理解累积",
+      "slug": "foundations-20-riemann-integrals",
+      "sourceBlockId": 6,
+      "sourceSlug": "foundations-weeks-11-12",
+      "topic": "riemann-integrals",
+      "prerequisites": [
+        17,
+        18
+      ]
+    },
+    {
+      "id": 21,
+      "title": "微积分基本定理：连接变化与累积",
+      "slug": "foundations-21-fundamental-theorem",
+      "sourceBlockId": 6,
+      "sourceSlug": "foundations-weeks-11-12",
+      "topic": "fundamental-theorem",
+      "prerequisites": [
+        18,
+        20
+      ]
+    },
+    {
+      "id": 22,
+      "title": "积分计算：换元、分部与广义积分",
+      "slug": "foundations-22-integration-tools",
+      "sourceBlockId": 6,
+      "sourceSlug": "foundations-weeks-11-12",
+      "topic": "integration-tools",
+      "prerequisites": [
+        18,
+        21
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Taylor近似：误差界、小o与Big O",
+      "slug": "foundations-23-taylor-remainders",
+      "sourceBlockId": 6,
+      "sourceSlug": "foundations-weeks-11-12",
+      "topic": "taylor-remainders",
+      "prerequisites": [
+        18,
+        21,
+        22
+      ]
+    },
+    {
+      "id": 24,
+      "title": "多变量与可微：局部线性模型",
+      "slug": "foundations-24-multivariable-differentiability",
+      "sourceBlockId": 7,
+      "sourceSlug": "foundations-weeks-13-14",
+      "topic": "multivariable-differentiability",
+      "prerequisites": [
+        4,
+        18,
+        23
+      ]
+    },
+    {
+      "id": 25,
+      "title": "梯度与方向导数：变化最快的方向",
+      "slug": "foundations-25-gradients",
+      "sourceBlockId": 7,
+      "sourceSlug": "foundations-weeks-13-14",
+      "topic": "gradients",
+      "prerequisites": [
+        8,
+        24
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Jacobian与链式法则：核对每一步形状",
+      "slug": "foundations-26-jacobians",
+      "sourceBlockId": 7,
+      "sourceSlug": "foundations-weeks-13-14",
+      "topic": "jacobians",
+      "prerequisites": [
+        5,
+        18,
+        24,
+        25
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Hessian与二阶模型：曲率能说明什么",
+      "slug": "foundations-27-hessians",
+      "sourceBlockId": 7,
+      "sourceSlug": "foundations-weeks-13-14",
+      "topic": "hessians",
+      "prerequisites": [
+        13,
+        23,
+        26
+      ]
+    },
+    {
+      "id": 28,
+      "title": "二重积分：区域与累积次序",
+      "slug": "foundations-28-double-integrals",
+      "sourceBlockId": 8,
+      "sourceSlug": "foundations-weeks-15-16",
+      "topic": "double-integrals",
+      "prerequisites": [
+        20,
+        22
+      ]
+    },
+    {
+      "id": 29,
+      "title": "坐标变换：Jacobian与面积因子",
+      "slug": "foundations-29-change-of-variables",
+      "sourceBlockId": 8,
+      "sourceSlug": "foundations-weeks-15-16",
+      "topic": "change-of-variables",
+      "prerequisites": [
+        12,
+        26,
+        28
+      ]
+    },
+    {
+      "id": 30,
+      "title": "约束极值：沿可行方向思考",
+      "slug": "foundations-30-constrained-extrema",
+      "sourceBlockId": 8,
+      "sourceSlug": "foundations-weeks-15-16",
+      "topic": "constrained-extrema",
+      "prerequisites": [
+        9,
+        25,
+        27
+      ]
+    },
+    {
+      "id": 31,
+      "title": "Lagrange乘子：条件、求解与失效边界",
+      "slug": "foundations-31-lagrange-multipliers",
+      "sourceBlockId": 8,
+      "sourceSlug": "foundations-weeks-15-16",
+      "topic": "lagrange-multipliers",
+      "prerequisites": [
+        26,
+        30
+      ]
+    },
+    {
+      "id": 32,
+      "title": "有限计数：先把样本空间数清楚",
+      "slug": "foundations-32-counting",
+      "sourceBlockId": 9,
+      "sourceSlug": "foundations-weeks-17-18",
+      "topic": "counting",
+      "prerequisites": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": 33,
+      "title": "概率与事件：从模型到加法规则",
+      "slug": "foundations-33-events-probability",
+      "sourceBlockId": 9,
+      "sourceSlug": "foundations-weeks-17-18",
+      "topic": "events-probability",
+      "prerequisites": [
+        1,
+        32
+      ]
+    },
+    {
+      "id": 34,
+      "title": "条件概率与Bayes：信息怎样改变判断",
+      "slug": "foundations-34-conditional-probability",
+      "sourceBlockId": 9,
+      "sourceSlug": "foundations-weeks-17-18",
+      "topic": "conditional-probability",
+      "prerequisites": [
+        33
+      ]
+    },
+    {
+      "id": 35,
+      "title": "独立性：何时可以相乘",
+      "slug": "foundations-35-independence",
+      "sourceBlockId": 9,
+      "sourceSlug": "foundations-weeks-17-18",
+      "topic": "independence",
+      "prerequisites": [
+        34
+      ]
+    },
+    {
+      "id": 36,
+      "title": "随机变量与分布：区分对象与观测值",
+      "slug": "foundations-36-random-variables",
+      "sourceBlockId": 10,
+      "sourceSlug": "foundations-weeks-19-20",
+      "topic": "random-variables",
+      "prerequisites": [
+        16,
+        33,
+        34
+      ]
+    },
+    {
+      "id": 37,
+      "title": "期望与方差：计算平均和波动",
+      "slug": "foundations-37-expectation-variance",
+      "sourceBlockId": 10,
+      "sourceSlug": "foundations-weeks-19-20",
+      "topic": "expectation-variance",
+      "prerequisites": [
+        20,
+        22,
+        36
+      ]
+    },
+    {
+      "id": 38,
+      "title": "联合分布与协方差：多个量如何关联",
+      "slug": "foundations-38-joint-distributions",
+      "sourceBlockId": 10,
+      "sourceSlug": "foundations-weeks-19-20",
+      "topic": "joint-distributions",
+      "prerequisites": [
+        15,
+        28,
+        34,
+        37
+      ]
+    },
+    {
+      "id": 39,
+      "title": "高斯与条件期望：线性结构下的推断",
+      "slug": "foundations-39-gaussians",
+      "sourceBlockId": 10,
+      "sourceSlug": "foundations-weeks-19-20",
+      "topic": "gaussians",
+      "prerequisites": [
+        13,
+        26,
+        38
+      ]
+    },
+    {
+      "id": 40,
+      "title": "随机样本与估计量：一次估值从哪里来",
+      "slug": "foundations-40-sampling-estimators",
+      "sourceBlockId": 11,
+      "sourceSlug": "foundations-weeks-21-22",
+      "topic": "sampling-estimators",
+      "prerequisites": [
+        37,
+        38,
+        39
+      ]
+    },
+    {
+      "id": 41,
+      "title": "大数规律与CLT：均值怎样稳定",
+      "slug": "foundations-41-lln-clt",
+      "sourceBlockId": 11,
+      "sourceSlug": "foundations-weeks-21-22",
+      "topic": "lln-clt",
+      "prerequisites": [
+        40
+      ]
+    },
+    {
+      "id": 42,
+      "title": "似然与MLE：从数据反推模型参数",
+      "slug": "foundations-42-likelihood",
+      "sourceBlockId": 11,
+      "sourceSlug": "foundations-weeks-21-22",
+      "topic": "likelihood",
+      "prerequisites": [
+        18,
+        40
+      ]
+    },
+    {
+      "id": 43,
+      "title": "线性回归的统计解释：误差、估计与方差",
+      "slug": "foundations-43-regression-inference",
+      "sourceBlockId": 11,
+      "sourceSlug": "foundations-weeks-21-22",
+      "topic": "regression-inference",
+      "prerequisites": [
+        10,
+        25,
+        40,
+        42
+      ]
+    },
+    {
+      "id": 44,
+      "title": "置信区间：覆盖率究竟指什么",
+      "slug": "foundations-44-confidence-intervals",
+      "sourceBlockId": 12,
+      "sourceSlug": "foundations-weeks-23-24",
+      "topic": "confidence-intervals",
+      "prerequisites": [
+        39,
+        41,
+        43
+      ]
+    },
+    {
+      "id": 45,
+      "title": "假设检验：p值、效应与错误率",
+      "slug": "foundations-45-hypothesis-tests",
+      "sourceBlockId": 12,
+      "sourceSlug": "foundations-weeks-23-24",
+      "topic": "hypothesis-tests",
+      "prerequisites": [
+        34,
+        44
+      ]
+    },
+    {
+      "id": 46,
+      "title": "Bootstrap与多重比较：重采样和选择",
+      "slug": "foundations-46-bootstrap-comparisons",
+      "sourceBlockId": 12,
+      "sourceSlug": "foundations-weeks-23-24",
+      "topic": "bootstrap-comparisons",
+      "prerequisites": [
+        32,
+        37,
+        44,
+        45
+      ]
+    },
+    {
+      "id": 47,
+      "title": "实验设计：划分、泄漏与混杂",
+      "slug": "foundations-47-experimental-design",
+      "sourceBlockId": 12,
+      "sourceSlug": "foundations-weeks-23-24",
+      "topic": "experimental-design",
+      "prerequisites": [
+        1,
+        43,
+        45,
+        46
+      ]
+    },
+    {
+      "id": 48,
+      "title": "算法正确性：从归纳到循环不变式",
+      "slug": "foundations-48-algorithm-correctness",
+      "sourceBlockId": 13,
+      "sourceSlug": "foundations-weeks-25-26",
+      "topic": "algorithm-correctness",
+      "prerequisites": [
+        2
+      ]
+    },
+    {
+      "id": 49,
+      "title": "复杂度与二分：同时分析正确性和成本",
+      "slug": "foundations-49-complexity-binary-search",
+      "sourceBlockId": 13,
+      "sourceSlug": "foundations-weeks-25-26",
+      "topic": "complexity-binary-search",
+      "prerequisites": [
+        6,
+        48
+      ]
+    },
+    {
+      "id": 50,
+      "title": "图与DAG：把依赖写成结构",
+      "slug": "foundations-50-graphs-dags",
+      "sourceBlockId": 13,
+      "sourceSlug": "foundations-weeks-25-26",
+      "topic": "graphs-dags",
+      "prerequisites": [
+        32,
+        48,
+        49
+      ]
+    },
+    {
+      "id": 51,
+      "title": "动态规划：状态、递推与计算顺序",
+      "slug": "foundations-51-dynamic-programming",
+      "sourceBlockId": 13,
+      "sourceSlug": "foundations-weeks-25-26",
+      "topic": "dynamic-programming",
+      "prerequisites": [
+        48,
+        49,
+        50
+      ]
+    },
+    {
+      "id": 52,
+      "title": "状态与转移矩阵：描述随机演化",
+      "slug": "foundations-52-transition-matrices",
+      "sourceBlockId": 14,
+      "sourceSlug": "foundations-weeks-27-28",
+      "topic": "transition-matrices",
+      "prerequisites": [
+        5,
+        35,
+        38,
+        50
+      ]
+    },
+    {
+      "id": 53,
+      "title": "Markov链：稳态、吸收与适用条件",
+      "slug": "foundations-53-markov-chains",
+      "sourceBlockId": 14,
+      "sourceSlug": "foundations-weeks-27-28",
+      "topic": "markov-chains",
+      "prerequisites": [
+        34,
+        52
+      ]
+    },
+    {
+      "id": 54,
+      "title": "运动学与量纲：建立时间演化的语言",
+      "slug": "foundations-54-kinematics",
+      "sourceBlockId": 14,
+      "sourceSlug": "foundations-weeks-27-28",
+      "topic": "kinematics",
+      "prerequisites": [
+        18,
+        21
+      ]
+    },
+    {
+      "id": 55,
+      "title": "系统边界与受力：模型从哪里开始",
+      "slug": "foundations-55-forces-systems",
+      "sourceBlockId": 14,
+      "sourceSlug": "foundations-weeks-27-28",
+      "topic": "forces-systems",
+      "prerequisites": [
+        54
+      ]
+    },
+    {
+      "id": 56,
+      "title": "牛顿定律与冲量：从合力到动量变化",
+      "slug": "foundations-56-newton-momentum",
+      "sourceBlockId": 15,
+      "sourceSlug": "foundations-weeks-29-30",
+      "topic": "newton-momentum",
+      "prerequisites": [
+        21,
+        54,
+        55
+      ]
+    },
+    {
+      "id": 57,
+      "title": "功与能量：沿位移理解累积",
+      "slug": "foundations-57-work-energy",
+      "sourceBlockId": 15,
+      "sourceSlug": "foundations-weeks-29-30",
+      "topic": "work-energy",
+      "prerequisites": [
+        21,
+        56
+      ]
+    },
+    {
+      "id": 58,
+      "title": "微分方程与初值：建立并检验解",
+      "slug": "foundations-58-differential-equations",
+      "sourceBlockId": 15,
+      "sourceSlug": "foundations-weeks-29-30",
+      "topic": "differential-equations",
+      "prerequisites": [
+        18,
+        21,
+        26,
+        56
+      ]
+    },
+    {
+      "id": 59,
+      "title": "阻力与振动：两类可核验的动力学模型",
+      "slug": "foundations-59-drag-oscillation",
+      "sourceBlockId": 15,
+      "sourceSlug": "foundations-weeks-29-30",
+      "topic": "drag-oscillation",
+      "prerequisites": [
+        3,
+        57,
+        58
+      ]
+    },
+    {
+      "id": 60,
+      "title": "测量与不确定性：随机波动和系统偏移",
+      "slug": "foundations-60-measurement",
+      "sourceBlockId": 16,
+      "sourceSlug": "foundations-weeks-31-32",
+      "topic": "measurement",
+      "prerequisites": [
+        37,
+        43,
+        44,
+        57
+      ]
+    },
+    {
+      "id": 61,
+      "title": "量纲、尺度与拟合：检查观测模型",
+      "slug": "foundations-61-scales-models",
+      "sourceBlockId": 16,
+      "sourceSlug": "foundations-weeks-31-32",
+      "topic": "scales-models",
+      "prerequisites": [
+        10,
+        25,
+        54,
+        60
+      ]
+    },
+    {
+      "id": 62,
+      "title": "浮点运算：舍入、相消与运算顺序",
+      "slug": "foundations-62-floating-point",
+      "sourceBlockId": 16,
+      "sourceSlug": "foundations-weeks-31-32",
+      "topic": "floating-point",
+      "prerequisites": [
+        0,
+        23
+      ]
+    },
+    {
+      "id": 63,
+      "title": "条件数与稳定性：残差为什么不够",
+      "slug": "foundations-63-conditioning",
+      "sourceBlockId": 16,
+      "sourceSlug": "foundations-weeks-31-32",
+      "topic": "conditioning",
+      "prerequisites": [
+        8,
+        14,
+        62
+      ]
+    },
+    {
+      "id": 64,
+      "title": "可靠线性求解：消元、分解与回代",
+      "slug": "foundations-64-linear-solvers",
+      "sourceBlockId": 17,
+      "sourceSlug": "foundations-weeks-33-34",
+      "topic": "linear-solvers",
+      "prerequisites": [
+        6,
+        63
+      ]
+    },
+    {
+      "id": 65,
+      "title": "数值最小二乘：QR、秩与返回值",
+      "slug": "foundations-65-numerical-least-squares",
+      "sourceBlockId": 17,
+      "sourceSlug": "foundations-weeks-33-34",
+      "topic": "numerical-least-squares",
+      "prerequisites": [
+        10,
+        11,
+        14,
+        63,
+        64
+      ]
+    },
+    {
+      "id": 66,
+      "title": "有限差分：求导的近似与步长误差",
+      "slug": "foundations-66-finite-differences",
+      "sourceBlockId": 17,
+      "sourceSlug": "foundations-weeks-33-34",
+      "topic": "finite-differences",
+      "prerequisites": [
+        18,
+        23,
+        62
+      ]
+    },
+    {
+      "id": 67,
+      "title": "数值积分：梯形、中点与误差阶",
+      "slug": "foundations-67-quadrature",
+      "sourceBlockId": 17,
+      "sourceSlug": "foundations-weeks-33-34",
+      "topic": "quadrature",
+      "prerequisites": [
+        20,
+        22,
+        23,
+        66
+      ]
+    },
+    {
+      "id": 68,
+      "title": "Euler方法：从局部近似到整体误差",
+      "slug": "foundations-68-euler-method",
+      "sourceBlockId": 18,
+      "sourceSlug": "foundations-weeks-35-36",
+      "topic": "euler-method",
+      "prerequisites": [
+        23,
+        58,
+        66
+      ]
+    },
+    {
+      "id": 69,
+      "title": "数值稳定性：衰减、振荡与能量诊断",
+      "slug": "foundations-69-numerical-stability",
+      "sourceBlockId": 18,
+      "sourceSlug": "foundations-weeks-35-36",
+      "topic": "numerical-stability",
+      "prerequisites": [
+        13,
+        57,
+        59,
+        68
+      ]
+    },
+    {
+      "id": 70,
+      "title": "凸性与光滑性：优化结论的前提",
+      "slug": "foundations-70-convexity-smoothness",
+      "sourceBlockId": 18,
+      "sourceSlug": "foundations-weeks-35-36",
+      "topic": "convexity-smoothness",
+      "prerequisites": [
+        13,
+        25,
+        27
+      ]
+    },
+    {
+      "id": 71,
+      "title": "梯度下降：步长、曲率与停止规则",
+      "slug": "foundations-71-gradient-descent",
+      "sourceBlockId": 18,
+      "sourceSlug": "foundations-weeks-35-36",
+      "topic": "gradient-descent",
+      "prerequisites": [
+        63,
+        70
+      ]
+    },
+    {
+      "id": 72,
+      "title": "随机梯度：条件无偏与噪声来源",
+      "slug": "foundations-72-stochastic-gradients",
+      "sourceBlockId": 19,
+      "sourceSlug": "foundations-weeks-37-38",
+      "topic": "stochastic-gradients",
+      "prerequisites": [
+        37,
+        38,
+        71
+      ]
+    },
+    {
+      "id": 73,
+      "title": "随机逼近：步长、级数与噪声地板",
+      "slug": "foundations-73-stochastic-approximation",
+      "sourceBlockId": 19,
+      "sourceSlug": "foundations-weeks-37-38",
+      "topic": "stochastic-approximation",
+      "prerequisites": [
+        22,
+        41,
+        72
+      ]
+    },
+    {
+      "id": 74,
+      "title": "反向求导：手推一个最小计算图",
+      "slug": "foundations-74-reverse-mode",
+      "sourceBlockId": 19,
+      "sourceSlug": "foundations-weeks-37-38",
+      "topic": "reverse-mode",
+      "prerequisites": [
+        26,
+        66,
+        71
+      ]
+    },
+    {
+      "id": 75,
+      "title": "研究协议：先锁定问题、基线和评价",
+      "slug": "foundations-75-research-protocol",
+      "sourceBlockId": 19,
+      "sourceSlug": "foundations-weeks-37-38",
+      "topic": "research-protocol",
+      "prerequisites": [
+        43,
+        44,
+        47,
+        72
+      ]
+    },
+    {
+      "id": 76,
+      "title": "合成测量项目：数据、实现与复算",
+      "slug": "foundations-76-capstone-implementation",
+      "sourceBlockId": 20,
+      "sourceSlug": "foundations-weeks-39-40",
+      "topic": "capstone-implementation",
+      "prerequisites": [
+        10,
+        43,
+        61,
+        65,
+        75
+      ]
+    },
+    {
+      "id": 77,
+      "title": "项目不确定性：参数、预测与覆盖率",
+      "slug": "foundations-77-capstone-uncertainty",
+      "sourceBlockId": 20,
+      "sourceSlug": "foundations-weeks-39-40",
+      "topic": "capstone-uncertainty",
+      "prerequisites": [
+        38,
+        44,
+        43,
+        76
+      ]
+    },
+    {
+      "id": 78,
+      "title": "模型失配与外推：怎样分析失败",
+      "slug": "foundations-78-misspecification",
+      "sourceBlockId": 20,
+      "sourceSlug": "foundations-weeks-39-40",
+      "topic": "misspecification",
+      "prerequisites": [
+        15,
+        47,
+        76,
+        77
+      ]
+    },
+    {
+      "id": 79,
+      "title": "研究报告与经典选读：把基础接到论文",
+      "slug": "foundations-79-research-report",
+      "sourceBlockId": 20,
+      "sourceSlug": "foundations-weeks-39-40",
+      "topic": "research-report",
+      "prerequisites": [
+        1,
+        15,
+        45,
+        73,
+        74,
+        78
+      ]
+    }
+  ]
+}

@@ -49,6 +49,11 @@ test('all six pillars and their generated detail pages build with titles and one
   }
   for (const [filename, html] of documents) {
     assert.match(html, /<title>[^<]+<\/title>/, `${filename} 缺少标题`);
+    if (/<meta http-equiv="refresh"/.test(html)) {
+      assert.match(html, /<meta name="robots" content="noindex">/, `${filename} 的兼容跳转页应避免重复索引`);
+      assert.match(html, /<a href="[^"]+">/, `${filename} 应提供可手动打开的跳转目标`);
+      continue;
+    }
     assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `${filename} 应有且仅有一个 h1`);
   }
 });

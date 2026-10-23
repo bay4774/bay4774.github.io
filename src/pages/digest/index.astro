@@ -4,9 +4,10 @@ import Layout from '../../layouts/Layout.astro';
 import DigestCard from '../../components/DigestCard.astro';
 import KnowledgeGraph from '../../components/KnowledgeGraph.astro';
 import Icon from '../../components/Icon.astro';
+import FoundationStart from '../../components/FoundationStart.astro';
 import { withBase } from '../../lib/paths';
 import '../../styles/digest.css';
-const entries = (await getCollection('digest', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf() || (b.data.citations?.count ?? 0) - (a.data.citations?.count ?? 0));
+const entries = (await getCollection('digest', ({ data }) => !data.draft)).sort((a, b) => (a.data.foundationOrder ?? Infinity) - (b.data.foundationOrder ?? Infinity) || b.data.date.valueOf() - a.data.date.valueOf() || (b.data.citations?.count ?? 0) - (a.data.citations?.count ?? 0));
 const publications = await getCollection('publications', ({ data }) => !data.draft);
 const topics = [...new Set(entries.flatMap(entry => entry.data.tags))].sort();
 const venues = [...new Set(entries.map(entry => entry.data.venue))].sort();
@@ -22,8 +23,9 @@ const ratingLabels = { 'must-read': 'Must-read · 必读基线', inspiring: 'Ins
       <div><p class="eyebrow">INPUT & INSIGHT / 论文分享与精读</p><h1 class="page-heading">Reading beyond<br /><em>the abstract.</em></h1><p class="digest-intro-copy">围绕感知、生成、控制与物理动作，整理值得反复阅读的经典方法。把论文的贡献、适用边界与后续问题放在一起。</p></div>
       <div class="digest-intro-aside"><span class="digest-large-number">{String(entries.length).padStart(2, '0')}</span><span>SHARED PAPERS<br />从经典方法开始</span><div class="digest-intro-dot"></div><p>理解一个方法，<br />也理解它的适用边界。</p></div>
     </header>
+    <FoundationStart mode="papers" />
     {entries.some(entry => entry.data.demo) && <p class="digest-demo-notice"><span class="demo-badge">演示内容</span> 下方条目用于展示阅读模板与交互，非真实论文精读记录。可在内容文件夹中替换。</p>}
-    {curatedCount > 0 && <p class="digest-citation-audit"><strong>{curatedCount} 篇精选阅读导读</strong> · 根据研究方向与引用影响力筛选。{citationSources.length > 0 && `引用数据来自 ${citationSources.join(' / ')}，查阅于 ${citationDates.join(' / ')}；每篇详情提供原文与计量记录。`}后续可在此补充个人精读和实验笔记。</p>}
+    {curatedCount > 0 && <p class="digest-citation-audit"><strong>{curatedCount} 篇精选阅读导读</strong> · 按基础概念依赖与研究价值组织。{citationSources.length > 0 && <span>部分条目的引用记录来自 {citationSources.join(' / ')}，查阅于 {citationDates.join(' / ')}；不同数据库与版本的数字不作横向排名。</span>}未取得可靠计数的条目明确标注待核验；个人精读和实验结果后续补充。</p>}
     <section class="digest-filter-console" aria-label="筛选论文精读">
       <div class="digest-console-top"><label class="digest-search"><Icon name="search" size={19} /><span class="sr-only">搜索论文标题、方法或研究观点</span><input type="search" name="q" placeholder="搜索标题、核心方法、研究观点…" autocomplete="off" data-digest-search /><kbd aria-hidden="true">/</kbd></label><div class="digest-view-switch" role="group" aria-label="阅读视图"><button type="button" data-digest-view="cards" aria-pressed="true">论文分享</button><button type="button" data-digest-view="weekly" aria-pressed="false">Weekly Roundup <span>合集</span></button></div></div>
       <div class="digest-topic-row"><span class="digest-filter-label">TOPICS</span><div class="digest-topic-buttons" role="group" aria-label="按研究专题筛选"><button type="button" class="digest-topic is-active" data-topic-filter="" aria-pressed="true">All topics</button>{topics.map(topic => <button type="button" class="digest-topic" data-topic-filter={topic} aria-pressed="false">#{topic}</button>)}</div></div>

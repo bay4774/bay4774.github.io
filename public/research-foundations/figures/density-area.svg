@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">均匀密度的高度与区间概率</title>
+  <desc id="desc">在0到2上均匀分布，密度高度为0.5。0到1的阴影矩形面积等于1乘0.5等于0.5，即对应区间概率。单点1的宽度为零，概率为零，尽管它的密度值为0.5。</desc>
+  <rect width="600" height="360" rx="12" fill="#f0f4ed"/>
+  <g font-family="Microsoft YaHei,Arial,sans-serif" fill="#223c34" font-size="21">
+    <text x="27" y="39" font-size="24" font-weight="600">密度看高度，概率看面积</text>
+    <rect x="90" y="115" width="185" height="145" fill="#b8d49b"/>
+    <rect x="275" y="115" width="185" height="145" fill="#dde8d4"/>
+    <path d="M65 260H540M90 280V75" fill="none" stroke="#7c8c84" stroke-width="2"/>
+    <path d="M90 115H460" stroke="#214e40" stroke-width="4"/>
+    <path d="M275 115V260M460 115V260" stroke="#7c8c84" stroke-width="2" stroke-dasharray="6 5"/>
+    <text x="30" y="123">0.5</text><text x="82" y="292">0</text><text x="268" y="292">1</text><text x="454" y="292">2</text>
+    <text x="117" y="190">面积 = 0.5</text><text x="465" y="94">密度</text>
+    <text x="26" y="323">P(0 ≤ X ≤ 1) = 1 × 0.5 = 0.5</text>
+    <text x="26" y="349">P(X = 1) = 0：单点宽度为 0</text>
+  </g>
+</svg>

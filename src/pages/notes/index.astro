@@ -1,25 +1,178 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import Icon from '../../components/Icon.astro';
+import FoundationStart from '../../components/FoundationStart.astro';
+import DirectionStart from '../../components/DirectionStart.astro';
+import curriculum from '../../data/direction-curriculum.json';
 import { withBase } from '../../lib/paths';
-const entries = (await getCollection('notes',({data}) => !data.draft)).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
+import '../../styles/notes-browser.css';
+
+const trackPosition = (id: string | undefined) => {
+  const index = curriculum.tracks.findIndex(track => track.id === id);
+  return index < 0 ? Infinity : index;
+};
+const entries = (await getCollection('notes', ({ data }) => !data.draft)).sort((a, b) =>
+  Number(b.data.foundationChapter !== undefined) - Number(a.data.foundationChapter !== undefined)
+  || (a.data.foundationChapter ?? Infinity) - (b.data.foundationChapter ?? Infinity)
+  || (a.data.foundationOrder ?? Infinity) - (b.data.foundationOrder ?? Infinity)
+  || trackPosition(a.data.directionTrack) - trackPosition(b.data.directionTrack)
+  || (a.data.directionChapter ?? Infinity) - (b.data.directionChapter ?? Infinity)
+  || b.data.date.getTime() - a.data.date.getTime());
 const categories = { theory: '理论推导', tutorial: '技术教程', lecture: '课程讲义' };
+const trackFor = (entry: CollectionEntry<'notes'>) => entry.data.directionTrack
+  ?? (entry.data.foundationChapter !== undefined || entry.data.foundationOrder !== undefined ? 'foundations' : 'other');
+const groupFor = (entry: CollectionEntry<'notes'>) => {
+  if (entry.data.foundationChapter !== undefined) return 'foundation-chapters';
+  if (entry.data.foundationOrder !== undefined) return 'foundation-guides';
+  return entry.data.directionTrack ?? 'other';
+};
+const groupInfo: Record<string, { title: string; description: string }> = {
+  'foundation-chapters': { title: '公共基础 · 逐章讲义', description: '沿原有章号与先修顺序，从数学语言走向建模、实验与论文。' },
+  'foundation-guides': { title: '学习路径与复习', description: '查章节、安排阅读，或回到跨章练习与概念补救。' },
+  ...Object.fromEntries(curriculum.tracks.map(track => [track.id, { title: track.title, description: track.subtitle }])),
+  other: { title: '课程、索引与其他笔记', description: '课程资料、综合导航，以及独立的理论与工程笔记。' },
+};
+// Build groups in the existing sorted order. Every published note appears once.
+const grouped = new Map<string, CollectionEntry<'notes'>[]>();
+for (const entry of entries) {
+  const key = groupFor(entry);
+  if (!grouped.has(key)) grouped.set(key, []);
+  grouped.get(key)!.push(entry);
+}
+const groups = [...grouped].map(([id, items]) => ({ id, ...groupInfo[id], entries: items }));
+const searchableText = (entry: CollectionEntry<'notes'>) => [entry.data.title, entry.data.description, ...entry.data.tags]
+  .join(' ').normalize('NFKC').toLocaleLowerCase();
 ---
-<Layout title="Lectures & Notes" description="课程讲义、理论推导与可复现的技术教程。">
-  <div class="container" data-notes-browser><header class="page-intro"><span class="eyebrow">03 / COURSEWARE & THEORETICAL FOUNDATIONS</span><h1 class="page-heading">The knowledge shelf<span style="color:var(--green)">.</span></h1><p>把零散知识整理成可回访的体系。从底层动力学到模型原理，保留推导过程，也记录实践细节。</p>{entries.some(e=>e.data.demo) && <div class="demo-notice"><span class="demo-badge">演示内容</span><span>当前讲义用于展示公式、代码和交互组件，后续可替换为你的课程资料与真实推导。</span></div>}</header>
-  <div class="notes-categories" role="group" aria-label="按讲义类型筛选"><button class="filter-button" data-note-category="" aria-pressed="true">All notes · 全部</button>{Object.entries(categories).map(([key,label])=><button class="filter-button" data-note-category={key} aria-pressed="false">{label}</button>)}<span data-note-count role="status" style="margin-left:auto;align-self:center;font-size:11px;color:var(--muted)">{entries.length} 篇笔记</span></div>
-  <section class="notes-grid" aria-label="讲义与笔记列表">{entries.map(entry=><a class="note-card" href={withBase(`/notes/${entry.id}/`)} data-note-card data-category={entry.data.category}><div class="note-card-top"><span class="note-card-icon"><Icon name={entry.data.category==='theory' ? 'layers' : entry.data.category==='tutorial' ? 'code' : 'book'} size={22} /></span>{entry.data.demo && <span class="demo-badge">示例</span>}</div><span class="eyebrow">{categories[entry.data.category]} / {entry.data.chapters} CHAPTERS</span><h2>{entry.data.title}</h2><p>{entry.data.description}</p><div class="tag-row">{entry.data.tags.slice(0,3).map(t=><span class="pill">{t}</span>)}</div><div class="note-card-bottom"><span>{entry.data.readTime} MIN READ · {entry.data.date.toISOString().slice(0,10)}</span><Icon name="arrow-up-right" size={14} /></div></a>)}</section>
-  <div class="reading-guide"><Icon name="book" size={30} /><div><h2>从原理，到实践，再回到问题。</h2><p>公式支持 KaTeX 编号与横向滚动；代码可一键复制。打开 HTML 讲义，按目录浏览课程知识，也可保存到本地反复学习。</p></div></div>
+<Layout title="讲义与研究笔记" description="从00–79章科研公共基础，进入大模型、具身智能、仿生机器人头、物理约束、Agent与伴语手势生成六方向。">
+  <div class="container notes-browser" data-notes-browser>
+    <header class="page-intro notes-intro">
+      <h1 class="page-heading">讲义与研究笔记</h1>
+      <p>先建立公共基础，再沿具体问题进入研究方向。章节讲义、推导与课程资料，都可以从这里查找。</p>
+      {entries.some(entry => entry.data.demo) && <p class="notes-example-notice">标注“示例”的条目用于展示排版与组件；其余讲义按现有章节和学习路径组织。</p>}
+    </header>
+
+    <FoundationStart />
+    <DirectionStart />
+
+    <section class="notes-find" aria-labelledby="notes-directory-heading">
+      <div class="notes-find-heading">
+        <h2 id="notes-directory-heading">查找讲义</h2>
+        <p data-note-count role="status" aria-live="polite" aria-atomic="true">共 {entries.length} 篇</p>
+      </div>
+      <div class="notes-search" role="search" aria-label="搜索讲义与笔记">
+        <label for="notes-search-input">标题、描述或标签</label>
+        <div class="notes-search-controls">
+          <input id="notes-search-input" type="search" placeholder="例如：矩阵、动力学、注意力" autocomplete="off" data-note-search aria-controls="notes-directory" />
+          <button type="button" class="notes-reset" data-note-reset disabled>清除筛选</button>
+        </div>
+      </div>
+      <fieldset class="notes-filter-set">
+        <legend>内容类型</legend>
+        <div class="notes-filter-options" role="group" aria-label="按讲义类型筛选">
+          <button type="button" data-note-category="" aria-pressed="true">全部类型</button>
+          {Object.entries(categories).map(([key, label]) => <button type="button" data-note-category={key} aria-pressed="false">{label}</button>)}
+        </div>
+      </fieldset>
+      <fieldset class="notes-filter-set">
+        <legend>学习方向</legend>
+        <div class="notes-filter-options" role="group" aria-label="按学习方向筛选">
+          <button type="button" data-note-track="" aria-pressed="true">全部方向</button>
+          <button type="button" data-note-track="foundations" aria-pressed="false">公共基础</button>
+          {curriculum.tracks.map(track => <button type="button" data-note-track={track.id} aria-pressed="false">{track.title}</button>)}
+        </div>
+      </fieldset>
+    </section>
+
+    <div class="notes-directory" id="notes-directory" aria-label="讲义与笔记目录">
+      {groups.map(group => <section class="notes-directory-group" data-note-group aria-labelledby={`notes-group-${group.id}`}>
+        <header class="notes-group-heading">
+          <div><h2 id={`notes-group-${group.id}`}>{group.title}</h2><p>{group.description}</p></div>
+          <span data-note-group-count>{group.entries.length} 篇</span>
+        </header>
+        <ol class="notes-directory-list">
+          {group.entries.map(entry => <li data-note-row>
+            <a class="notes-directory-entry" href={withBase(`/notes/${entry.id}/`)} data-note-card data-category={entry.data.category} data-track={trackFor(entry)} data-search={searchableText(entry)}>
+              <div class="notes-entry-copy">
+                <h3>{entry.data.title}{entry.data.demo && <span class="notes-entry-example">示例</span>}</h3>
+                <p>{entry.data.description}</p>
+                <ul class="notes-entry-tags" aria-label="主题标签">{entry.data.tags.map(tag => <li>{tag}</li>)}</ul>
+              </div>
+              <div class="notes-entry-meta">
+                <span>{categories[entry.data.category]}</span>
+                <span>{entry.data.chapters} {(entry.data.foundationOrder !== undefined || entry.data.directionTrack || entry.id === 'direction-foundations') ? '小节' : '章节'} · 阅读约 {entry.data.readTime} 分钟</span>
+                <time datetime={entry.data.date.toISOString().slice(0, 10)}>{entry.data.date.toISOString().slice(0, 10)}</time>
+              </div>
+            </a>
+          </li>)}
+        </ol>
+      </section>)}
+    </div>
+    <div class="notes-search-empty" data-note-empty hidden>
+      <h2>没有找到匹配的讲义</h2>
+      <p>换一个关键词，或清除类型与方向筛选后再试。</p>
+      <button type="button" class="notes-reset" data-note-reset>显示全部讲义</button>
+    </div>
+    <aside class="notes-reading-reminder" aria-label="阅读说明">
+      <h2>让概念落到纸上，再回到问题。</h2>
+      <p>公式可以横向滚动，代码支持复制；部分课程另附完整 HTML 讲义。讲义内容与个人作答分开，实际学习进度仍私下记录。</p>
+    </aside>
   </div>
 </Layout>
 <script>
-  const notesBrowser=document.querySelector('[data-notes-browser]');
-  const buttons=notesBrowser?.querySelectorAll<HTMLButtonElement>('[data-note-category]');
-  buttons?.forEach(button=>button.addEventListener('click',()=>{
-    const category=button.dataset.noteCategory||'';let count=0;
-    notesBrowser?.querySelectorAll<HTMLElement>('[data-note-card]').forEach(card=>{card.hidden=!!category&&card.dataset.category!==category;if(!card.hidden)count++;});
-    buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-    const status=notesBrowser?.querySelector('[data-note-count]');if(status)status.textContent=`${count} 篇笔记`;
+  const notesBrowser = document.querySelector<HTMLElement>('[data-notes-browser]');
+  const categoryButtons = notesBrowser?.querySelectorAll<HTMLButtonElement>('[data-note-category]');
+  const trackButtons = notesBrowser?.querySelectorAll<HTMLButtonElement>('[data-note-track]');
+  const search = notesBrowser?.querySelector<HTMLInputElement>('[data-note-search]');
+  const resetButtons = notesBrowser?.querySelectorAll<HTMLButtonElement>('[data-note-reset]');
+  const cards = notesBrowser?.querySelectorAll<HTMLElement>('[data-note-card]');
+  const groups = notesBrowser?.querySelectorAll<HTMLElement>('[data-note-group]');
+  let selectedCategory = '';
+  let selectedTrack = '';
+
+  function filterNotes() {
+    const words = (search?.value || '').normalize('NFKC').toLocaleLowerCase().trim().split(/\s+/u).filter(Boolean);
+    let count = 0;
+    cards?.forEach(card => {
+      const visible = (!selectedCategory || card.dataset.category === selectedCategory)
+        && (!selectedTrack || card.dataset.track === selectedTrack)
+        && words.every(word => (card.dataset.search || '').includes(word));
+      card.hidden = !visible;
+      const row = card.closest<HTMLElement>('[data-note-row]');
+      if (row) row.hidden = !visible;
+      if (visible) count++;
+    });
+    groups?.forEach(group => {
+      const visibleCount = [...group.querySelectorAll<HTMLElement>('[data-note-card]')].filter(card => !card.hidden).length;
+      group.hidden = visibleCount === 0;
+      const groupCount = group.querySelector('[data-note-group-count]');
+      if (groupCount) groupCount.textContent = `${visibleCount} 篇`;
+    });
+    const status = notesBrowser?.querySelector('[data-note-count]');
+    if (status) status.textContent = words.length || selectedCategory || selectedTrack ? `找到 ${count} 篇，共 ${cards?.length || 0} 篇` : `共 ${count} 篇`;
+    const empty = notesBrowser?.querySelector<HTMLElement>('[data-note-empty]');
+    if (empty) empty.hidden = count !== 0;
+    resetButtons?.forEach(button => { button.disabled = !words.length && !selectedCategory && !selectedTrack; });
+  }
+
+  categoryButtons?.forEach(button => button.addEventListener('click', () => {
+    selectedCategory = button.dataset.noteCategory || '';
+    categoryButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    filterNotes();
+  }));
+  trackButtons?.forEach(button => button.addEventListener('click', () => {
+    selectedTrack = button.dataset.noteTrack || '';
+    trackButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    filterNotes();
+  }));
+  search?.addEventListener('input', filterNotes);
+  resetButtons?.forEach(button => button.addEventListener('click', () => {
+    selectedCategory = '';
+    selectedTrack = '';
+    if (search) search.value = '';
+    categoryButtons?.forEach(item => item.setAttribute('aria-pressed', String(item.dataset.noteCategory === '')));
+    trackButtons?.forEach(item => item.setAttribute('aria-pressed', String(item.dataset.noteTrack === '')));
+    search?.focus();
+    filterNotes();
   }));
 </script>

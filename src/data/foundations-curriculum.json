@@ -1,0 +1,724 @@
+{
+  "version": 2,
+  "date": "2026-10-16",
+  "hoursPerWeek": [
+    6,
+    8
+  ],
+  "blocks": [
+    {
+      "id": 1,
+      "weekStart": 1,
+      "weekEnd": 2,
+      "title": "语言、逻辑与证明",
+      "topic": "logic",
+      "prerequisites": [],
+      "summary": "从代数和函数读法走向量词、直接证明、逆否与归纳；补弧度和基础三角关系。",
+      "legacySlug": "foundations-weeks-01-02",
+      "chapterIds": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "weeks": [
+        {
+          "week": 1,
+          "chapterIds": [
+            0,
+            1
+          ]
+        },
+        {
+          "week": 2,
+          "chapterIds": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "weekStart": 3,
+      "weekEnd": 4,
+      "title": "线性空间、映射与方程组",
+      "topic": "linear-algebra",
+      "prerequisites": [
+        1
+      ],
+      "summary": "把向量组合、基、维数、秩与消元接成同一套语言。",
+      "legacySlug": "foundations-weeks-03-04",
+      "chapterIds": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "weeks": [
+        {
+          "week": 3,
+          "chapterIds": [
+            4,
+            5
+          ]
+        },
+        {
+          "week": 4,
+          "chapterIds": [
+            6,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "weekStart": 5,
+      "weekEnd": 6,
+      "title": "正交、投影与最小二乘",
+      "topic": "projection",
+      "prerequisites": [
+        2
+      ],
+      "summary": "由内积和正交推导投影、残差与最小二乘，并用QR组织求解。",
+      "legacySlug": "foundations-weeks-05-06",
+      "chapterIds": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "weeks": [
+        {
+          "week": 5,
+          "chapterIds": [
+            8,
+            9
+          ]
+        },
+        {
+          "week": 6,
+          "chapterIds": [
+            10,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "weekStart": 7,
+      "weekEnd": 8,
+      "title": "特征分解、SVD与PCA",
+      "topic": "decomposition",
+      "prerequisites": [
+        3
+      ],
+      "summary": "理解对称矩阵、正定性、奇异值与低秩近似；协方差先作描述性定义。",
+      "legacySlug": "foundations-weeks-07-08",
+      "chapterIds": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "weeks": [
+        {
+          "week": 7,
+          "chapterIds": [
+            12,
+            13
+          ]
+        },
+        {
+          "week": 8,
+          "chapterIds": [
+            14,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "weekStart": 9,
+      "weekEnd": 10,
+      "title": "极限、连续与一元导数",
+      "topic": "derivatives",
+      "prerequisites": [
+        1
+      ],
+      "summary": "从差商补齐极限与连续，推导求导规则并检查局部近似。",
+      "legacySlug": "foundations-weeks-09-10",
+      "chapterIds": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "weeks": [
+        {
+          "week": 9,
+          "chapterIds": [
+            16,
+            17
+          ]
+        },
+        {
+          "week": 10,
+          "chapterIds": [
+            18,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "weekStart": 11,
+      "weekEnd": 12,
+      "title": "积分、基本定理与泰勒近似",
+      "topic": "integration",
+      "prerequisites": [
+        5
+      ],
+      "summary": "由分割求和定义累积，连接导数与积分，说明近似的误差条件。",
+      "legacySlug": "foundations-weeks-11-12",
+      "chapterIds": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "weeks": [
+        {
+          "week": 11,
+          "chapterIds": [
+            20,
+            21
+          ]
+        },
+        {
+          "week": 12,
+          "chapterIds": [
+            22,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "weekStart": 13,
+      "weekEnd": 14,
+      "title": "多变量、梯度与Jacobian",
+      "topic": "multivariable",
+      "prerequisites": [
+        2,
+        5,
+        6
+      ],
+      "summary": "核对多元链式法则的形状，理解方向导数、梯度与二阶局部模型。",
+      "legacySlug": "foundations-weeks-13-14",
+      "chapterIds": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "weeks": [
+        {
+          "week": 13,
+          "chapterIds": [
+            24,
+            25
+          ]
+        },
+        {
+          "week": 14,
+          "chapterIds": [
+            26,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "weekStart": 15,
+      "weekEnd": 16,
+      "title": "多重积分、约束与局部模型",
+      "topic": "constraints",
+      "prerequisites": [
+        3,
+        4,
+        6,
+        7
+      ],
+      "summary": "理解联合区域累积、坐标变换入门、Lagrange条件与局部极值边界。",
+      "legacySlug": "foundations-weeks-15-16",
+      "chapterIds": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "weeks": [
+        {
+          "week": 15,
+          "chapterIds": [
+            28,
+            29
+          ]
+        },
+        {
+          "week": 16,
+          "chapterIds": [
+            30,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "weekStart": 17,
+      "weekEnd": 18,
+      "title": "计数、概率与条件推断",
+      "topic": "probability",
+      "prerequisites": [
+        1
+      ],
+      "summary": "先补有限计数，再用样本空间、条件概率、Bayes与独立性建立概率模型。",
+      "legacySlug": "foundations-weeks-17-18",
+      "chapterIds": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "weeks": [
+        {
+          "week": 17,
+          "chapterIds": [
+            32,
+            33
+          ]
+        },
+        {
+          "week": 18,
+          "chapterIds": [
+            34,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "weekStart": 19,
+      "weekEnd": 20,
+      "title": "随机变量、期望与协方差",
+      "topic": "random-variables",
+      "prerequisites": [
+        4,
+        6,
+        8,
+        9
+      ],
+      "summary": "区分分布和样本，计算离散/连续期望、方差、条件期望和高斯线性变换。",
+      "legacySlug": "foundations-weeks-19-20",
+      "chapterIds": [
+        36,
+        37,
+        38,
+        39
+      ],
+      "weeks": [
+        {
+          "week": 19,
+          "chapterIds": [
+            36,
+            37
+          ]
+        },
+        {
+          "week": 20,
+          "chapterIds": [
+            38,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "weekStart": 21,
+      "weekEnd": 22,
+      "title": "估计、似然与抽样规律",
+      "topic": "estimation",
+      "prerequisites": [
+        3,
+        7,
+        10
+      ],
+      "summary": "用重复抽样理解LLN/CLT，再推导简单MLE与回归估计。",
+      "legacySlug": "foundations-weeks-21-22",
+      "chapterIds": [
+        40,
+        41,
+        42,
+        43
+      ],
+      "weeks": [
+        {
+          "week": 21,
+          "chapterIds": [
+            40,
+            41
+          ]
+        },
+        {
+          "week": 22,
+          "chapterIds": [
+            42,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "weekStart": 23,
+      "weekEnd": 24,
+      "title": "区间、检验与实验设计",
+      "topic": "inference",
+      "prerequisites": [
+        11
+      ],
+      "summary": "解释置信区间与检验，报告效应和不确定性，处理划分、泄漏与多次比较。",
+      "legacySlug": "foundations-weeks-23-24",
+      "chapterIds": [
+        44,
+        45,
+        46,
+        47
+      ],
+      "weeks": [
+        {
+          "week": 23,
+          "chapterIds": [
+            44,
+            45
+          ]
+        },
+        {
+          "week": 24,
+          "chapterIds": [
+            46,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "weekStart": 25,
+      "weekEnd": 26,
+      "title": "算法正确性、复杂度与动态规划",
+      "topic": "algorithms",
+      "prerequisites": [
+        1,
+        2,
+        9
+      ],
+      "summary": "连接归纳、不变式、递推、图与动态规划，分别检查正确性和成本。",
+      "legacySlug": "foundations-weeks-25-26",
+      "chapterIds": [
+        48,
+        49,
+        50,
+        51
+      ],
+      "weeks": [
+        {
+          "week": 25,
+          "chapterIds": [
+            48,
+            49
+          ]
+        },
+        {
+          "week": 26,
+          "chapterIds": [
+            50,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "weekStart": 27,
+      "weekEnd": 28,
+      "title": "状态转移与物理建模起点",
+      "topic": "state-and-motion",
+      "prerequisites": [
+        5,
+        6,
+        10,
+        13
+      ],
+      "summary": "第27周由状态转移与Markov链收尾算法，第28周由单位、运动学与受力引入物理。",
+      "legacySlug": "foundations-weeks-27-28",
+      "chapterIds": [
+        52,
+        53,
+        54,
+        55
+      ],
+      "weeks": [
+        {
+          "week": 27,
+          "chapterIds": [
+            52,
+            53
+          ]
+        },
+        {
+          "week": 28,
+          "chapterIds": [
+            54,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "weekStart": 29,
+      "weekEnd": 30,
+      "title": "牛顿力学、能量与微分方程",
+      "topic": "mechanics",
+      "prerequisites": [
+        6,
+        7,
+        14
+      ],
+      "summary": "用受力图与初始条件建立一维模型，推导自由落体、阻力与振动的最小例子。",
+      "legacySlug": "foundations-weeks-29-30",
+      "chapterIds": [
+        56,
+        57,
+        58,
+        59
+      ],
+      "weeks": [
+        {
+          "week": 29,
+          "chapterIds": [
+            56,
+            57
+          ]
+        },
+        {
+          "week": 30,
+          "chapterIds": [
+            58,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "weekStart": 31,
+      "weekEnd": 32,
+      "title": "测量、量纲与计算误差",
+      "topic": "measurement-errors",
+      "prerequisites": [
+        3,
+        7,
+        12,
+        15
+      ],
+      "summary": "第31周检验模型和测量，第32周区分浮点误差、条件数、稳定性与残差。",
+      "legacySlug": "foundations-weeks-31-32",
+      "chapterIds": [
+        60,
+        61,
+        62,
+        63
+      ],
+      "weeks": [
+        {
+          "week": 31,
+          "chapterIds": [
+            60,
+            61
+          ]
+        },
+        {
+          "week": 32,
+          "chapterIds": [
+            62,
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "weekStart": 33,
+      "weekEnd": 34,
+      "title": "可靠线性求解与数值微积分",
+      "topic": "numerical-methods",
+      "prerequisites": [
+        3,
+        4,
+        6,
+        7,
+        16
+      ],
+      "summary": "用分解方法求解，比较有限差分与数值积分的误差及步长影响。",
+      "legacySlug": "foundations-weeks-33-34",
+      "chapterIds": [
+        64,
+        65,
+        66,
+        67
+      ],
+      "weeks": [
+        {
+          "week": 33,
+          "chapterIds": [
+            64,
+            65
+          ]
+        },
+        {
+          "week": 34,
+          "chapterIds": [
+            66,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "weekStart": 35,
+      "weekEnd": 36,
+      "title": "数值动力学与确定性优化",
+      "topic": "dynamics-optimization",
+      "prerequisites": [
+        7,
+        8,
+        15,
+        17
+      ],
+      "summary": "检验Euler方法的收敛和稳定，再推导梯度下降、步长与凸性适用条件。",
+      "legacySlug": "foundations-weeks-35-36",
+      "chapterIds": [
+        68,
+        69,
+        70,
+        71
+      ],
+      "weeks": [
+        {
+          "week": 35,
+          "chapterIds": [
+            68,
+            69
+          ]
+        },
+        {
+          "week": 36,
+          "chapterIds": [
+            70,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "weekStart": 37,
+      "weekEnd": 38,
+      "title": "随机优化与综合项目设计",
+      "topic": "stochastic-project",
+      "prerequisites": [
+        10,
+        11,
+        12,
+        13,
+        18
+      ],
+      "summary": "第37周连接随机逼近、SGD与简单反向求导，第38周锁定综合项目问题与评价协议。",
+      "legacySlug": "foundations-weeks-37-38",
+      "chapterIds": [
+        72,
+        73,
+        74,
+        75
+      ],
+      "weeks": [
+        {
+          "week": 37,
+          "chapterIds": [
+            72,
+            73
+          ]
+        },
+        {
+          "week": 38,
+          "chapterIds": [
+            74,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "weekStart": 39,
+      "weekEnd": 40,
+      "title": "综合研究实践与经典论文选读",
+      "topic": "capstone",
+      "prerequisites": [
+        4,
+        12,
+        16,
+        17,
+        18,
+        19
+      ],
+      "summary": "完成带噪线性测量项目、失败分析、复查报告和满足先修的经典论文选读。",
+      "legacySlug": "foundations-weeks-39-40",
+      "chapterIds": [
+        76,
+        77,
+        78,
+        79
+      ],
+      "weeks": [
+        {
+          "week": 39,
+          "chapterIds": [
+            76,
+            77
+          ]
+        },
+        {
+          "week": 40,
+          "chapterIds": [
+            78,
+            79
+          ]
+        }
+      ]
+    }
+  ]
+}

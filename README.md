@@ -19,11 +19,21 @@
 | [Bio / Home](https://bay4774.github.io/) | 个人简介、研究方向与最新更新 |
 | [Publications](https://bay4774.github.io/publications/) | 本人原创研究成果；目前保留明确标注的展示示例，待补充真实发表 |
 | [Paper Digest](https://bay4774.github.io/digest/) | 与研究方向相关的 10 篇高被引顶会顶刊论文，提供方法导读、推荐理由和原文入口 |
-| [Lectures & Notes](https://bay4774.github.io/notes/) | 高级人工智能、高级算法设计与分析的最终 HTML 讲义 |
+| [Lectures & Notes](https://bay4774.github.io/notes/) | 80章公共基础、六方向80章讲义，以及两门高级课程的 HTML 讲义 |
 | [Projects](https://bay4774.github.io/projects/) | 工程项目与系统作品，后续补充 |
 | [Trajectory](https://bay4774.github.io/trajectory/) | 科研与职业轨迹，待补充真实经历 |
 
 论文分享属于精选阅读导读，与本人的原创发表分开展示；个人复现与实验记录将在后续补充。引用量注明数据来源与查阅日期，用于提供影响力背景。
+
+## 公共基础与六方向讲义
+
+- [公共基础章节目录与40周阅读路径](https://bay4774.github.io/notes/foundations-course-index/)：00–79章，含概念、推导、算例、自测和通用参考答案。
+- [六方向讲义与先修导航](https://bay4774.github.io/notes/direction-foundations/)：大模型14章、具身智能14章、仿生机器人头12章、物理约束14章、Agent 13章、伴语手势生成13章。
+- [学习方法与先修补救](https://bay4774.github.io/notes/foundations-study-guide/)、[跨章复习](https://bay4774.github.io/notes/foundations-review-exercises/)与[配套经典论文](https://bay4774.github.io/notes/foundations-paper-reading/)。
+
+章节源码在 src/content/notes/，章节关系由 src/data/foundations-chapters.json、foundations-curriculum.json 和 direction-curriculum.json 维护；公共教学代码与图示在 public/research-foundations/ 和 public/research-directions/。教材审读依据保存在 docs/foundations/ 与 docs/directions/。
+
+个人笔记、作答、错题、实际学习进度和个性化批改只保存在被Git忽略的 .private/ 目录，不进入GitHub或发布产物。通用练习答案与教材审读记录属于公共教学内容。详见[内容与隐私边界](docs/foundations/CONTENT_POLICY.md)。
 
 ## 精选论文分享
 

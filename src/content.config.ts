@@ -42,6 +42,7 @@ const digest = defineCollection({
     readTime: z.number(),
     week: z.string(),
     curated: z.boolean().default(false),
+    foundationOrder: z.number().int().nonnegative().optional(),
     featured: z.boolean().default(false),
     citations: z.object({
       count: z.number().int().nonnegative(),
@@ -59,6 +60,11 @@ const notes = defineCollection({
   schema: z.object({
     ...common,
     category: z.enum(['theory', 'tutorial', 'lecture']),
+    foundationOrder: z.number().int().nonnegative().optional(),
+    foundationChapter: z.number().int().min(0).max(79).optional(),
+    directionTrack: z.enum(['llm', 'embodied', 'robotics', 'physics', 'agent', 'gesture']).optional(),
+    directionChapter: z.number().int().positive().optional(),
+    reviewStatus: z.enum(['self-reviewed', 'reviewed']).optional(),
     readTime: z.number(),
     chapters: z.number().default(1),
     pdf: z.string().optional(),

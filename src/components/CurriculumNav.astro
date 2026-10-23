@@ -1,0 +1,38 @@
+---
+import chaptersData from '../data/foundations-chapters.json';
+import curriculum from '../data/foundations-curriculum.json';
+import { withBase } from '../lib/paths';
+interface Props { foundationChapter?: number; reviewStatus?: 'self-reviewed' | 'reviewed'; }
+const { foundationChapter, reviewStatus } = Astro.props;
+const index = chaptersData.chapters.findIndex(chapter => chapter.id === foundationChapter);
+const chapter = chaptersData.chapters[index];
+const prerequisites = chapter ? chapter.prerequisites.map(id => chaptersData.chapters[id]) : [];
+const previous = index > 0 ? chaptersData.chapters[index - 1] : undefined;
+const next = index >= 0 ? chaptersData.chapters[index + 1] : undefined;
+const readingBlock = chapter && curriculum.blocks.find(block => block.chapterIds.includes(chapter.id));
+const pad = (value: number) => String(value).padStart(2, '0');
+const schedule = readingBlock ? '#weeks-' + pad(readingBlock.weekStart) + '-' + pad(readingBlock.weekEnd) : '';
+const reviewAnchor = readingBlock ? '#review-' + pad(readingBlock.chapterIds[0]) + '-' + pad(readingBlock.chapterIds[readingBlock.chapterIds.length - 1]) : '';
+---
+{chapter && <div class="container"><nav class="curriculum-nav" aria-label="章节导航">
+  <p>第 {pad(chapter.id)} 章 · {reviewStatus === 'reviewed' ? '讲义已复核' : '讲义已自查'}<span>个人作答与学习进度私下记录</span></p>
+  <p class="chapter-prerequisites">先修：{prerequisites.length ? prerequisites.map((prerequisite, i) => <>{i > 0 && ' · '}<a href={withBase('/notes/' + prerequisite.slug + '/')}>{pad(prerequisite.id)} · {prerequisite.title.split('：')[0]}</a></>) : '从本章建立数学语言。'}</p>
+  <div>
+    {previous && <a href={withBase('/notes/' + previous.slug + '/')}>← {pad(previous.id)} · {previous.title.split('：')[0]}</a>}
+    {next && <a href={withBase('/notes/' + next.slug + '/')}>{pad(next.id)} · {next.title.split('：')[0]} →</a>}
+    <a href={withBase('/notes/foundations-course-index/' + schedule)}>40周阅读路径</a>
+    <a href={withBase('/notes/foundations-review-exercises/' + reviewAnchor)}>跨章复习题</a>
+    <a href={withBase('/notes/foundations-study-guide/')}>学习与补救</a>
+    <a href={withBase('/notes/foundations-course-audit/')}>章节自纠记录</a>
+  </div>
+</nav></div>}
+<style>
+  .curriculum-nav{border:1px solid var(--line);background:#eef3e8;border-radius:8px;padding:16px 20px;margin:0 0 24px}
+  .curriculum-nav p{font-size:11px;color:var(--green);margin-bottom:9px}
+  .curriculum-nav p span{font-size:10px;margin-left:15px;color:var(--muted)}
+  .curriculum-nav div{display:flex;flex-wrap:wrap;gap:8px 20px}
+  .curriculum-nav a{font-size:12px;text-decoration:underline;text-underline-offset:3px}
+  .curriculum-nav .chapter-prerequisites{font-size:11px;line-height:1.9;margin-bottom:12px;color:var(--muted)}
+  .chapter-prerequisites a{font-size:11px}
+  @media(max-width:680px){.curriculum-nav{padding:15px}.curriculum-nav p span{display:block;margin:4px 0 0}.curriculum-nav div{gap:10px 15px}}
+</style>
