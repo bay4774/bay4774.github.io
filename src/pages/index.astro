@@ -9,10 +9,11 @@ import DigestCard from '../components/DigestCard.astro';
 import { news } from '../data/news';
 import FoundationStart from '../components/FoundationStart.astro';
 import DirectionStart from '../components/DirectionStart.astro';
+import TeachingLectures from '../components/TeachingLectures.astro';
 import '../styles/digest.css';
 const publications = (await getCollection('publications', ({data}) => !data.draft && data.featured)).sort((a,b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2);
 const digests = (await getCollection('digest', ({data}) => !data.draft)).sort((a,b) => Number(b.data.featured) - Number(a.data.featured) || b.data.date.getTime() - a.data.date.getTime()).slice(0,3);
-const notes = (await getCollection('notes', ({data}) => !data.draft)).sort((a,b) => b.data.date.getTime() - a.data.date.getTime()).slice(0,3);
+const notes = (await getCollection('notes', ({data}) => !data.draft && data.category !== 'teaching')).sort((a,b) => b.data.date.getTime() - a.data.date.getTime()).slice(0,3);
 const projects = (await getCollection('projects', ({data}) => !data.draft)).sort((a,b) => Number(b.data.featured) - Number(a.data.featured));
 const project = projects[0];
 ---
@@ -41,8 +42,12 @@ const project = projects[0];
       <div class="ledger-item"><span class="num">03 /</span><div><h2>Built to explore</h2><p>从理论推导到系统实践</p></div><a href={withBase('/projects/')} aria-label="查看工程项目"><Icon name="arrow-up-right" size={16} /></a></div>
     </div>
     {news.slice(0,1).map(item => <div class="home-news"><span class="eyebrow">LATEST NEWS</span><time datetime={item.date}>{item.date.replaceAll('-','.')}</time><a href={withBase(item.href)}>{item.title} <Icon name="arrow-up-right" size={12} /></a>{item.demo && <span class="demo-badge">示例动态</span>}</div>)}
-    <FoundationStart />
-    <DirectionStart />
+    <section aria-labelledby="course-lectures-heading">
+      <h2 id="course-lectures-heading" class="course-lectures-title">课程讲义</h2>
+      <FoundationStart />
+      <DirectionStart />
+    </section>
+    <TeachingLectures />
     <section class="section-block">
       <div class="section-head"><div><span class="eyebrow">SELECTED WORK / 原创研究</span><h2 class="section-title">Selected publications<span>让想法成为可验证的成果</span></h2></div><a class="text-link" href={withBase('/publications/')}>View all research <Icon name="arrow-up-right" size={14} /></a></div>
       {site.demoMode && <p class="section-description" style="margin:-12px 0 20px">以下为演示条目，用于预览论文陈列效果，待替换为你的真实成果。</p>}
@@ -53,10 +58,10 @@ const project = projects[0];
       <div class="home-digest-grid">{digests.map(entry => <DigestCard entry={entry} />)}</div>
     </section>
     <div class="home-lab">
-      <section class="home-panel"><div class="section-head"><div><span class="eyebrow">THE KNOWLEDGE SHELF</span><h2 class="section-title">Lectures & notes</h2></div><a class="text-link" href={withBase('/notes/')} aria-label="查看所有讲义"><Icon name="arrow-up-right" size={17} /></a></div>{notes.map((note,i) => <a class="note-row" href={withBase(`/notes/${note.id}/`)}><span class="index">0{i+1}</span><div><h3>{note.data.title}</h3><p>{note.data.tags.slice(0,2).join(' / ')} · {note.data.readTime} MIN READ · {note.data.demo ? '示例' : ''}</p></div><Icon name="arrow-up-right" size={15} /></a>)}</section>
+      <section class="home-panel"><div class="section-head"><div><span class="eyebrow">THE KNOWLEDGE SHELF</span><h2 class="section-title">课程目录</h2></div><a class="text-link" href={withBase('/notes/')} aria-label="查看所有讲义"><Icon name="arrow-up-right" size={17} /></a></div>{notes.map((note,i) => <a class="note-row" href={withBase(`/notes/${note.id}/`)}><span class="index">0{i+1}</span><div><h3>{note.data.title}</h3><p>{note.data.tags.slice(0,2).join(' / ')} · {note.data.readTime} MIN READ · {note.data.demo ? '示例' : ''}</p></div><Icon name="arrow-up-right" size={15} /></a>)}</section>
       <section class="home-panel"><div class="section-head"><div><span class="eyebrow">INSIDE THE LAB</span><h2 class="section-title">Ideas, built.</h2></div><a class="text-link" href={withBase('/projects/')} aria-label="查看所有工程项目"><Icon name="arrow-up-right" size={17} /></a></div>{project && <a class="home-project-preview" href={withBase(`/projects/${project.id}/`)}><img src={withBase(project.data.image)} alt={project.data.title} width="480" height="320" loading="lazy" /><div><span class="eyebrow">{project.data.category} / 示例</span><h3>{project.data.title}</h3><p>{project.data.description}</p><span class="text-link">Explore the build <Icon name="arrow-up-right" size={13} /></span></div></a>}</section>
     </div>
     <section class="home-contact"><div class="contact-icon"><Icon name="spark" size={22} /></div><div><h2>Good research starts with a conversation.</h2><p>欢迎围绕具身智能、仿生系统与物理仿真展开交流。</p></div>{site.email ? <a class="text-link" href={`mailto:${site.email}`}>Say hello <Icon name="arrow-up-right" size={16} /></a> : <span class="contact-placeholder">联系邮箱 · 待填写</span>}</section>
   </div>
 </Layout>
-<style>.home-digest-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}@media(max-width:850px){.home-digest-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-digest-grid>:last-child{display:none}}@media(max-width:680px){.home-digest-grid{grid-template-columns:1fr}.home-digest-grid>:last-child{display:block}}</style>
+<style>.course-lectures-title{font-size:30px;line-height:1.3;margin:40px 0 20px}.home-digest-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}@media(max-width:850px){.home-digest-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-digest-grid>:last-child{display:none}}@media(max-width:680px){.home-digest-grid{grid-template-columns:1fr}.home-digest-grid>:last-child{display:block}}</style>

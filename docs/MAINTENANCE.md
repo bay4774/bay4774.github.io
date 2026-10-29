@@ -72,7 +72,7 @@ pnpm new project robot-toolkit-v2
 
 **Digest** 使用 `originalTitle`、`authors`、`lab`、`venue`、`year`、`rating`、`stars`、`method`、`verdict`、`readTime`、`week`、`tags`。`rating` 仅接受 `must-read`、`inspiring`、`engineering`。`originalUrl` 与 `code` 为原文和官方代码入口。`week` 如 `2026-W42`，用于周报分组；周报当前按相同周编号聚合手记，可在各篇手记中补充专题总结。
 
-**Notes** 的 `category` 仅接受 `theory`、`tutorial`、`lecture`；可填写 `html`、`pdf`、`slides`。最终 HTML 讲义放在 `public/lectures/<slug>/index.html`，条目中写 `html: '/lectures/<slug>/'`；必要图片、字体和脚本与讲义一起保存，保持相对路径。当前两门课程不上传源 PPT/PDF。
+**Notes** 的 `category` 仅接受 `theory`、`tutorial`、`lecture`、`teaching`；其中 `teaching` 为教学讲义，`lecture` 为课程讲义；可填写 `html`、`pdf`、`slides`。最终 HTML 讲义放在 `public/lectures/<slug>/index.html`，条目中写 `html: '/lectures/<slug>/'`；必要图片、字体和脚本与讲义一起保存，保持相对路径。当前两门课程不上传源 PPT/PDF。
 
 **Digest** 可用 `curated: true` 标记精选导读，避免把推荐内容显示为已经完成的个人精读；`featured: true` 优先展示在首页。可选 `citations` 含 `count`、`source`、`url`、`accessed` 四个字段，分别为引用量、计量库名称、原记录链接和查阅日期。计量库的记录可能合并预印本与正式版本，应在导读中说明口径。`related` 只表达主题关联，不自动声明正式引文关系。
 

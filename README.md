@@ -25,7 +25,7 @@
 
 论文分享属于精选阅读导读，与本人的原创发表分开展示；个人复现与实验记录将在后续补充。引用量注明数据来源与查阅日期，用于提供影响力背景。
 
-## 公共基础与六方向讲义
+## 课程讲义：公共基础与六方向
 
 - [公共基础章节目录与40周阅读路径](https://bay4774.github.io/notes/foundations-course-index/)：00–79章，含概念、推导、算例、自测和通用参考答案。
 - [六方向讲义与先修导航](https://bay4774.github.io/notes/direction-foundations/)：大模型14章、具身智能14章、仿生机器人头12章、物理约束14章、Agent 13章、伴语手势生成13章。
@@ -52,10 +52,10 @@
 | [Auto-Encoding Variational Bayes](https://bay4774.github.io/digest/vae/) | ICLR 2014 | [17,312](https://www.semanticscholar.org/paper/5f5dc5b9a2ba710937e2c413b37b053cd673df02) |
 | [Generative Adversarial Nets](https://bay4774.github.io/digest/gan/) | NeurIPS 2014 | [7,031](https://www.semanticscholar.org/paper/86ee1835a56722b76564119437070782fc90eb19) |
 
-## 课程讲义
+## 教学讲义
 
 - [高级人工智能 · 零基础逐例详解与备考讲义（2026-10-23）](https://bay4774.github.io/lectures/advanced-artificial-intelligence/index.html)
-- [高级算法设计与分析 · 离线讲义](https://bay4774.github.io/lectures/advanced-algorithm-design/index.html)
+- [高级算法设计与分析 · 零基础逐例详解（2026-10-29）](https://bay4774.github.io/lectures/advanced-algorithm-design/index.html)
 
 公开资源仅包含最终 HTML 讲义及必要的页面依赖，不包含源 PPT 或 PDF。
 

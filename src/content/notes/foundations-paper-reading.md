@@ -3,7 +3,7 @@ title: '基础论文阅读路径 · 六篇公共经典与两篇方向选读'
 description: '用概率、线代、微积分与建模能力接住经典思想：先看问题，再推核心公式，满足先修后精读原文。'
 date: '2026-10-15'
 tags: ['Foundations', 'Reading Guide', 'Research Methods']
-category: 'tutorial'
+category: 'lecture'
 foundationOrder: 2
 demo: false
 draft: false

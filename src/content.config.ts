@@ -59,7 +59,7 @@ const notes = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notes' }),
   schema: z.object({
     ...common,
-    category: z.enum(['theory', 'tutorial', 'lecture']),
+    category: z.enum(['theory', 'tutorial', 'lecture', 'teaching']),
     foundationOrder: z.number().int().nonnegative().optional(),
     foundationChapter: z.number().int().min(0).max(79).optional(),
     directionTrack: z.enum(['llm', 'embodied', 'robotics', 'physics', 'agent', 'gesture']).optional(),

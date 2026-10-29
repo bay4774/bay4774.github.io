@@ -5,7 +5,7 @@ date: 2026-10-23
 tags: ['Artificial Intelligence', 'Machine Learning', 'Search', 'Reinforcement Learning']
 demo: false
 draft: false
-category: 'lecture'
+category: 'teaching'
 readTime: 480
 chapters: 16
 html: '/lectures/advanced-artificial-intelligence/index.html'
