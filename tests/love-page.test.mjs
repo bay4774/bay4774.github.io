@@ -57,11 +57,45 @@ test('private source excerpts never enter published HTML, scripts, or data', asy
   let content;
   try { content = JSON.parse(await readFile('.private/love/content.json', 'utf8')); }
   catch (error) { if (error.code === 'ENOENT') return; throw error; }
-  const excerpts = [content.intro, ...(content.chapters || []).map(chapter => chapter.text),
-    ...(content.letter?.paragraphs || [])]
-    .filter(value => typeof value === 'string' && value.length >= 24)
-    .map(value => Buffer.from(value, 'utf8'));
-  assert.ok(excerpts.length, 'Use private prose excerpts without embedding them in test source');
+  const checks = [];
+  function addExcerpts(kind, values, minimumLength = 24) {
+    for (const value of values) {
+      if (typeof value === 'string' && value.trim().length >= minimumLength) {
+        checks.push({ kind, value });
+      }
+    }
+  }
+  addExcerpts('original story', [content.intro, ...(content.chapters || []).map(chapter => chapter.text),
+    ...(content.letter?.paragraphs || [])]);
+  addExcerpts('expanded letters', (content.letters || []).flatMap(letter => letter.paragraphs || []));
+  addExcerpts('love notes', (content.loveNotes || []).map(note => note.text));
+  // Individual lyric lines are much shorter than prose paragraphs. Empty stanza
+  // breaks and tiny generic phrases are omitted without dropping the song itself.
+  addExcerpts('lyrics', content.music?.lyrics || [], 6);
+  if (content.relationshipDate !== undefined) {
+    assert.match(content.relationshipDate, /^\d{4}-\d{2}-\d{2}$/,
+      'The private relationship date must be a valid source value');
+    const [year, month, day] = content.relationshipDate.split('-');
+    addExcerpts('relationship date', [
+      content.relationshipDate,
+      [year, month, day].join('.'),
+      [year, month, day].join('/'),
+      `${year}年${Number(month)}月${Number(day)}日`,
+      `${year} 年 ${Number(month)} 月 ${Number(day)} 日`,
+    ], 1);
+  }
+  assert.ok(checks.length, 'Use private prose excerpts without embedding them in test source');
+  for (const [field, present] of [
+    ['expanded letters', Boolean(content.letters?.length)],
+    ['love notes', Boolean(content.loveNotes?.length)],
+    ['lyrics', Boolean(content.music?.lyrics?.some(line => line.trim()))],
+    ['relationship date', content.relationshipDate !== undefined],
+  ]) {
+    if (present) assert.ok(checks.some(check => check.kind === field), `No privacy canaries were collected for ${field}`);
+  }
+  // Deduplicate repeated lyrics and the original letter retained for compatibility.
+  const excerpts = [...new Map(checks.map(check => [check.value, check])).values()]
+    .map(({ kind, value }) => ({ kind, bytes: Buffer.from(value, 'utf8') }));
   let checked = 0;
   async function visit(directory) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -69,8 +103,10 @@ test('private source excerpts never enter published HTML, scripts, or data', asy
       if (entry.isDirectory()) { await visit(filename); continue; }
       if (!/\.(?:html|js|mjs|json|map|txt|xml|css|webmanifest)$/.test(entry.name)) continue;
       const bytes = await readFile(filename);
-      assert.equal(excerpts.some(excerpt => bytes.includes(excerpt)), false,
-        `Private prose was found in generated file ${path.relative(root, filename)}`);
+      const leak = excerpts.find(excerpt => bytes.includes(excerpt.bytes));
+      // Report the source category only: never print private text on failure.
+      assert.equal(Boolean(leak), false,
+        `Private ${leak?.kind || 'content'} was found in generated file ${path.relative(root, filename)}`);
       checked++;
     }
   }

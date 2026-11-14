@@ -9,15 +9,15 @@ import '../../styles/love.css';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <meta name="description" content="一段需要密码才能打开的私人回忆。" />
-    <meta name="theme-color" content="#1f2b4d" />
+    <meta name="theme-color" content="#8f3249" />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="preload" href={withBase('/fonts/libre-franklin-latin-variable.woff2')} as="font" type="font/woff2" crossorigin />
-    <title>恋爱纪念 · 我们的故事</title>
+    <title>我们的小世界 · 恋爱纪念册</title>
   </head>
   <body>
     <a class="love-skip" href="#main-content">跳至正文</a>
     <header class="love-header">
-      <a class="love-brand" href={withBase('/love/')}>恋爱纪念</a>
+      <a class="love-brand" href={withBase('/love/')}>写给我们</a>
       <nav aria-label="页面导航">
         <button type="button" id="lock-love" hidden>锁定页面</button>
         <a href={withBase('/')}>返回主页 <span aria-hidden="true">↗</span></a>
@@ -26,14 +26,15 @@ import '../../styles/love.css';
     <main id="main-content" data-vault-url={withBase('/love/vault.json')} data-song-url={withBase('/love/song.json')}>
       <section class="love-gate" id="love-gate" aria-labelledby="gate-title">
         <div class="gate-copy">
-          <h1 id="gate-title">只属于<br />我们的故事。</h1>
-          <p>把相遇、心动和一起走过的日子，<br class="desktop-break" />收在这一本私人纪念册里。</p>
-          <span class="gate-closing">有些回忆，想和你一起慢慢翻。</span>
+          <p class="gate-dedication" lang="en">Dear us,</p>
+          <h1 id="gate-title">把往后的日子，<br />写成我们。</h1>
+          <p>从第一次心动，到每一次坚定地选择彼此。<br class="desktop-break" />这里收藏我们的照片、信件，和正在发生的以后。</p>
+          <span class="gate-closing">一封写给两个人的信，一本慢慢变厚的纪念册。</span>
         </div>
         <div class="gate-form-wrap">
           <form id="love-form" aria-describedby="password-message">
             <h2>打开我们的纪念册</h2>
-            <p>输入约定好的密码，回到那些值得记住的瞬间。</p>
+            <p>有些话，只想说给你听。<br />输入约定好的密码，回到我们的小世界。</p>
             <label for="love-password">访问密码</label>
             <div class="password-field">
               <input id="love-password" type="password" autocomplete="current-password" required aria-describedby="password-message" />
@@ -48,7 +49,7 @@ import '../../styles/love.css';
       </section>
       <article id="love-story" class="love-story" hidden></article>
     </main>
-    <footer class="love-footer"><span>把平凡的日子，认真收藏。</span><a href={withBase('/')}>回到主页 ↗</a></footer>
+    <footer class="love-footer"><span>喜欢有了回应，日子有了我们。</span><a href={withBase('/')}>回到主页 ↗</a></footer>
     <dialog id="photo-dialog" class="photo-dialog" aria-labelledby="photo-title">
       <div class="photo-dialog-toolbar"><p id="photo-position"></p><button type="button" id="close-photo" aria-label="关闭照片">关闭 ×</button></div>
       <img id="photo-large" alt="" />

@@ -4,6 +4,28 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { encryptLovePayload } from '../src/lib/love-crypto.mjs';
 
+/**
+ * @typedef {{ title: string, text: string }} LoveNote
+ * @typedef {{ title: string, paragraphs: string[], signature: string }} LoveLetter
+ * @typedef {LoveLetter & { id: string, context: string, date?: string }} LoveContextLetter
+ * @typedef {{ source: string, title: string, caption: string, category?: 'travel' | 'daily' }} LoveSourcePhoto
+ * @typedef {Object} LoveSourceContent
+ * @property {1} version
+ * @property {string} boyName
+ * @property {string} girlName
+ * @property {string} nickname
+ * @property {string} meetDate
+ * @property {string} intro
+ * @property {LoveNote[]} chapters
+ * @property {LoveLetter} letter
+ * @property {LoveSourcePhoto[]} photos
+ * @property {{ source: string, title: string, lyrics?: string[] }} music
+ * @property {string} [relationshipDate]
+ * @property {number} [heroPhotoIndex]
+ * @property {LoveNote[]} [loveNotes]
+ * @property {LoveContextLetter[]} [letters]
+ */
+
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 // Reuse Astro's installed optional image dependency, including strict pnpm layouts.
 const require = createRequire(import.meta.url);
@@ -37,38 +59,42 @@ export async function resolveSourceFile(sourceDirectory, source) {
   return candidate;
 }
 
-/** Build private data in memory; never write unencrypted media to public/. */
-export async function buildLovePayload(content, sourceDirectory) {
+/** Validate a calendar date without JavaScript's silent overflow normalization. */
+export function calendarDate(value, field = 'date') {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    throw new Error(`${field} 必须使用 YYYY-MM-DD 格式。`);
+  }
+  const parsed = new Date(`${value}T00:00:00Z`);
+  if (!Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
+    throw new Error(`${field} 必须是有效的日历日期。`);
+  }
+  return value;
+}
+
+function paragraphs(value, field) {
+  if (!Array.isArray(value) || !value.length) throw new Error(`${field} 必须包含至少一段正文。`);
+  return value.map((paragraph, index) => text(paragraph, `${field}[${index}]`));
+}
+
+/**
+ * Keep an explicit whitelist; private source paths never reach the public payload.
+ * @returns {LoveSourceContent}
+ */
+export function validateLoveContent(content) {
   if (content?.version !== 1 || !Array.isArray(content.photos) || !content.photos.length) {
     throw new Error('私有内容必须使用 version: 1，并包含至少一张照片。');
   }
-  if (!Array.isArray(content.chapters) || !Array.isArray(content.letter?.paragraphs)) {
-    throw new Error('私有内容缺少故事章节或信件段落。');
+  if (!Array.isArray(content.chapters) || !content.chapters.length || !content.letter) {
+    throw new Error('私有内容缺少故事章节或信件。');
   }
   const meetDate = text(content.meetDate, 'meetDate');
-  if (!Number.isFinite(Date.parse(meetDate)) || !/(Z|[+-]\d{2}:\d{2})$/.test(meetDate)) {
-    throw new Error('meetDate 必须是包含时区的有效日期。');
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(meetDate)
+    || !Number.isFinite(Date.parse(meetDate)) || Number(meetDate.slice(11, 13)) > 23) {
+    throw new Error('meetDate 必须是包含时区的有效日期时间。');
   }
-  const photos = [];
-  // Process sequentially to keep memory bounded for full-resolution phone photos.
-  for (const [index, photo] of content.photos.entries()) {
-    const filename = await resolveSourceFile(sourceDirectory, photo.source);
-    const { data, info } = await sharp(filename)
-      .rotate()
-      .resize({ width: 1400, height: 1400, fit: 'inside', withoutEnlargement: true })
-      .webp({ quality: 80 })
-      .toBuffer({ resolveWithObject: true });
-    photos.push({
-      title: text(photo.title, `photos[${index}].title`),
-      caption: typeof photo.caption === 'string' ? photo.caption : '',
-      mime: 'image/webp', data: data.toString('base64'), width: info.width, height: info.height,
-    });
-  }
-  const musicFile = await resolveSourceFile(sourceDirectory, content.music?.source);
-  if (path.extname(musicFile).toLowerCase() !== '.mp3') {
-    throw new Error('音乐素材必须是 MP3 文件。');
-  }
-  const payload = {
+  calendarDate(meetDate.slice(0, 10), 'meetDate');
+  /** @type {LoveSourceContent} */
+  const result = {
     version: 1,
     boyName: text(content.boyName, 'boyName'),
     girlName: text(content.girlName, 'girlName'),
@@ -81,12 +107,102 @@ export async function buildLovePayload(content, sourceDirectory) {
     })),
     letter: {
       title: text(content.letter.title, 'letter.title'),
-      paragraphs: content.letter.paragraphs.map((paragraph, index) => text(paragraph, `letter.paragraphs[${index}]`)),
+      paragraphs: paragraphs(content.letter.paragraphs, 'letter.paragraphs'),
       signature: text(content.letter.signature, 'letter.signature'),
     },
-    photos,
-    music: { title: text(content.music.title, 'music.title') },
+    photos: content.photos.map((photo, index) => {
+      /** @type {LoveSourcePhoto} */
+      const item = {
+        source: text(photo.source, `photos[${index}].source`),
+        title: text(photo.title, `photos[${index}].title`),
+        caption: typeof photo.caption === 'string' ? photo.caption : '',
+      };
+      if (photo.category !== undefined) {
+        if (!['travel', 'daily'].includes(photo.category)) {
+          throw new Error(`photos[${index}].category 只能是 travel 或 daily。`);
+        }
+        item.category = photo.category;
+      }
+      return item;
+    }),
+    music: {
+      source: text(content.music?.source, 'music.source'),
+      title: text(content.music?.title, 'music.title'),
+    },
   };
+  if (content.relationshipDate !== undefined) {
+    result.relationshipDate = calendarDate(content.relationshipDate, 'relationshipDate');
+    if (result.relationshipDate < meetDate.slice(0, 10)) {
+      throw new Error('relationshipDate 不能早于 meetDate。');
+    }
+  }
+  if (content.heroPhotoIndex !== undefined) {
+    if (!Number.isInteger(content.heroPhotoIndex) || content.heroPhotoIndex < 0
+      || content.heroPhotoIndex >= result.photos.length) {
+      throw new Error('heroPhotoIndex 必须指向相册中已有照片的有效索引。');
+    }
+    result.heroPhotoIndex = content.heroPhotoIndex;
+  }
+  if (content.music.lyrics !== undefined) {
+    if (!Array.isArray(content.music.lyrics) || !content.music.lyrics.every(line => typeof line === 'string')) {
+      throw new Error('music.lyrics 必须是字符串数组。');
+    }
+    // Empty strings preserve stanza breaks from the original lyrics.
+    result.music.lyrics = [...content.music.lyrics];
+  }
+  if (content.loveNotes !== undefined) {
+    if (!Array.isArray(content.loveNotes) || !content.loveNotes.length) throw new Error('loveNotes 不能为空。');
+    result.loveNotes = content.loveNotes.map((note, index) => ({
+      title: text(note.title, `loveNotes[${index}].title`),
+      text: text(note.text, `loveNotes[${index}].text`),
+    }));
+  }
+  if (content.letters !== undefined) {
+    if (!Array.isArray(content.letters) || !content.letters.length) throw new Error('letters 不能为空。');
+    const ids = new Set();
+    result.letters = content.letters.map((letter, index) => {
+      const id = text(letter.id, `letters[${index}].id`);
+      if (!/^[a-z][a-z0-9-]*$/.test(id) || ids.has(id)) throw new Error('letters[].id 必须是唯一的英文短标识。');
+      ids.add(id);
+      /** @type {LoveContextLetter} */
+      const item = {
+        id,
+        title: text(letter.title, `letters[${index}].title`),
+        context: text(letter.context, `letters[${index}].context`),
+        paragraphs: paragraphs(letter.paragraphs, `letters[${index}].paragraphs`),
+        signature: text(letter.signature, `letters[${index}].signature`),
+      };
+      if (letter.date !== undefined) item.date = calendarDate(letter.date, `letters[${index}].date`);
+      return item;
+    });
+  }
+  return result;
+}
+
+/** Build private data in memory; never write unencrypted media to public/. */
+export async function buildLovePayload(content, sourceDirectory) {
+  const normalized = validateLoveContent(content);
+  const photos = [];
+  // Process sequentially to keep memory bounded for full-resolution phone photos.
+  for (const photo of normalized.photos) {
+    const filename = await resolveSourceFile(sourceDirectory, photo.source);
+    const { data, info } = await sharp(filename)
+      .rotate()
+      .resize({ width: 1400, height: 1400, fit: 'inside', withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toBuffer({ resolveWithObject: true });
+    const { source: _source, ...metadata } = photo;
+    photos.push({
+      ...metadata,
+      mime: 'image/webp', data: data.toString('base64'), width: info.width, height: info.height,
+    });
+  }
+  const musicFile = await resolveSourceFile(sourceDirectory, normalized.music.source);
+  if (path.extname(musicFile).toLowerCase() !== '.mp3') {
+    throw new Error('音乐素材必须是 MP3 文件。');
+  }
+  const { source: _musicSource, ...music } = normalized.music;
+  const payload = { ...normalized, photos, music };
   const song = { mime: 'audio/mpeg', data: (await readFile(musicFile)).toString('base64') };
   return { payload, song };
 }
