@@ -1,0 +1,17 @@
+---
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+---
+<section class="home-love-entry" aria-labelledby="love-entry-title">
+  <div><h2 id="love-entry-title">研究之外，生活之中。</h2><p>给相遇、心动和一起走过的日子，留一个小小的位置。</p></div>
+  <a href={withBase('/love/')}><span>打开恋爱纪念册<small>私人回忆 · 需要密码</small></span><Icon name="arrow-up-right" size={24} /></a>
+</section>
+<style>
+  .home-love-entry { display:flex;justify-content:space-between;align-items:center;gap:32px;margin-top:80px;padding:36px;background:#e9eff6; }
+  .home-love-entry h2 { font-size:30px;line-height:1.5;font-weight:500; }
+  .home-love-entry p { margin-top:14px;font-size:16px;line-height:1.8;color:var(--muted); }
+  .home-love-entry>a { display:flex;align-items:center;justify-content:space-between;gap:32px;padding:16px 0;font-size:18px;flex-shrink:0; }
+  .home-love-entry small { display:block;font-size:14px;color:var(--muted);margin-top:10px; }
+  .home-love-entry>a:hover { text-decoration:underline;text-underline-offset:6px; }
+  @media(max-width:800px) { .home-love-entry { flex-direction:column;align-items:stretch;padding:26px;margin-top:60px;gap:10px; }.home-love-entry h2 { font-size:26px; } }
+</style>

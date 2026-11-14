@@ -1,0 +1,59 @@
+---
+import { withBase } from '../../lib/paths';
+import '../../styles/love.css';
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="description" content="一段需要密码才能打开的私人回忆。" />
+    <meta name="theme-color" content="#1f2b4d" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="preload" href={withBase('/fonts/libre-franklin-latin-variable.woff2')} as="font" type="font/woff2" crossorigin />
+    <title>恋爱纪念 · 我们的故事</title>
+  </head>
+  <body>
+    <a class="love-skip" href="#main-content">跳至正文</a>
+    <header class="love-header">
+      <a class="love-brand" href={withBase('/love/')}>恋爱纪念</a>
+      <nav aria-label="页面导航">
+        <button type="button" id="lock-love" hidden>锁定页面</button>
+        <a href={withBase('/')}>返回主页 <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main-content" data-vault-url={withBase('/love/vault.json')} data-song-url={withBase('/love/song.json')}>
+      <section class="love-gate" id="love-gate" aria-labelledby="gate-title">
+        <div class="gate-copy">
+          <h1 id="gate-title">只属于<br />我们的故事。</h1>
+          <p>把相遇、心动和一起走过的日子，<br class="desktop-break" />收在这一本私人纪念册里。</p>
+          <span class="gate-closing">有些回忆，想和你一起慢慢翻。</span>
+        </div>
+        <div class="gate-form-wrap">
+          <form id="love-form" aria-describedby="password-message">
+            <h2>打开我们的纪念册</h2>
+            <p>输入约定好的密码，回到那些值得记住的瞬间。</p>
+            <label for="love-password">访问密码</label>
+            <div class="password-field">
+              <input id="love-password" type="password" autocomplete="current-password" required aria-describedby="password-message" />
+              <button id="toggle-password" type="button" aria-label="显示密码" aria-pressed="false">显示</button>
+            </div>
+            <button class="love-button primary" id="unlock-love" type="submit">打开纪念册 <span aria-hidden="true">↗</span></button>
+            <p class="password-message" id="password-message" role="status" aria-live="polite"></p>
+            <p class="gate-note">离开前，可以点击「锁定页面」收起回忆。</p>
+          </form>
+          <noscript><p class="no-script">请启用 JavaScript，以便在本机解密并查看纪念册。</p></noscript>
+        </div>
+      </section>
+      <article id="love-story" class="love-story" hidden></article>
+    </main>
+    <footer class="love-footer"><span>把平凡的日子，认真收藏。</span><a href={withBase('/')}>回到主页 ↗</a></footer>
+    <dialog id="photo-dialog" class="photo-dialog" aria-labelledby="photo-title">
+      <div class="photo-dialog-toolbar"><p id="photo-position"></p><button type="button" id="close-photo" aria-label="关闭照片">关闭 ×</button></div>
+      <img id="photo-large" alt="" />
+      <div class="photo-dialog-caption"><div><h2 id="photo-title"></h2><p id="photo-caption"></p></div><div class="photo-controls"><button type="button" id="previous-photo" aria-label="上一张照片">←</button><button type="button" id="next-photo" aria-label="下一张照片">→</button></div></div>
+    </dialog>
+    <script src="../../scripts/love.ts"></script>
+  </body>
+</html>
