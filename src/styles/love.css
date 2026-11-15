@@ -175,13 +175,15 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 
 /* Filters remain outside the photographs, which keep their own ratios. */
 .album-tools { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 22px; margin: 28px 0 20px; }
-.album-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.album-filters { display: flex; flex-wrap: wrap; gap: 8px; flex-basis: 100%; }
 .filter-button { min-height: 46px; padding: 12px 20px; border: 0; color: var(--muted); background: var(--rose); font-size: 15px; line-height: 1.45; }
 .filter-button:hover { background: var(--rose-deep); }
 .filter-button[aria-pressed='true'] { background: var(--accent); color: var(--sheet); }
 .album-search { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 15px; }
 .album-search input { width: 246px; min-width: 0; height: 46px; border: 1px solid #b99da6; padding: 10px 14px; color: var(--ink); background: var(--sheet); border-radius: 0; }
 .album-search input::placeholder { color: #856e76; opacity: 1; }
+.album-trip { display: flex; align-items: center; gap: 12px; max-width: 100%; min-width: 0; color: var(--muted); font-size: 15px; }
+.album-trip select { width: 310px; max-width: 100%; min-width: 0; min-height: 48px; border: 1px solid #b99da6; padding: 10px 36px 10px 14px; color: var(--ink); background: var(--sheet); border-radius: 0; font: inherit; }
 .album-count { margin-bottom: 26px; font-size: 15px; line-height: 1.7; color: var(--muted); }
 .album-grid { columns: 4; column-gap: 20px; }
 .memory-photo { break-inside: avoid; margin: 0 0 25px; }
@@ -191,6 +193,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .memory-photo figcaption { padding-top: 12px; font-size: 15px; line-height: 1.7; }
 .memory-photo figcaption strong { display: block; font-weight: 500; }
 .memory-photo figcaption p { font-size: 14px; margin-top: 5px; color: var(--muted); line-height: 1.75; }
+.memory-photo figcaption .photo-location { color: var(--accent); }
 .album-empty { padding: 56px 24px; font-size: 18px; line-height: 1.8; text-align: center; background: var(--rose); }
 
 /* Anniversaries: one highlighted date, then a useful calendar. */
@@ -342,8 +345,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .scene { gap: 28px; }
   .scene h3 { font-size: 27px; }
   .scene p { font-size: 16px; line-height: 1.9; }
-  .album-search { width: 100%; }
+  .album-search, .album-trip { width: 100%; }
   .album-search input { flex: 1; width: auto; }
+  .album-trip select { flex: 1; width: auto; }
   .anniversary-feature { padding: 30px; gap: 26px; }
   .anniversary-feature h3 { font-size: 29px; }
   .anniversary-feature .anniversary-big strong { font-size: 74px; }
@@ -431,8 +435,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .album-tools { gap: 18px; }
   .album-filters { gap: 7px; }
   .filter-button { padding: 11px 16px; font-size: 14px; }
-  .album-search { display: block; font-size: 14px; }
+  .album-search, .album-trip { display: block; font-size: 14px; }
   .album-search input { display: block; width: 100%; margin-top: 10px; font-size: 16px; }
+  .album-trip select { display: block; width: 100%; margin-top: 10px; font-size: 16px; }
   .album-count { font-size: 14px; margin-bottom: 22px; }
   .album-grid { columns: 2; column-gap: 12px; }
   .memory-photo { margin-bottom: 23px; }

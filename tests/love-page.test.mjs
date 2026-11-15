@@ -71,6 +71,7 @@ test('private source excerpts never enter published HTML, scripts, or data', asy
   addExcerpts('love notes', (content.loveNotes || []).map(note => note.text));
   addExcerpts('photo titles', (content.photos || []).map(photo => photo.title), 4);
   addExcerpts('photo captions', (content.photos || []).map(photo => photo.caption), 4);
+  addExcerpts('photo trip metadata', (content.photos || []).flatMap(photo => [photo.trip, photo.dateLabel]), 8);
   if (content.cloud !== undefined) {
     // The API origin may be public; its bearer token must only occur inside the
     // encrypted vault. Avoid assertion helpers that print the actual credential.

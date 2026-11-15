@@ -8,7 +8,7 @@ import { encryptLovePayload } from '../src/lib/love-crypto.mjs';
  * @typedef {{ title: string, text: string }} LoveNote
  * @typedef {{ title: string, paragraphs: string[], signature: string }} LoveLetter
  * @typedef {LoveLetter & { id: string, context: string, date?: string }} LoveContextLetter
- * @typedef {{ source: string, title: string, caption: string, category?: 'travel' | 'daily' | 'couple' }} LoveSourcePhoto
+ * @typedef {{ source: string, title: string, caption: string, category?: 'travel' | 'daily' | 'couple', location?: string, trip?: string, dateLabel?: string }} LoveSourcePhoto
  * @typedef {Object} LoveSourceContent
  * @property {1} version
  * @property {string} boyName
@@ -133,6 +133,14 @@ export function validateLoveContent(content) {
           throw new Error(`photos[${index}].category 只能是 travel、daily 或 couple。`);
         }
         item.category = photo.category;
+      }
+      for (const field of /** @type {const} */ (['location', 'trip', 'dateLabel'])) {
+        if (photo[field] === undefined) continue;
+        const value = text(photo[field], `photos[${index}].${field}`).trim();
+        if (value.length > 100 || /[\r\n]/.test(value)) {
+          throw new Error(`photos[${index}].${field} 必须是 1–100 个字符的单行文字。`);
+        }
+        item[field] = value;
       }
       return item;
     }),

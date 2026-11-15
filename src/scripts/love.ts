@@ -4,7 +4,7 @@ import { createLoveEditor, type LoveEntry } from './love-editor';
 import { customAnniversaries, customDatesInMonth } from '../lib/love-records.mjs';
 import '../styles/love-editor.css';
 
-interface Photo { title: string; caption: string; mime: string; data: string; width: number; height: number; category?: 'travel' | 'daily' | 'couple'; date?: string; }
+interface Photo { title: string; caption: string; mime: string; data: string; width: number; height: number; category?: 'travel' | 'daily' | 'couple'; date?: string; location?: string; trip?: string; dateLabel?: string; }
 interface Letter { id: string; title: string; context: string; date?: string; paragraphs: string[]; signature: string; }
 interface Story { version: number; boyName: string; girlName: string; nickname: string; meetDate: string; relationshipDate: string; intro: string; heroPhotoIndex?: number; storyPhotoIndexes?: number[]; cloud?: {apiUrl:string;token:string}; chapters: {title: string; text: string}[]; letter: {title: string; paragraphs: string[]; signature: string}; letters?: Letter[]; loveNotes?: {title: string; text: string}[]; photos: Photo[]; music?: {title: string; lyrics?: string[]}; }
 type PanelId = 'today' | 'story' | 'album' | 'diary' | 'dates' | 'letters' | 'music';
@@ -35,7 +35,7 @@ let musicStatus: HTMLElement | null = null;
 let selectPanel: (id: PanelId, focus?: boolean) => void = () => {};
 let editor: ReturnType<typeof createLoveEditor> | null = null;
 let cloudEntries: LoveEntry[] = [];
-let albumView = {category:'all', query:''};
+let albumView = {category:'all', query:'', trip:''};
 let calendarView: {year:number;month:number;selected:string} | null = null;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -69,7 +69,8 @@ function showPhoto(index: number, indexes?: number[]) {
   const photo = story.photos[index];
   largePhoto.src = photoUrls[index]; largePhoto.alt = photo.title;
   document.querySelector('#photo-title')!.textContent = photo.title;
-  document.querySelector('#photo-caption')!.textContent = photo.caption;
+  const dateLabel = photo.dateLabel && !photo.trip?.includes(photo.dateLabel) ? photo.dateLabel : '';
+  document.querySelector('#photo-caption')!.textContent = [photo.location, photo.trip, dateLabel, photo.caption].filter(Boolean).join(' · ');
   document.querySelector('#photo-position')!.textContent = `${viewerIndexes.indexOf(index) + 1} / ${viewerIndexes.length}`;
   if (!dialog.open) dialog.showModal();
 }
@@ -86,8 +87,11 @@ function imageButton(index: number, lazy = true, indexes?: () => number[]) {
   img.loading = lazy ? 'lazy' : 'eager'; node.append(img); return node;
 }
 function figure(index: number, indexes?: () => number[]) {
-  const node = e('figure', 'memory-photo');
-  node.append(imageButton(index, true, indexes), e('figcaption', '', story!.photos[index].title)); return node;
+  const node = e('figure', 'memory-photo'), photo = story!.photos[index], caption = e('figcaption');
+  caption.append(e('strong', '', photo.title));
+  if (photo.location) caption.append(e('p', 'photo-location', photo.location));
+  if (photo.dateLabel) caption.append(e('p', 'photo-date', photo.dateLabel));
+  node.append(imageButton(index, true, indexes), caption); return node;
 }
 async function fetchEnvelope(url: string, signal?: AbortSignal) {
   const response = await fetch(url, {cache: 'no-store', signal});
@@ -167,8 +171,11 @@ function storyPanel(data: Story) {
   const scenes = e('div', 'story-scenes');
   data.chapters.forEach((chapter, index) => {
     const scene = e('article', 'scene'), photo = e('figure'), copy = e('div');
-    photo.append(imageButton(data.storyPhotoIndexes?.[index] ?? [1, 12, 5][index % 3] % data.photos.length));
-    copy.append(e('h3', '', ['喜欢，不是突然发生的', '日常里，也都是你', '第一次一起旅行'][index] ?? chapter.title), e('p', '', chapter.text)); scene.append(photo, copy); scenes.append(scene);
+    const photoIndex = data.storyPhotoIndexes?.[index] ?? [1, 12, 5][index % 3] % data.photos.length;
+    photo.append(imageButton(photoIndex));
+    const place = data.photos[photoIndex].location;
+    if (place) photo.append(e('figcaption', '', place));
+    copy.append(e('h3', '', chapter.title), e('p', '', chapter.text)); scene.append(photo, copy); scenes.append(scene);
   });
   panel.append(timeline, scenes); return panel;
 }
@@ -176,15 +183,19 @@ function albumPanel(data: Story) {
   const panel = e('section'); panel.append(heading('回忆可以反复看', '旅行的风景，生活的小事，还有镜头里最想留下的人。'));
   if (editor) panel.append(editor.photoEditor);
   const tools = e('div', 'album-tools'), filters = e('div', 'album-filters'); filters.setAttribute('aria-label', '相册分类');
-  const searchLabel = e('label', 'album-search', '寻找回忆'), input = e('input'); input.id = 'album-search'; input.type = 'search'; input.placeholder = '搜索照片标题或回忆'; input.setAttribute('aria-label', '搜索照片'); input.value = albumView.query; searchLabel.append(input);
+  const searchLabel = e('label', 'album-search', '寻找回忆'), input = e('input'); input.id = 'album-search'; input.type = 'search'; input.placeholder = '搜索照片、地点或回忆'; input.setAttribute('aria-label', '搜索照片'); input.value = albumView.query; searchLabel.append(input);
+  const tripLabel = e('label', 'album-trip', '旅行行程'), tripSelect = e('select'); tripSelect.id = 'album-trip';
+  const trips = [...new Set(data.photos.map(photo => photo.trip).filter((trip): trip is string => !!trip))];
+  for (const trip of ['', ...trips]) { const option = e('option', '', trip || '全部行程'); option.value = trip; tripSelect.append(option); }
+  tripSelect.value = trips.includes(albumView.trip) ? albumView.trip : ''; tripLabel.append(tripSelect);
   const count = e('p', 'album-count'); count.setAttribute('role', 'status');
   const grid = e('div', 'album-grid'), empty = e('p', 'album-empty', '还没有找到这段回忆，换一个词试试。'); empty.hidden = true;
   let category = albumView.category, visibleIndexes: number[] = [];
   const filterButtons: HTMLButtonElement[] = [];
   function update() {
-    albumView = {category, query:input.value};
+    albumView = {category, query:input.value, trip:tripSelect.value};
     const query = input.value.trim().normalize('NFKC').toLocaleLowerCase();
-    visibleIndexes = data.photos.map((photo, index) => ({photo, index})).filter(({photo}) => (category === 'all' || photo.category === category) && `${photo.title} ${photo.caption}`.normalize('NFKC').toLocaleLowerCase().includes(query)).map(({index}) => index);
+    visibleIndexes = data.photos.map((photo, index) => ({photo, index})).filter(({photo}) => (category === 'all' || photo.category === category) && (!tripSelect.value || photo.trip === tripSelect.value) && [photo.title, photo.caption, photo.location, photo.trip, photo.dateLabel].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase().includes(query)).map(({index}) => index);
     grid.replaceChildren(); visibleIndexes.forEach(index => grid.append(figure(index, () => visibleIndexes)));
     count.textContent = `找到 ${visibleIndexes.length} 张回忆 · 共 ${data.photos.length} 张`; empty.hidden = visibleIndexes.length > 0;
     filterButtons.forEach(node => node.setAttribute('aria-pressed', String(node.dataset.category === category)));
@@ -193,7 +204,7 @@ function albumPanel(data: Story) {
     const total = id === 'all' ? data.photos.length : data.photos.filter(photo => photo.category === id).length;
     const node = button(`${title} · ${total}`, () => { category = id; update(); }, 'filter-button'); node.dataset.category = id; node.setAttribute('aria-pressed', String(id === 'all')); filterButtons.push(node); filters.append(node);
   }
-  input.addEventListener('input', update); tools.append(filters, searchLabel); panel.append(tools, count, grid, empty); update(); return panel;
+  input.addEventListener('input', update); tripSelect.addEventListener('change', update); tools.append(filters, tripLabel, searchLabel); panel.append(tools, count, grid, empty); update(); return panel;
 }
 function isoDay(now: Date) { return new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(now); }
 function datesPanel(data: Story) {
@@ -377,7 +388,7 @@ function renderStory(data: Story) {
 }
 function lock(focus=true) {
   generation++;request?.abort();request=null;observer?.disconnect();observer=null;if(timer)clearInterval(timer);timer=undefined;dateRefreshers=[];
-  editor?.stop(); editor=null; cloudEntries=[]; albumView={category:'all',query:''}; calendarView=null;
+  editor?.stop(); editor=null; cloudEntries=[]; albumView={category:'all',query:'',trip:''}; calendarView=null;
   if(audio){audio.pause();audio.removeAttribute('src');audio.load();audio=null;}musicButtons=[];musicStatus=null;musicLoading=false;selectPanel=()=>{};
   dialog.close();largePhoto.removeAttribute('src');largePhoto.alt='';for(const id of ['photo-title','photo-caption','photo-position'])document.getElementById(id)!.textContent='';
   storyRoot.replaceChildren();storyRoot.hidden=true;urls.forEach(url=>URL.revokeObjectURL(url));urls=[];photoUrls=[];viewerIndexes=[];

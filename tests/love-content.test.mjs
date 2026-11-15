@@ -17,7 +17,7 @@ import { buildLovePayload, calendarDate, resolvePhotoSource, validateLoveContent
  * @property {string} intro
  * @property {{ title: string, text: string }[]} chapters
  * @property {{ title: string, paragraphs: string[], signature: string, source?: string }} letter
- * @property {{ source: string, title: string, caption: string, category?: string }[]} photos
+ * @property {{ source: string, title: string, caption: string, category?: string, location?: unknown, trip?: unknown, dateLabel?: unknown, privateNote?: string }[]} photos
  * @property {{ source: string, title: string, lyrics?: (string | number)[], copyright?: string }} music
  * @property {string} [relationshipDate]
  * @property {number | string} [heroPhotoIndex]
@@ -49,7 +49,27 @@ test('original version 1 content remains valid without expanded fields', () => {
     assert.equal(Object.hasOwn(result, field), false);
   }
   assert.equal(Object.hasOwn(result.photos[0], 'category'), false);
+  for (const field of ['location', 'trip', 'dateLabel']) assert.equal(Object.hasOwn(result.photos[0], field), false);
   assert.equal(Object.hasOwn(result.music, 'lyrics'), false);
+});
+
+test('travel labels preserve only bounded single-line text without inventing exact dates', () => {
+  const content = originalContent();
+  Object.assign(content.photos[0], { location: '  Example City  ', trip: '  Autumn journey  ', dateLabel: '  2020.11.11—11.14  ', privateNote: 'do-not-publish' });
+  const photo = validateLoveContent(content).photos[0];
+  assert.equal(photo.location, 'Example City');
+  assert.equal(photo.trip, 'Autumn journey');
+  assert.equal(photo.dateLabel, '2020.11.11—11.14');
+  assert.equal(Object.hasOwn(photo, 'date'), false);
+  assert.equal(Object.hasOwn(photo, 'privateNote'), false);
+  for (const field of /** @type {const} */ (['location', 'trip', 'dateLabel'])) {
+    for (const invalid of ['', '   ', null, 42, {}, ['City'], 'x'.repeat(101), 'City\nPlace']) {
+      const candidate = originalContent(); candidate.photos[0][field] = invalid;
+      assert.throws(() => validateLoveContent(candidate), new RegExp(field));
+    }
+    const candidate = originalContent(); candidate.photos[0][field] = 'x'.repeat(100);
+    assert.equal(validateLoveContent(candidate).photos[0][field]?.length, 100);
+  }
 });
 
 test('calendar dates reject normalized impossible days and ambiguous formats', () => {
@@ -149,7 +169,7 @@ test('imported photos reject links outside the private imports root', async t =>
 test('imported image packing preserves the story choice without exposing source paths', async t => {
   const { source, imports } = await sourceFixture(t);
   const content = originalContent();
-  content.photos = [{ source: 'imports/shared.svg', title: 'Together', caption: 'A shared memory.', category: 'couple' }];
+  content.photos = [{ source: 'imports/shared.svg', title: 'Together', caption: 'A shared memory.', category: 'couple', location: 'Example City', trip: 'A journey', dateLabel: '2020.11.11—11.14' }];
   content.storyPhotoIndexes = [0];
   content.music.source = 'song.mp3';
   const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect width="1" height="1" fill="red"/></svg>';
@@ -157,6 +177,9 @@ test('imported image packing preserves the story choice without exposing source 
   const { payload } = await buildLovePayload(content, source, imports);
   assert.deepEqual(payload.storyPhotoIndexes, [0]);
   assert.equal(payload.photos[0].category, 'couple');
+  assert.equal(payload.photos[0].location, 'Example City');
+  assert.equal(payload.photos[0].trip, 'A journey');
+  assert.equal(payload.photos[0].dateLabel, '2020.11.11—11.14');
   assert.equal(payload.photos[0].mime, 'image/webp');
   assert.equal(payload.photos[0].width, 1);
   assert.equal(Object.hasOwn(payload.photos[0], 'source'), false);
