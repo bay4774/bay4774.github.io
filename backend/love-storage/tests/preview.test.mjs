@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, rename, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { PreviewBucket } from '../dev.mjs';
+import { PreviewBucket, replacePreviewFile } from '../dev.mjs';
 
 test('preview storage persists ciphertext and atomically rejects duplicate creates and stale updates', async () => {
   const base = fileURLToPath(new URL('../.test-data/', import.meta.url));
@@ -29,6 +29,58 @@ test('preview storage persists ciphertext and atomically rejects duplicate creat
     await assert.rejects(bucket.head('../escape.json'));
   } finally {
     assert.ok(path.resolve(directory).startsWith(`${path.resolve(base)}${path.sep}`));
-    await rm(directory, { recursive: true, force: true });
+    await rm(directory, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
   }
+});
+
+test('transient replacement locks retain the original file and the conditional-write queue', async () => {
+  const base = fileURLToPath(new URL('../.test-data/', import.meta.url));
+  await mkdir(base, { recursive: true });
+  const directory = await mkdtemp(path.join(base, 'retry-'));
+  try {
+    const key = 'entries/10000000-0000-4000-8000-000000000001.json';
+    const originalBucket = new PreviewBucket(directory);
+    const original = await originalBucket.put(key, 'original', { onlyIf: new Headers({ 'If-None-Match': '*' }), customMetadata: { type: 'diary', createdAt: '2020-01-01T00:00:00.000Z' } });
+    let announceRetry, releaseRetry;
+    const retryStarted = new Promise(resolve => { announceRetry = resolve; });
+    const resume = new Promise(resolve => { releaseRetry = resolve; });
+    let attempts = 0;
+    const bucket = new PreviewBucket(directory, (temporary, destination) => replacePreviewFile(temporary, destination, {
+      renameFile: async (source, target) => {
+        if (++attempts === 1) throw Object.assign(new Error('Simulated Windows sharing violation.'), { code: 'EPERM' });
+        return rename(source, target);
+      },
+      pause: async () => { announceRetry(); await resume; },
+    }));
+    const condition = { onlyIf: new Headers({ 'If-Match': original.httpEtag }), customMetadata: { ...original.customMetadata } };
+    const first = bucket.put(key, 'replacement', condition);
+    const competing = bucket.put(key, 'stale-overwrite', condition);
+    await retryStarted;
+    assert.equal(await new Response((await originalBucket.get(key)).body).text(), 'original');
+    releaseRetry();
+    assert.ok(await first);
+    assert.equal(await competing, null);
+    assert.equal(attempts, 2);
+    assert.equal(await new Response((await originalBucket.get(key)).body).text(), 'replacement');
+    assert.equal((await readdir(directory)).some(filename => filename.endsWith('.tmp')), false);
+  } finally {
+    assert.ok(path.resolve(directory).startsWith(`${path.resolve(base)}${path.sep}`));
+    await rm(directory, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
+  }
+});
+
+test('replacement retries are finite and do not retry unrelated filesystem failures', async () => {
+  const delays = []; let attempts = 0;
+  await assert.rejects(replacePreviewFile('temporary', 'destination', {
+    renameFile: async () => { attempts++; throw Object.assign(new Error('Locked.'), { code: 'EPERM' }); },
+    pause: async delay => { delays.push(delay); },
+  }), { code: 'EPERM' });
+  assert.equal(attempts, 9);
+  assert.deepEqual(delays, [25, 50, 100, 200, 250, 250, 250, 250]);
+  attempts = 0;
+  await assert.rejects(replacePreviewFile('temporary', 'destination', {
+    renameFile: async () => { attempts++; throw Object.assign(new Error('Disk full.'), { code: 'ENOSPC' }); },
+    pause: async () => { assert.fail('A non-transient error must not be retried.'); },
+  }), { code: 'ENOSPC' });
+  assert.equal(attempts, 1);
 });

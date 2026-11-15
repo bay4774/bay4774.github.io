@@ -88,8 +88,8 @@ test('CORS permits exact configured origins and rejects unknown origins', async 
   assert.deepEqual(bucket.calls, []);
   const permitted = await worker.fetch(request(), env);
   assert.equal(permitted.headers.get('Access-Control-Allow-Origin'), origin);
-  assert.equal(permitted.headers.get('Access-Control-Expose-Headers'), 'ETag');
-  assert.equal(permitted.headers.get('Cache-Control'), 'no-store');
+  assert.equal(permitted.headers.get('Access-Control-Expose-Headers'), 'ETag, X-Entry-ETag, X-Entry-Created-At');
+  assert.equal(permitted.headers.get('Cache-Control'), 'no-store, no-transform');
   assert.equal(permitted.headers.get('Vary'), 'Origin');
   env.ALLOWED_ORIGINS = 'http://localhost:4324, https://preview.example, *, https://bad.example/path';
   assert.equal((await worker.fetch(request('/api/entries', { headers: { Origin: 'http://localhost:4324' } }), env)).status, 200);
@@ -142,9 +142,13 @@ test('all three record types round-trip only encrypted fields and metadata', asy
     assert.match(info.etag, /^"[a-f0-9]{32}"$/);
     assert.ok(Number.isFinite(Date.parse(info.createdAt)));
     assert.equal(createResponse.headers.get('ETag'), info.etag);
+    assert.equal(createResponse.headers.get('X-Entry-ETag'), info.etag);
+    assert.equal(createResponse.headers.get('X-Entry-Created-At'), info.createdAt);
     const getResponse = await worker.fetch(request(itemPath), env);
     assert.deepEqual(await getResponse.json(), payload);
     assert.equal(getResponse.headers.get('ETag'), info.etag);
+    assert.equal(getResponse.headers.get('X-Entry-ETag'), info.etag);
+    assert.equal(getResponse.headers.get('X-Entry-Created-At'), info.createdAt);
     const listResponse = await worker.fetch(request(), env);
     assert.deepEqual(await listResponse.json(), { items: [info], cursor: null });
     assert.equal(bucket.calls.find(call => call[0] === 'put')[2].onlyIf.get('If-None-Match'), '*');

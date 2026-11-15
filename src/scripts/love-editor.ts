@@ -33,6 +33,21 @@ function metadata(value:unknown):Metadata {
   if (!item || !uuidPattern.test(item.id??'') || !['photo','diary','anniversary'].includes(item.type??'') || typeof item.etag!=='string' || !item.etag || item.etag.length>200 || typeof item.createdAt!=='string' || !Number.isFinite(new Date(item.createdAt).getTime())) throw new Error('记录索引暂时无法读取。');
   return item as Metadata;
 }
+/** Keep the stored version independent of CDN representation transformations. */
+export function readEntryMetadata(response:Pick<Response,'headers'>, fallback:Metadata):Metadata {
+  const version=(value:string|null)=>{
+    if(!value)return null;
+    // Older deployments exposed only ETag. Cloudflare can prefix the unchanged
+    // R2 version with W/ when compressing the response; writes need the raw tag.
+    const candidate=value.trim().replace(/^W\//,'');
+    const match=/^(?:"([A-Za-z0-9._:-]{1,128})"|([A-Za-z0-9._:-]{1,128}))$/.exec(candidate);
+    return match?`"${match[1]??match[2]}"`:null;
+  };
+  const etag=[response.headers.get('X-Entry-ETag'),response.headers.get('ETag'),fallback.etag].map(version).find(Boolean);
+  const timestamp=response.headers.get('X-Entry-Created-At');
+  const createdAt=timestamp&&Number.isFinite(new Date(timestamp).getTime())?timestamp:fallback.createdAt;
+  return metadata({...fallback,etag,createdAt});
+}
 class SaveError extends Error { constructor(message:string,readonly status=0) {super(message);} }
 
 /** All form contents and decrypted records stay in memory; storage receives envelopes only. */
@@ -72,8 +87,7 @@ export function createLoveEditor(options:LoveEditorOptions) {
     const envelope=await response.json();assertActive();
     const decoded=await decryptLovePayload(envelope,secret);assertActive();
     const value=validateLoveRecord(meta.type,decoded);
-    const createdAt=response.headers.get('X-Entry-Created-At')||meta.createdAt;
-    return {...meta,createdAt,etag:response.headers.get('ETag')||meta.etag,value} as LoveEntry;
+    return {...readEntryMetadata(response,meta),value} as LoveEntry;
   }
   async function save(type:EntryType,id:string,value:PhotoValue|DiaryValue|AnniversaryValue,previous?:LoveEntry) {
     assertActive();const normalized=validateLoveRecord(type,value);

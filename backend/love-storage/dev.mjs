@@ -2,7 +2,7 @@
 import http from 'node:http';
 import { Readable } from 'node:stream';
 import { createHash, randomUUID } from 'node:crypto';
-import { mkdir, readFile, writeFile, rename, readdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, rename, readdir, rm } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 import worker from './worker/index.js';
@@ -10,8 +10,23 @@ import worker from './worker/index.js';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const entryKey = /^entries\/[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}\.json$/;
 
+/** Retry transient Windows file locks without removing the existing record. */
+export async function replacePreviewFile(temporary, destination, {
+  renameFile = rename,
+  pause = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds)),
+} = {}) {
+  const retryDelays = [25, 50, 100, 200, 250, 250, 250, 250];
+  for (let attempt = 0; ; attempt++) {
+    try { await renameFile(temporary, destination); return; }
+    catch (error) {
+      if (!['EPERM', 'EACCES', 'EBUSY', 'EEXIST'].includes(error.code) || attempt >= retryDelays.length) throw error;
+      await pause(retryDelays[attempt]);
+    }
+  }
+}
+
 export class PreviewBucket {
-  constructor(directory) { this.directory = directory; this.pending = Promise.resolve(); }
+  constructor(directory, replaceFile = replacePreviewFile) { this.directory = directory; this.replaceFile = replaceFile; this.pending = Promise.resolve(); }
   filename(key) {
     if (!entryKey.test(key)) throw new Error('Invalid preview key.');
     return path.join(this.directory, path.basename(key));
@@ -41,7 +56,15 @@ export class PreviewBucket {
       const destination = this.filename(key);
       const temporary = `${destination}.${randomUUID()}.tmp`;
       await writeFile(temporary, JSON.stringify(value), { flag: 'wx' });
-      await rename(temporary, destination);
+      try {
+        // Keep all retry attempts inside this bucket's write queue. The
+        // condition is rechecked only by the next queued operation, after the
+        // current rename has either succeeded atomically or definitively failed.
+        await this.replaceFile(temporary, destination);
+      } catch (error) {
+        await rm(temporary, { force: true, maxRetries: 3, retryDelay: 100 }).catch(() => {});
+        throw error;
+      }
       return this.meta(key, value);
     });
     this.pending = operation.then(() => undefined, () => undefined);

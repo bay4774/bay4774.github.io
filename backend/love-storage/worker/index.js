@@ -27,7 +27,7 @@ function allowedOrigins(env) {
 function responseHeaders(origin) {
   const headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8',
-    'Cache-Control': 'no-store',
+    'Cache-Control': 'no-store, no-transform',
     'X-Content-Type-Options': 'nosniff',
     'Referrer-Policy': 'no-referrer',
     'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'; base-uri 'none'",
@@ -35,7 +35,7 @@ function responseHeaders(origin) {
   });
   if (origin) {
     headers.set('Access-Control-Allow-Origin', origin);
-    headers.set('Access-Control-Expose-Headers', 'ETag');
+    headers.set('Access-Control-Expose-Headers', 'ETag, X-Entry-ETag, X-Entry-Created-At');
   }
   return headers;
 }
@@ -132,6 +132,10 @@ function recordInfo(object, id) {
   };
 }
 
+function recordHeaders(object) {
+  return { ETag: object.httpEtag, 'X-Entry-ETag': object.httpEtag, 'X-Entry-Created-At': object.customMetadata.createdAt };
+}
+
 async function listEntries(url, env, origin) {
   if ([...url.searchParams.keys()].some(key => key !== 'cursor') || url.searchParams.getAll('cursor').length > 1) {
     throw new HttpError(400, 'invalid_query');
@@ -173,11 +177,11 @@ async function putEntry(request, url, id, env, origin) {
   const condition = new Headers(etag ? { 'If-Match': etag } : { 'If-None-Match': '*' });
   const object = await env.BUCKET.put(key, JSON.stringify(envelope), {
     onlyIf: condition,
-    httpMetadata: { contentType: 'application/json; charset=utf-8', cacheControl: 'no-store' },
+    httpMetadata: { contentType: 'application/json; charset=utf-8', cacheControl: 'no-store, no-transform' },
     customMetadata: { type, createdAt },
   });
   if (!object) throw new HttpError(409, 'version_conflict');
-  return json(recordInfo(object, id), etag ? 200 : 201, origin, { ETag: object.httpEtag });
+  return json(recordInfo(object, id), etag ? 200 : 201, origin, recordHeaders(object));
 }
 
 async function handle(request, env) {
@@ -215,7 +219,8 @@ async function handle(request, env) {
       if (url.search) throw new HttpError(400, 'invalid_query');
       const object = await env.BUCKET.get(`entries/${id}.json`);
       if (!object) throw new HttpError(404, 'not_found');
-      const headers = responseHeaders(origin); headers.set('ETag', object.httpEtag);
+      const headers = responseHeaders(origin);
+      for (const [name, value] of Object.entries(recordHeaders(object))) headers.set(name, value);
       return new Response(object.body, { headers });
     }
     return json({ error: 'method_not_allowed' }, 405, origin, { Allow: 'GET, PUT, OPTIONS' });
