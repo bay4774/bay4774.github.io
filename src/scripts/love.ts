@@ -1,10 +1,13 @@
 import { decryptLovePayload } from '../lib/love-crypto.mjs';
 import { getLoveStats, getAnniversaries, formatLoveDate } from '../lib/love-dates.mjs';
+import { createLoveEditor, type LoveEntry } from './love-editor';
+import { customAnniversaries, customDatesInMonth } from '../lib/love-records.mjs';
+import '../styles/love-editor.css';
 
-interface Photo { title: string; caption: string; mime: string; data: string; width: number; height: number; category?: 'travel' | 'daily'; }
+interface Photo { title: string; caption: string; mime: string; data: string; width: number; height: number; category?: 'travel' | 'daily' | 'couple'; date?: string; }
 interface Letter { id: string; title: string; context: string; date?: string; paragraphs: string[]; signature: string; }
-interface Story { version: number; boyName: string; girlName: string; nickname: string; meetDate: string; relationshipDate: string; intro: string; heroPhotoIndex?: number; chapters: {title: string; text: string}[]; letter: {title: string; paragraphs: string[]; signature: string}; letters?: Letter[]; loveNotes?: {title: string; text: string}[]; photos: Photo[]; music?: {title: string; lyrics?: string[]}; }
-type PanelId = 'today' | 'story' | 'album' | 'dates' | 'letters' | 'music';
+interface Story { version: number; boyName: string; girlName: string; nickname: string; meetDate: string; relationshipDate: string; intro: string; heroPhotoIndex?: number; storyPhotoIndexes?: number[]; cloud?: {apiUrl:string;token:string}; chapters: {title: string; text: string}[]; letter: {title: string; paragraphs: string[]; signature: string}; letters?: Letter[]; loveNotes?: {title: string; text: string}[]; photos: Photo[]; music?: {title: string; lyrics?: string[]}; }
+type PanelId = 'today' | 'story' | 'album' | 'diary' | 'dates' | 'letters' | 'music';
 const main = document.querySelector<HTMLElement>('#main-content')!;
 const gate = document.querySelector<HTMLElement>('#love-gate')!;
 const storyRoot = document.querySelector<HTMLElement>('#love-story')!;
@@ -30,7 +33,16 @@ let musicButtons: HTMLButtonElement[] = [];
 let musicLoading = false;
 let musicStatus: HTMLElement | null = null;
 let selectPanel: (id: PanelId, focus?: boolean) => void = () => {};
+let editor: ReturnType<typeof createLoveEditor> | null = null;
+let cloudEntries: LoveEntry[] = [];
+let albumView = {category:'all', query:''};
+let calendarView: {year:number;month:number;selected:string} | null = null;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+function allAnniversaries(data: Story, now = new Date()) {
+  return [...getAnniversaries(data.meetDate, data.relationshipDate, now), ...customAnniversaries(cloudEntries, now)]
+    .sort((a, b) => a.daysUntil - b.daysUntil || a.title.localeCompare(b.title, 'zh-CN'));
+}
 
 function e<K extends keyof HTMLElementTagNameMap>(tag: K, className = '', text = ''): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
@@ -131,12 +143,12 @@ function overview(data: Story) {
   const today = e('div', 'today-grid'), next = e('article', 'next-anniversary'), nextTitle = e('h3'), nextCount = e('strong'), nextTime = e('p');
   const nextBig = e('div', 'anniversary-big'); nextBig.append(nextCount, e('span', '', '天后'));
   next.append(nextTitle, nextBig, nextTime, go('打开纪念日日历 ↗', 'dates'));
-  dateRefreshers.push(() => { const upcoming = getAnniversaries(data.meetDate, data.relationshipDate)[0]; if (upcoming) { nextTitle.textContent = upcoming.title; nextCount.textContent = String(upcoming.daysUntil); nextBig.lastElementChild!.textContent = upcoming.daysUntil === 0 ? '就是今天' : '天后'; nextTime.textContent = formatLoveDate(upcoming.date); } });
+  dateRefreshers.push(() => { const upcoming = allAnniversaries(data)[0]; if (upcoming) { nextTitle.textContent = upcoming.title; nextCount.textContent = String(upcoming.daysUntil); nextBig.lastElementChild!.textContent = upcoming.daysUntil === 0 ? '就是今天' : '天后'; nextTime.textContent = formatLoveDate(upcoming.date); } });
   const note = e('article', 'today-letter'); note.append(e('h3', '', '有些话，想一直说给你听'), e('p', '', '以前想把喜欢说给你听。现在想把每一个普通的明天，都和你一起过得认真。'), go('打开写给你的信 ↗', 'letters'));
   today.append(next, note); panel.append(today);
   const memoryHead = e('div', 'section-heading'); memoryHead.append(e('h3', '', '把你放进每一页回忆'), go(`查看全部 ${data.photos.length} 张 ↗`, 'album'));
   const preview = e('div', 'memory-preview');
-  [1, 5, 8, 12].filter(index => index < data.photos.length).forEach(index => preview.append(figure(index)));
+  [data.storyPhotoIndexes?.[0] ?? 1, 5, 8, 12].filter(index => index < data.photos.length).forEach(index => preview.append(figure(index)));
   panel.append(memoryHead, preview);
   if (data.loveNotes?.length) {
     const promises = e('section', 'promise-section'), list = e('div', 'promise-list');
@@ -155,27 +167,29 @@ function storyPanel(data: Story) {
   const scenes = e('div', 'story-scenes');
   data.chapters.forEach((chapter, index) => {
     const scene = e('article', 'scene'), photo = e('figure'), copy = e('div');
-    photo.append(imageButton([1, 12, 5][index % 3] % data.photos.length));
+    photo.append(imageButton(data.storyPhotoIndexes?.[index] ?? [1, 12, 5][index % 3] % data.photos.length));
     copy.append(e('h3', '', ['喜欢，不是突然发生的', '日常里，也都是你', '第一次一起旅行'][index] ?? chapter.title), e('p', '', chapter.text)); scene.append(photo, copy); scenes.append(scene);
   });
   panel.append(timeline, scenes); return panel;
 }
 function albumPanel(data: Story) {
   const panel = e('section'); panel.append(heading('回忆可以反复看', '旅行的风景，生活的小事，还有镜头里最想留下的人。'));
+  if (editor) panel.append(editor.photoEditor);
   const tools = e('div', 'album-tools'), filters = e('div', 'album-filters'); filters.setAttribute('aria-label', '相册分类');
-  const searchLabel = e('label', 'album-search', '寻找回忆'), input = e('input'); input.type = 'search'; input.placeholder = '搜索照片标题或回忆'; input.setAttribute('aria-label', '搜索照片'); searchLabel.append(input);
+  const searchLabel = e('label', 'album-search', '寻找回忆'), input = e('input'); input.id = 'album-search'; input.type = 'search'; input.placeholder = '搜索照片标题或回忆'; input.setAttribute('aria-label', '搜索照片'); input.value = albumView.query; searchLabel.append(input);
   const count = e('p', 'album-count'); count.setAttribute('role', 'status');
   const grid = e('div', 'album-grid'), empty = e('p', 'album-empty', '还没有找到这段回忆，换一个词试试。'); empty.hidden = true;
-  let category = 'all', visibleIndexes: number[] = [];
+  let category = albumView.category, visibleIndexes: number[] = [];
   const filterButtons: HTMLButtonElement[] = [];
   function update() {
+    albumView = {category, query:input.value};
     const query = input.value.trim().normalize('NFKC').toLocaleLowerCase();
     visibleIndexes = data.photos.map((photo, index) => ({photo, index})).filter(({photo}) => (category === 'all' || photo.category === category) && `${photo.title} ${photo.caption}`.normalize('NFKC').toLocaleLowerCase().includes(query)).map(({index}) => index);
     grid.replaceChildren(); visibleIndexes.forEach(index => grid.append(figure(index, () => visibleIndexes)));
     count.textContent = `找到 ${visibleIndexes.length} 张回忆 · 共 ${data.photos.length} 张`; empty.hidden = visibleIndexes.length > 0;
     filterButtons.forEach(node => node.setAttribute('aria-pressed', String(node.dataset.category === category)));
   }
-  for (const [id, title] of [['all', '全部回忆'], ['travel', '第一次旅行'], ['daily', '日常里的你']]) {
+  for (const [id, title] of [['all', '全部回忆'], ['couple', '我们的合照'], ['travel', '旅行记忆'], ['daily', '日常里的你']]) {
     const total = id === 'all' ? data.photos.length : data.photos.filter(photo => photo.category === id).length;
     const node = button(`${title} · ${total}`, () => { category = id; update(); }, 'filter-button'); node.dataset.category = id; node.setAttribute('aria-pressed', String(id === 'all')); filterButtons.push(node); filters.append(node);
   }
@@ -184,11 +198,12 @@ function albumPanel(data: Story) {
 function isoDay(now: Date) { return new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(now); }
 function datesPanel(data: Story) {
   const panel = e('section'); panel.append(heading('把重要的日子记住', '相识是故事的开头，在一起是新的篇章。每一个值得期待的日子，都留在这里。'));
+  if (editor) panel.append(editor.anniversaryEditor);
   const feature = e('div', 'anniversary-feature'), featureTitle = e('h3'), featureCount = e('strong'), featureUnit = e('span'), featureDate = e('p');
   const big = e('div', 'anniversary-big'), featureCopy = e('div'); big.append(featureCount, featureUnit); featureCopy.append(featureTitle, featureDate); feature.append(featureCopy, big);
   const list = e('div', 'anniversary-list');
   function updateDates() {
-    const dates = getAnniversaries(data.meetDate, data.relationshipDate);
+    const dates = allAnniversaries(data);
     const first = dates[0]; if (first) { featureTitle.textContent = `下一次一起期待 · ${first.title}`; featureCount.textContent = String(first.daysUntil); featureUnit.textContent = first.daysUntil ? '天后' : '就是今天'; featureDate.textContent = formatLoveDate(first.date); }
     list.replaceChildren(); dates.forEach(event => {
       const row = e('article', 'anniversary-row'), copy = e('div'), time = e('time', '', formatLoveDate(event.date)); time.dateTime = event.date;
@@ -199,12 +214,14 @@ function datesPanel(data: Story) {
   dateRefreshers.push(updateDates);
   const calendar = e('section', 'calendar-shell'); calendar.setAttribute('aria-label', '纪念日日历');
   const controls = e('header', 'calendar-controls'), monthTitle = e('h3'); monthTitle.setAttribute('aria-live', 'polite');
-  let today = isoDay(new Date()); let [year, month] = today.split('-').map(Number); let selected = today;
+  let today = isoDay(new Date()); const [todayYear,todayMonth] = today.split('-').map(Number);
+  calendarView ??= {year:todayYear,month:todayMonth,selected:today};
+  let {year,month,selected} = calendarView;
   const grid = e('div', 'calendar-grid'), detail = e('div', 'calendar-detail'); detail.setAttribute('aria-live', 'polite');
   let eventMap = new Map<string, {title: string; detail: string}[]>();
   const dayId = (day: number) => `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
   function selectDay(date: string) {
-    selected = date; detail.replaceChildren(e('h3', '', formatLoveDate(date)));
+    selected = date; calendarView = {year,month,selected}; detail.replaceChildren(e('h3', '', formatLoveDate(date)));
     const events = eventMap.get(date) ?? [];
     if (events.length) events.forEach(event => detail.append(e('p', '', `${event.title} · ${event.detail}`)));
     else detail.append(e('p', '', '这一天没有设定纪念日。普通的一天，也可以好好陪伴。'));
@@ -215,7 +232,7 @@ function datesPanel(data: Story) {
     const first = `${dayId(1)}T00:00:00+08:00`;
     const events = getAnniversaries(data.meetDate, data.relationshipDate, new Date(first));
     const fixed = [{date:isoDay(new Date(data.meetDate)),title:'第一次相识',detail:'我们的故事从这一天开始。'}, {date:data.relationshipDate.slice(0,10),title:'正式在一起',detail:'我们确立了恋爱关系。'}];
-    for (const event of [...fixed, ...events]) { const entries = eventMap.get(event.date) ?? []; if (!entries.some(value => value.title === event.title)) entries.push({title:event.title, detail:event.detail}); eventMap.set(event.date, entries); }
+    for (const event of [...fixed, ...events, ...customDatesInMonth(cloudEntries, year, month)]) { const entries = eventMap.get(event.date) ?? []; if (!entries.some(value => value.title === event.title)) entries.push({title:event.title, detail:event.detail}); eventMap.set(event.date, entries); }
     grid.replaceChildren();
     const offset = (new Date(Date.UTC(year, month - 1, 1)).getUTCDay() + 6) % 7;
     const total = new Date(Date.UTC(year, month, 0)).getUTCDate();
@@ -284,10 +301,35 @@ function animatePanel(panel: HTMLElement) {
 }
 function renderStory(data: Story) {
   storyRoot.replaceChildren(); photoUrls = data.photos.map(photo=>blobUrl(photo.data,photo.mime)); data.photos.forEach(photo=>{photo.data='';});
+  const session = generation, basePhotos = data.photos.slice(), baseUrls = photoUrls.slice();
+  const cloudPhotos = new Map<string, {etag: string; photo: Photo; url: string}>();
+  let refreshViews = () => {};
+  if (data.cloud && request) {
+    const config = {...data.cloud};
+    if (import.meta.env.DEV && import.meta.env.PUBLIC_LOVE_API_URL) config.apiUrl = import.meta.env.PUBLIC_LOVE_API_URL;
+    editor = createLoveEditor({config, password, signal:request.signal, onChange(entries) {
+      if (session !== generation) return;
+      cloudEntries = entries;
+      const activeIds = new Set<string>();
+      for (const entry of entries.filter(item => item.type === 'photo')) {
+        activeIds.add(entry.id);
+        if (cloudPhotos.get(entry.id)?.etag === entry.etag) continue;
+        const previous = cloudPhotos.get(entry.id); if (previous) URL.revokeObjectURL(previous.url);
+        const photo = entry.value as Photo;
+        cloudPhotos.set(entry.id, {etag:entry.etag, photo:{...photo,data:''}, url:blobUrl(photo.data,photo.mime)});
+      }
+      for (const [id, item] of cloudPhotos) if (!activeIds.has(id)) { URL.revokeObjectURL(item.url); cloudPhotos.delete(id); }
+      const additions = [...cloudPhotos.values()];
+      data.photos = [...basePhotos, ...additions.map(item => item.photo)];
+      photoUrls = [...baseUrls, ...additions.map(item => item.url)];
+      refreshViews();
+    }});
+  }
   const masthead = e('header','journal-masthead'), identity = e('div'); identity.append(e('h1','','我们的小世界'),e('p','names',`${data.boyName} 与 ${data.girlName} · 一起把日子过成故事`)); masthead.append(identity); if(data.music) masthead.append(musicButton('text-button global-music'));
   const nav = e('nav','journal-nav'); nav.setAttribute('role','tablist'); nav.setAttribute('aria-label','纪念册栏目');
   const sections: {id:PanelId;label:string;node:HTMLElement}[] = [
     {id:'today',label:'我们的今天',node:overview(data)}, {id:'story',label:'故事时间线',node:storyPanel(data)}, {id:'album',label:'回忆相册',node:albumPanel(data)},
+    {id:'diary',label:'恋爱日记',node:editor?.diaryPanel ?? heading('把日子，慢慢写下来', '云端记录功能尚未配置。已有回忆仍可正常查看。')},
     {id:'dates',label:'纪念日',node:datesPanel(data)}, {id:'letters',label:'写给你的信',node:lettersPanel(data)}, {id:'music',label:'我们的歌',node:musicPanel(data)},
   ];
   const tabs: HTMLButtonElement[] = [];
@@ -305,13 +347,37 @@ function renderStory(data: Story) {
       event.preventDefault();selectPanel(sections[next].id);tabs[next].focus();
     });tabs.push(tab);nav.append(tab);
   });
+  refreshViews = () => {
+    // Preserve the editor nodes, music player, active tab and viewport while
+    // refreshing only views that depend on newly synchronized records.
+    const top = window.scrollY, focused = document.activeElement as HTMLElement | null;
+    dateRefreshers = [];
+    for (const [id, build] of [['today', overview], ['album', albumPanel], ['dates', datesPanel]] as const) {
+      const section = sections.find(item => item.id === id)!;
+      const previous = section.node, next = build(data);
+      next.id = previous.id; next.hidden = previous.hidden;
+      next.classList.add('journal-panel'); next.setAttribute('role','tabpanel');
+      next.setAttribute('aria-labelledby', `tab-${id}`); previous.replaceWith(next); section.node = next;
+    }
+    dateRefreshers.forEach(update => update());
+    const restored = focused?.isConnected ? focused : focused?.id ? document.getElementById(focused.id) : focused?.dataset.date ? storyRoot.querySelector<HTMLElement>(`[data-date="${focused.dataset.date}"]`) : null;
+    restored?.focus({preventScroll:true});
+    window.scrollTo({top,behavior:'instant'});
+    // A saved photo can change album indices. Close an already-open viewer
+    // rather than leaving its pagination bound to an old snapshot.
+    if (dialog.open) dialog.close(); viewerIndexes = [];
+  };
   const end=e('div','journal-end');end.append(e('p','','这里的每一页，都想和你一起慢慢写下去。'),button('收好回忆，锁定页面',()=>lock()));
-  storyRoot.append(masthead,nav,...sections.map(section=>section.node),end);
+  storyRoot.append(masthead);
+  if (editor) storyRoot.append(editor.statusElement);
+  storyRoot.append(nav,...sections.map(section=>section.node),end);
   gate.hidden=true;storyRoot.hidden=false;lockButton.hidden=false;selectPanel('today');timer=setInterval(()=>dateRefreshers.forEach(update=>update()),30000);
   const title=masthead.querySelector('h1')!;title.tabIndex=-1;title.focus({preventScroll:true});
+  if (editor) void editor.start();
 }
 function lock(focus=true) {
   generation++;request?.abort();request=null;observer?.disconnect();observer=null;if(timer)clearInterval(timer);timer=undefined;dateRefreshers=[];
+  editor?.stop(); editor=null; cloudEntries=[]; albumView={category:'all',query:''}; calendarView=null;
   if(audio){audio.pause();audio.removeAttribute('src');audio.load();audio=null;}musicButtons=[];musicStatus=null;musicLoading=false;selectPanel=()=>{};
   dialog.close();largePhoto.removeAttribute('src');largePhoto.alt='';for(const id of ['photo-title','photo-caption','photo-position'])document.getElementById(id)!.textContent='';
   storyRoot.replaceChildren();storyRoot.hidden=true;urls.forEach(url=>URL.revokeObjectURL(url));urls=[];photoUrls=[];viewerIndexes=[];

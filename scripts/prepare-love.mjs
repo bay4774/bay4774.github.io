@@ -8,7 +8,7 @@ import { encryptLovePayload } from '../src/lib/love-crypto.mjs';
  * @typedef {{ title: string, text: string }} LoveNote
  * @typedef {{ title: string, paragraphs: string[], signature: string }} LoveLetter
  * @typedef {LoveLetter & { id: string, context: string, date?: string }} LoveContextLetter
- * @typedef {{ source: string, title: string, caption: string, category?: 'travel' | 'daily' }} LoveSourcePhoto
+ * @typedef {{ source: string, title: string, caption: string, category?: 'travel' | 'daily' | 'couple' }} LoveSourcePhoto
  * @typedef {Object} LoveSourceContent
  * @property {1} version
  * @property {string} boyName
@@ -22,11 +22,14 @@ import { encryptLovePayload } from '../src/lib/love-crypto.mjs';
  * @property {{ source: string, title: string, lyrics?: string[] }} music
  * @property {string} [relationshipDate]
  * @property {number} [heroPhotoIndex]
+ * @property {number[]} [storyPhotoIndexes]
  * @property {LoveNote[]} [loveNotes]
  * @property {LoveContextLetter[]} [letters]
+ * @property {{ apiUrl: string, token: string }} [cloud]
  */
 
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
+const defaultImportsDirectory = path.join(projectRoot, '.private/love/imports');
 // Reuse Astro's installed optional image dependency, including strict pnpm layouts.
 const require = createRequire(import.meta.url);
 const astroRequire = createRequire(require.resolve('astro/package.json'));
@@ -57,6 +60,14 @@ export async function resolveSourceFile(sourceDirectory, source) {
   }
   if (!(await stat(candidate)).isFile()) throw new Error('素材路径必须指向文件。');
   return candidate;
+}
+
+/** Uploaded photos have one explicit private root; both roots retain traversal checks. */
+export async function resolvePhotoSource(sourceDirectory, source, importsDirectory = defaultImportsDirectory) {
+  if (typeof source === 'string' && source.replaceAll('\\', '/').startsWith('imports/')) {
+    return resolveSourceFile(importsDirectory, source.replaceAll('\\', '/').slice('imports/'.length));
+  }
+  return resolveSourceFile(sourceDirectory, source);
 }
 
 /** Validate a calendar date without JavaScript's silent overflow normalization. */
@@ -118,8 +129,8 @@ export function validateLoveContent(content) {
         caption: typeof photo.caption === 'string' ? photo.caption : '',
       };
       if (photo.category !== undefined) {
-        if (!['travel', 'daily'].includes(photo.category)) {
-          throw new Error(`photos[${index}].category 只能是 travel 或 daily。`);
+        if (!['travel', 'daily', 'couple'].includes(photo.category)) {
+          throw new Error(`photos[${index}].category 只能是 travel、daily 或 couple。`);
         }
         item.category = photo.category;
       }
@@ -142,6 +153,14 @@ export function validateLoveContent(content) {
       throw new Error('heroPhotoIndex 必须指向相册中已有照片的有效索引。');
     }
     result.heroPhotoIndex = content.heroPhotoIndex;
+  }
+  if (content.storyPhotoIndexes !== undefined) {
+    if (!Array.isArray(content.storyPhotoIndexes)
+      || content.storyPhotoIndexes.length !== result.chapters.length
+      || !content.storyPhotoIndexes.every(index => Number.isInteger(index) && index >= 0 && index < result.photos.length)) {
+      throw new Error('storyPhotoIndexes 必须为每个故事章节指定相册中已有照片的有效索引。');
+    }
+    result.storyPhotoIndexes = [...content.storyPhotoIndexes];
   }
   if (content.music.lyrics !== undefined) {
     if (!Array.isArray(content.music.lyrics) || !content.music.lyrics.every(line => typeof line === 'string')) {
@@ -176,16 +195,29 @@ export function validateLoveContent(content) {
       return item;
     });
   }
+  if (content.cloud !== undefined) {
+    const apiUrl = content.cloud?.apiUrl;
+    let url;
+    try { url = new URL(apiUrl); } catch { throw new Error('cloud.apiUrl 必须是有效的 HTTPS 来源地址。'); }
+    if (typeof apiUrl !== 'string' || url.protocol !== 'https:' || url.username || url.password
+      || url.pathname !== '/' || url.search || url.hash || ![url.origin, `${url.origin}/`].includes(apiUrl)) {
+      throw new Error('cloud.apiUrl 必须是无路径、参数或凭据的 HTTPS 来源地址。');
+    }
+    if (typeof content.cloud.token !== 'string' || !/^[a-f0-9]{64}$/.test(content.cloud.token)) {
+      throw new Error('cloud.token 必须是 64 位小写十六进制随机令牌。');
+    }
+    result.cloud = { apiUrl: url.origin, token: content.cloud.token };
+  }
   return result;
 }
 
 /** Build private data in memory; never write unencrypted media to public/. */
-export async function buildLovePayload(content, sourceDirectory) {
+export async function buildLovePayload(content, sourceDirectory, importsDirectory = defaultImportsDirectory) {
   const normalized = validateLoveContent(content);
   const photos = [];
   // Process sequentially to keep memory bounded for full-resolution phone photos.
   for (const photo of normalized.photos) {
-    const filename = await resolveSourceFile(sourceDirectory, photo.source);
+    const filename = await resolvePhotoSource(sourceDirectory, photo.source, importsDirectory);
     const { data, info } = await sharp(filename)
       .rotate()
       .resize({ width: 1400, height: 1400, fit: 'inside', withoutEnlargement: true })
@@ -228,13 +260,14 @@ export async function readLovePassword(passwordFile = path.join(projectRoot, '.p
 
 export async function prepareLove({
   sourceDirectory = path.resolve(projectRoot, '../Love'),
+  importsDirectory = defaultImportsDirectory,
   contentFile = path.join(projectRoot, '.private/love/content.json'),
   outputDirectory = path.join(projectRoot, 'public/love'),
   password,
 } = {}) {
   const secret = password ?? await readLovePassword();
   const content = JSON.parse(await readFile(contentFile, 'utf8'));
-  const { payload, song } = await buildLovePayload(content, sourceDirectory);
+  const { payload, song } = await buildLovePayload(content, sourceDirectory, importsDirectory);
   // Finish both encryptions before replacing any published payload.
   const files = [
     ['vault.json', JSON.stringify(await encryptLovePayload(payload, secret))],

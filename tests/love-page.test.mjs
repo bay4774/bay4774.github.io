@@ -69,6 +69,15 @@ test('private source excerpts never enter published HTML, scripts, or data', asy
     ...(content.letter?.paragraphs || [])]);
   addExcerpts('expanded letters', (content.letters || []).flatMap(letter => letter.paragraphs || []));
   addExcerpts('love notes', (content.loveNotes || []).map(note => note.text));
+  addExcerpts('photo titles', (content.photos || []).map(photo => photo.title), 4);
+  addExcerpts('photo captions', (content.photos || []).map(photo => photo.caption), 4);
+  if (content.cloud !== undefined) {
+    // The API origin may be public; its bearer token must only occur inside the
+    // encrypted vault. Avoid assertion helpers that print the actual credential.
+    assert.ok(typeof content.cloud.token === 'string' && /^[a-f0-9]{64}$/.test(content.cloud.token),
+      'The private cloud configuration must contain a valid token');
+    addExcerpts('cloud token', [content.cloud.token], 64);
+  }
   // Individual lyric lines are much shorter than prose paragraphs. Empty stanza
   // breaks and tiny generic phrases are omitted without dropping the song itself.
   addExcerpts('lyrics', content.music?.lyrics || [], 6);
@@ -88,6 +97,9 @@ test('private source excerpts never enter published HTML, scripts, or data', asy
   for (const [field, present] of [
     ['expanded letters', Boolean(content.letters?.length)],
     ['love notes', Boolean(content.loveNotes?.length)],
+    ['photo titles', Boolean(content.photos?.some(photo => photo.title?.trim().length >= 4))],
+    ['photo captions', Boolean(content.photos?.some(photo => photo.caption?.trim().length >= 4))],
+    ['cloud token', content.cloud !== undefined],
     ['lyrics', Boolean(content.music?.lyrics?.some(line => line.trim()))],
     ['relationship date', content.relationshipDate !== undefined],
   ]) {

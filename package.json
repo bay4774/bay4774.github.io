@@ -10,7 +10,7 @@
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check",
     "new": "node scripts/new-content.mjs",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs backend/love-storage/tests/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.2",
