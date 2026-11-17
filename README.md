@@ -54,7 +54,7 @@
 
 ## 教学讲义
 
-- [高级人工智能 · 零基础逐例详解与备考讲义（2026-10-23）](https://bay4774.github.io/lectures/advanced-artificial-intelligence/index.html)
+- [高级人工智能 · slides26 学期复习讲义（2026-11-17）](https://bay4774.github.io/lectures/advanced-artificial-intelligence/index.html)
 - [高级算法设计与分析 · 零基础逐例详解（2026-10-29）](https://bay4774.github.io/lectures/advanced-algorithm-design/index.html)
 
 公开资源仅包含最终 HTML 讲义及必要的页面依赖，不包含源 PPT 或 PDF。

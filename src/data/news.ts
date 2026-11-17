@@ -1,5 +1,11 @@
 export const news = [
   {
+    date: '2026-11-17',
+    title: '更新高级人工智能讲义：slides26 全部12章、33张原图与模拟卷',
+    href: '/lectures/advanced-artificial-intelligence/index.html',
+    demo: false,
+  },
+  {
     date: '2026-10-29',
     title: '更新高级算法设计讲义，新增教学讲义与课程讲义分类',
     href: '/notes/#notes-group-teaching-lectures',
